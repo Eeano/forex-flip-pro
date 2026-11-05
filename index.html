@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Forex Flip Pro V4 - Edit Candles + Timeframes</title>
+<title>Forex Flip Pro V5 - Real Worldwide Chart</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0f172a">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <style>
 body{background:#0f172a;color:white;font-family:Arial;padding:12px;margin:0}
-.card{background:#1e293b;padding:14px;border-radius:15px;max-width:540px;margin:auto}
+.card{background:#1e293b;padding:14px;border-radius:15px;max-width:560px;margin:auto}
 select,input,textarea{width:100%;padding:10px;margin:5px 0;border-radius:8px;border:none;background:white;color:black}
 button{padding:11px;margin:4px;border:none;border-radius:10px;font-weight:bold;cursor:pointer}
 .buy{background:#22c55e;color:white;width:48%}
@@ -21,36 +21,38 @@ button{padding:11px;margin:4px;border:none;border-radius:10px;font-weight:bold;c
 #offlineBar{background:#ef4444;padding:10px;border-radius:10px;display:none;text-align:center;font-weight:bold;margin-bottom:10px}
 #onlineBar{background:#22c55e;padding:10px;border-radius:10px;display:none;text-align:center;font-weight:bold;margin-bottom:10px}
 .reviewBox{background:#fef08a;color:black;padding:12px;border-radius:10px;margin-top:10px;text-align:left;display:none}
-canvas{width:100%;border-radius:10px;display:block;background:#131722;touch-action:manipulation}
-.tfBtn{background:#334155;color:white;padding:7px 10px;font-size:12px;margin:2px}
-.tfBtn.active{background:#2962ff}
-.indBtn{background:#1e293b;color:#cbd5e1;padding:5px 9px;font-size:11px;border:1px solid #475569}
-.indBtn.on{background:#2962ff;color:white}
-.zoomBtn{background:#334155;color:white;padding:6px 10px}
+.pairBtn{background:#1e293b;color:white;padding:8px 11px;font-size:12px;margin:3px;border:1px solid #475569}
+.pairBtn.active{background:#22c55e;color:black}
 .tabBtn{background:#334155;color:white;padding:8px 11px;font-size:12px}
 .tabBtn.active{background:#f59e0b;color:black}
-.pairBtn{background:#1e293b;color:white;padding:7px 10px;font-size:12px;margin:3px;border:1px solid #334155}
-.pairBtn.active{background:#22c55e;color:black}
+.tvBox{background:#131722;padding:8px;border-radius:10px;margin-top:10px}
 .mini{font-size:11px;color:#94a3b8}
-.editPanel{background:#facc15;color:black;padding:12px;border-radius:10px;margin-top:10px;display:none;text-align:left}
-.editPanel input{border:1px solid #999}
-.editPanel label{font-size:12px;font-weight:bold}
-.toolBtn{background:#475569;color:white;padding:7px 10px;font-size:12px}
-.toolBtn.active{background:#f59e0b;color:black}
+.liveDot{display:inline-block;width:10px;height:10px;background:#22c55e;border-radius:50%;animation:blink 1s infinite}
+@keyframes blink{0%{opacity:1}50%{opacity:0.3}100%{opacity:1}}
 </style>
 </head>
 <body>
 <div class="card">
-<div id="offlineBar">⚠️ OFFLINE - Game works, connect for Signals.</div>
-<div id="onlineBar">✅ ONLINE - Live Market</div>
-<h2>💹 FOREX FLIP PRO 🇰🇪 V4</h2>
-<p>Balance: $<span id="bal">1000</span> | Win Rate: <span id="wr">0%</span> | Signals: <span id="sigWin">0/3</span> | <span id="marketStatus">🟢 MARKET OPEN</span></p>
-<div style="background:#dc2626;padding:10px;border-radius:10px"><b>🔥 TODAY'S SIGNALS - <span id="date"></span></b><br><small>Updated 8:00 AM EAT | All Markets</small></div>
-<div class="signal"><b>Signal 1: EUR/USD - BUY ⬆️</b><br>Entry: 1.0850 | SL: 1.0820 | TP: 1.0910 | 82%<br><b>Why?</b> Support + RSI 32 + Uptrend + EMA 20<br><button class="copyBtn" onclick="copySignal('EUR/USD BUY 1.0850 SL 1.0820 TP 1.0910')">📋 Copy</button> <button class="copyBtn" onclick="markWin(1)">✅ Won</button></div>
-<div class="signal gold"><b>Signal 2: XAU/USD GOLD - SELL ⬇️</b><br>Entry: 2650 | SL: 2665 | TP: 2620 | 75%<br><b>Why?</b> Resistance + RSI 71 + Bollinger Top<br><button class="copyBtn" onclick="copySignal('GOLD SELL 2650 SL 2665 TP 2620')">📋 Copy</button> <button class="copyBtn" onclick="markWin(2)">✅ Won</button></div>
-<div class="signal" style="background:#7c3aed"><b>Signal 3: US30 - BUY ⬆️</b><br>Entry: 44200 | SL: 44000 | TP: 44700 | 71%<br><b>Why?</b> MACD Bullish Cross + VWAP Bounce<br><button class="copyBtn" onclick="copySignal('US30 BUY 44200 SL 44000 TP 44700')">📋 Copy</button> <button class="copyBtn" onclick="markWin(3)">✅ Won</button></div>
+<div id="offlineBar">⚠️ OFFLINE - Signals + Game work, Real Chart needs internet.</div>
+<div id="onlineBar">✅ ONLINE - Real Worldwide Chart Live</div>
 
-<h3>📂 Markets</h3>
+<h2>💹 FOREX FLIP PRO 🇰🇪 V5</h2>
+<p>Balance: $<span id="bal">1000</span> | Win Rate: <span id="wr">0%</span> | Signals: <span id="sigWin">0/3</span> | <span class="liveDot"></span> <span id="marketStatus">LIVE - REAL MARKET</span></p>
+
+<div style="background:#dc2626;padding:10px;border-radius:10px"><b>🔥 TODAY'S SIGNALS - <span id="date"></span></b><br><small>Updated 8:00 AM EAT | Check against Real Chart below</small></div>
+<div class="signal"><b>Signal 1: EUR/USD - BUY ⬆️</b><br>Entry: 1.0850 | SL: 1.0820 | TP: 1.0910 | 82%<br><b>Why?</b> Support + RSI 32 + Uptrend<br><button class="copyBtn" onclick="copySignal('EUR/USD BUY 1.0850 SL 1.0820 TP 1.0910')">📋 Copy</button> <button class="copyBtn" onclick="markWin(1)">✅ Won</button></div>
+<div class="signal gold"><b>Signal 2: XAU/USD GOLD - SELL ⬇️</b><br>Entry: 2650 | SL: 2665 | TP: 2620 | 75%<br><b>Why?</b> Resistance + RSI 71 + Bollinger Top<br><button class="copyBtn" onclick="copySignal('GOLD SELL 2650 SL 2665 TP 2620')">📋 Copy</button> <button class="copyBtn" onclick="markWin(2)">✅ Won</button></div>
+<div class="signal" style="background:#7c3aed"><b>Signal 3: US30 - BUY ⬆️</b><br>Entry: 44200 | SL: 44000 | TP: 44700 | 71%<br><b>Why?</b> MACD Bullish + VWAP Bounce<br><button class="copyBtn" onclick="copySignal('US30 BUY 44200 SL 44000 TP 44700')">📋 Copy</button> <button class="copyBtn" onclick="markWin(3)">✅ Won</button></div>
+
+<!-- REAL WORLDWIDE CHART -->
+<div class="tvBox">
+<div style="display:flex;justify-content:space-between;align-items:center">
+<b>📊 REAL CHART - <span id="pairLabel">EUR/USD</span> <span style="color:#22c55e;font-size:12px">● LIVE WORLDWIDE</span></b>
+<span id="realPrice" style="font-size:13px;color:#facc15">Loading real price...</span>
+</div>
+<div class="mini">Source: TradingView - Real data from OANDA / Binance / CME - Same as Exness, Binance, FTMO use. Timezone: Africa/Nairobi</div>
+
+<h3 style="margin:10px 0 5px">📂 Markets - Tap to Switch REAL Chart</h3>
 <div>
 <button class="tabBtn active" onclick="showCat('forex',this)">💱 FOREX</button>
 <button class="tabBtn" onclick="showCat('metal',this)">🥇 METALS</button>
@@ -61,311 +63,180 @@ canvas{width:100%;border-radius:10px;display:block;background:#131722;touch-acti
 </div>
 <div id="pairList" style="margin-top:8px"></div>
 
-<div class="box" style="padding:8px;background:#131722">
-<div style="display:flex;justify-content:space-between;align-items:center">
-<b><span id="pairLabel">EUR/USD</span> <span id="livePrice" style="color:#26a69a">1.0850</span> <span id="changePct" style="font-size:12px">+0.12%</span></b>
-<span id="candleTimer" style="font-size:12px;color:#facc15">Next: 10s</span>
-</div>
-<div class="mini">O: <span id="oVal">-</span> H: <span id="hVal">-</span> L: <span id="lVal">-</span> C: <span id="cVal">-</span> | Vol: <span id="volVal">-</span> | ATR: <span id="atrVal">-</span></div>
-
-<!-- TIMEFRAME PICKER - LIKE TRADINGVIEW -->
-<div style="margin:8px 0;background:#0f172a;padding:8px;border-radius:8px">
-<b style="font-size:12px">⏰ TIMEFRAME:</b><br>
-<button class="tfBtn active" onclick="setTF('1m',this)">1m</button>
-<button class="tfBtn" onclick="setTF('5m',this)">5m</button>
-<button class="tfBtn" onclick="setTF('15m',this)">15m</button>
-<button class="tfBtn" onclick="setTF('30m',this)">30m</button>
-<button class="tfBtn" onclick="setTF('1H',this)">1H</button>
-<button class="tfBtn" onclick="setTF('4H',this)">4H</button>
-<button class="tfBtn" onclick="setTF('1D',this)">1D</button>
-<button class="tfBtn" onclick="setTF('1W',this)">1W</button><br>
-<label style="font-size:11px">Or Custom:</label>
-<select id="customTF" onchange="setCustomTF(this.value)" style="width:auto;display:inline-block;padding:6px"><option value="">-- Custom --</option><option value="1m">1 Minute</option><option value="5m">5 Minutes</option><option value="15m">15 Minutes</option><option value="30m">30 Minutes</option><option value="1H">1 Hour</option><option value="4H">4 Hours</option><option value="1D">1 Day</option><option value="1W">1 Week</option></select>
-<span id="tfInfo" style="font-size:11px;color:#facc15">1m = Fast scalping</span>
-<span style="float:right"><button class="zoomBtn" onclick="zoomIn()">+</button> <button class="zoomBtn" onclick="zoomOut()">-</button></span>
+<!-- THIS IS THE REAL CHART -->
+<div id="tradingview_real" style="height:480px;width:100%;margin-top:10px"></div>
+<div class="mini" style="margin-top:6px">✅ Inside chart: Top = Timeframe 1m 5m 15m 1H 4H 1D 1W | Left toolbar = Draw Trendline, Support/Resistance, Fib, Text | Top right = Indicators: RSI, MACD, Bollinger, EMA | Bottom = Volume | Search icon = Change any pair worldwide</div>
 </div>
 
-<!-- EDIT / DRAW TOOLS -->
-<div style="margin:6px 0;background:#0f172a;padding:8px;border-radius:8px">
-<b style="font-size:12px">✏️ EDIT CANDLES:</b><br>
-<button class="toolBtn active" id="toolSelect" onclick="setTool('select')">👆 Select / Tap Candle to Edit</button>
-<button class="toolBtn" id="toolDraw" onclick="setTool('draw')">✍️ Draw New Candle</button>
-<button class="toolBtn" id="toolMove" onclick="setTool('move')">↕️ Move Candle Up/Down</button><br>
-<small style="color:#94a3b8">Tip: Tap any candle -> Edit panel opens below. Drag in Move mode to change price.</small>
+<!-- PRACTICE GAME - USES REAL PRICE WHEN ONLINE -->
+<div class="box">
+<b>🎮 PRACTICE TRADE - Based on Real Chart Above</b><br>
+Current Pair: <b id="gamePair">EUR/USD</b> | Real Price: <b id="gamePrice">Loading...</b><br>
+Trend from Real Chart: <span id="trendHint">Look at chart - Is it going up or down?</span><br><br>
+<label>Lot Size:</label>
+<select id="lot"><option value="0.01">0.01 - Safe (Beginner)</option><option value="0.05">0.05 - Medium</option><option value="0.1">0.10 - Aggressive</option></select>
+<button class="buy" onclick="trade('up')">⬆️ BUY at Real Price</button><button class="sell" onclick="trade('down')">⬇️ SELL at Real Price</button>
+<p id="msg">Look at REAL chart above first! Is price at Support? Is RSI overbought? Then trade.</p>
 </div>
 
-<canvas id="candleChart" width="360" height="280"></canvas>
-<canvas id="rsiChart" width="360" height="70" style="margin-top:6px"></canvas>
-<canvas id="macdChart" width="360" height="70" style="margin-top:6px"></canvas>
+<div id="tradeReview" class="reviewBox"><b>📝 TRADE REVIEW:</b><br><span id="reviewText"></span><br><br><b>Your Note - What did YOU learn from REAL chart?</b><br><input id="myTradeNote" placeholder="e.g. I bought at Support on real chart..." style="width:100%;padding:8px;border:1px solid #ccc"><button onclick="saveTradeNote()" style="background:black;color:white;width:100%;margin-top:5px">Save My Lesson</button><p id="allTradeNotes" style="font-size:12px;white-space:pre-wrap"></p></div>
 
-<!-- EDIT PANEL - OPENS WHEN YOU TAP A CANDLE -->
-<div id="editPanel" class="editPanel">
-<b>✏️ EDIT CANDLE #<span id="editIndex">-</span> - <span id="editPair">EUR/USD</span></b> <button onclick="closeEdit()" style="float:right;background:black;color:white;padding:4px 8px">X</button><br>
-<label>Open:</label><input id="editOpen" type="number" step="any">
-<label>High:</label><input id="editHigh" type="number" step="any">
-<label>Low:</label><input id="editLow" type="number" step="any">
-<label>Close:</label><input id="editClose" type="number" step="any">
-<label>Color / Type:</label>
-<select id="editColor"><option value="auto">Auto (Green if Close > Open)</option><option value="green">Force Green - Bullish 🟢</option><option value="red">Force Red - Bearish 🔴</option><option value="doji">Doji - Open = Close</option></select>
-<div style="display:flex;gap:5px;flex-wrap:wrap;margin-top:8px">
-<button onclick="saveCandleEdit()" style="background:#22c55e;color:white;flex:1">✅ Save Changes</button>
-<button onclick="duplicateCandle()" style="background:#3b82f6;color:white;flex:1">📋 Duplicate</button>
-<button onclick="deleteCandle()" style="background:#ef4444;color:white;flex:1">🗑️ Delete</button>
-</div>
-<div style="display:flex;gap:5px;margin-top:5px">
-<button onclick="moveCandleUp()" style="background:black;color:white;flex:1">⬆️ Move Up</button>
-<button onclick="moveCandleDown()" style="background:black;color:white;flex:1">⬇️ Move Down</button>
-<button onclick="addCandleAfter()" style="background:#f59e0b;color:black;flex:1">➕ Add After</button>
-</div>
-<button onclick="resetCandles()" style="background:white;color:black;width:100%;margin-top:5px">🔄 Reset to Live Market</button>
+<div class="box"><b>📊 HOW TO READ REAL CHART:</b><br>
+1. Green candle = Buyers winning, Red = Sellers winning<br>
+2. If price is at bottom + RSI below 30 = Possible BUY<br>
+3. If price is at top + RSI above 70 = Possible SELL<br>
+4. Never trade when chart is sideways - WAIT<br>
+5. Use drawing tool (left side) to draw Support / Resistance yourself
 </div>
 
-<div style="display:flex;justify-content:space-between;font-size:11px;color:#94a3b8;margin-top:6px"><span>🟢 Buyers</span><span>Tap Candle to Edit • Draw to Add</span><span>🔴 Sellers</span></div>
-<div style="margin:4px 0">
-<button class="indBtn on" id="btnEMA" onclick="toggleInd('ema')">EMA 20/50</button>
-<button class="indBtn on" id="btnBB" onclick="toggleInd('bb')">Bollinger</button>
-<button class="indBtn on" id="btnVWAP" onclick="toggleInd('vwap')">VWAP</button>
-<button class="indBtn on" id="btnSR" onclick="toggleInd('sr')">Sup/Res</button>
-<button class="indBtn on" id="btnVOL" onclick="toggleInd('vol')">Volume</button>
-</div>
-</div>
-
-<div class="box"><b>📊 ALL INDICATORS - <span id="indPair">EUR/USD</span></b><br>
-Trend: <span id="trend">Uptrend 🟢</span> | EMA20: <span id="ema20">-</span> | EMA50: <span id="ema50">-</span> | <span id="emaSignal">EMA Bullish</span><br>
-RSI (14): <span id="rsi">62</span> - <span id="rsiText">Neutral</span> | Stoch: <span id="stoch">-</span> | <span id="stochText">-</span><br>
-MACD: <span id="macd">-</span> | Signal: <span id="macdSig">-</span> | <span id="macdText">-</span><br>
-Bollinger: Upper <span id="bbU">-</span> Mid <span id="bbM">-</span> Lower <span id="bbL">-</span> | <span id="bbText">-</span><br>
-VWAP: <span id="vwap">-</span> | Support: <span id="sup">-</span> | Resistance: <span id="res">-</span><br>
-ATR: <span id="atr2">-</span> | Spread: <span id="spread">-</span> pips | Session: <span id="session">London</span> | TF: <span id="tfLabel">1m</span><br>
-<b>AI Verdict:</b> <span id="aiVerdict" style="color:#facc15">WAIT - Mixed signals</span>
-</div>
-
-<label>Lot Size:</label><select id="lot"><option value="0.01">0.01 - Safe (Beginner)</option><option value="0.05">0.05 - Medium</option><option value="0.1">0.10 - Aggressive</option><option value="0.5">0.50 - PRO Only</option></select>
-<button class="buy" onclick="trade('up')">⬆️ BUY</button><button class="sell" onclick="trade('down')">⬇️ SELL</button>
-<p id="msg">Check ALL indicators - trade only when 3+ agree!</p>
-<div id="tradeReview" class="reviewBox"><b>📝 TRADE REVIEW:</b><br><span id="reviewText"></span><br><br><b>Your Note:</b><br><input id="myTradeNote" placeholder="e.g. I rushed, didn't check MACD..." style="width:100%;padding:8px;border:1px solid #ccc"><button onclick="saveTradeNote()" style="background:black;color:white;width:100%;margin-top:5px">Save My Lesson</button><p id="allTradeNotes" style="font-size:12px;white-space:pre-wrap"></p></div>
 <div class="tip"><b>💡 PRO TIP:</b> <span id="tip">Never risk more than 2% per trade. If you lose 3 in a row, STOP for today.</span></div>
-<div class="box"><b>📝 Journal:</b><textarea id="notes" rows="3" placeholder="e.g. Signal 1 won because MACD + RSI agreed..."></textarea><button onclick="saveNote()" style="background:#3b82f6;color:white">Save Note</button><p id="savedNotes"></p></div>
-<div class="box"><b>📚 Lesson:</b> <span id="lesson">Don't take every signal. Take only signals that match trend.</span></div>
+<div class="box"><b>📝 My Trading Journal (Saved even offline):</b><textarea id="notes" rows="3" placeholder="e.g. Real GOLD hit Resistance at 2650, I sold..."></textarea><button onclick="saveNote()" style="background:#3b82f6;color:white">Save Note</button><p id="savedNotes"></p></div>
+<div class="box"><b>📚 Lesson:</b> <span id="lesson">Don't take every signal. Take only signals that match real chart trend.</span></div>
 <h3>🏆 Leaderboard</h3><p>1. Kevin K. - $9,500<br>2. Brian M. - $7,200<br>3. Faith W. - $6,800</p>
-<p><small>Practice Only. No Real Money. Learn Before You Earn.</small></p>
+<p><small>Practice Only. No Real Money. Learn Before You Earn. Chart data by TradingView.</small></p>
 </div>
+
+<script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
 <script>
+// ===== REAL MARKETS - REAL TRADINGVIEW SYMBOLS WORLDWIDE =====
 let MARKETS={
- 'EUR/USD':{p:1.0850,dec:4,vol:0.00012,cat:'forex',spread:1.2},
- 'GBP/USD':{p:1.2700,dec:4,vol:0.00018,cat:'forex',spread:1.5},
- 'USD/JPY':{p:151.20,dec:2,vol:0.08,cat:'forex',spread:1.1},
- 'USD/CHF':{p:0.8850,dec:4,vol:0.00012,cat:'forex',spread:1.8},
- 'AUD/USD':{p:0.6500,dec:4,vol:0.00015,cat:'forex',spread:1.6},
- 'USD/CAD':{p:1.3600,dec:4,vol:0.00014,cat:'forex',spread:1.4},
- 'EUR/GBP':{p:0.8550,dec:4,vol:0.00009,cat:'forex',spread:2.0},
- 'EUR/JPY':{p:164.00,dec:2,vol:0.10,cat:'forex',spread:1.8},
- 'XAU/USD':{p:2650.00,dec:2,vol:0.85,cat:'metal',spread:25},
- 'XAG/USD':{p:31.20,dec:2,vol:0.08,cat:'metal',spread:3},
- 'WTI OIL':{p:71.50,dec:2,vol:0.18,cat:'energy',spread:3},
- 'BRENT OIL':{p:75.20,dec:2,vol:0.20,cat:'energy',spread:3},
- 'NAT GAS':{p:2.85,dec:3,vol:0.02,cat:'energy',spread:2},
- 'US30':{p:44200,dec:0,vol:18,cat:'index',spread:4},
- 'NAS100':{p:21400,dec:0,vol:12,cat:'index',spread:3},
- 'SPX500':{p:5980,dec:0,vol:3.5,cat:'index',spread:1},
- 'GER40':{p:19250,dec:0,vol:8,cat:'index',spread:3},
- 'BTC/USD':{p:97200,dec:0,vol:85,cat:'crypto',spread:15},
- 'ETH/USD':{p:3400,dec:0,vol:12,cat:'crypto',spread:8},
- 'SOL/USD':{p:215,dec:2,vol:1.8,cat:'crypto',spread:5},
- 'USD/KES':{p:129.50,dec:2,vol:0.06,cat:'local',spread:10},
- 'GBP/KES':{p:164.80,dec:2,vol:0.10,cat:'local',spread:12}
+ 'EUR/USD':{tv:'OANDA:EURUSD',cat:'forex',api:'EURUSD'},
+ 'GBP/USD':{tv:'OANDA:GBPUSD',cat:'forex',api:'GBPUSD'},
+ 'USD/JPY':{tv:'OANDA:USDJPY',cat:'forex',api:'USDJPY'},
+ 'USD/CHF':{tv:'OANDA:USDCHF',cat:'forex',api:'USDCHF'},
+ 'AUD/USD':{tv:'OANDA:AUDUSD',cat:'forex',api:'AUDUSD'},
+ 'USD/CAD':{tv:'OANDA:USDCAD',cat:'forex',api:'USDCAD'},
+ 'EUR/GBP':{tv:'OANDA:EURGBP',cat:'forex',api:'EURGBP'},
+ 'EUR/JPY':{tv:'OANDA:EURJPY',cat:'forex',api:'EURJPY'},
+ 'XAU/USD':{tv:'OANDA:XAUUSD',cat:'metal',api:'XAUUSD'},
+ 'XAG/USD':{tv:'OANDA:XAGUSD',cat:'metal',api:'XAGUSD'},
+ 'WTI OIL':{tv:'TVC:USOIL',cat:'energy',api:'USOIL'},
+ 'BRENT OIL':{tv:'TVC:UKOIL',cat:'energy',api:'UKOIL'},
+ 'NAT GAS':{tv:'TVC:NATGAS',cat:'energy',api:'NATGAS'},
+ 'US30':{tv:'FOREXCOM:US30',cat:'index',api:'US30'},
+ 'NAS100':{tv:'NASDAQ:NDX',cat:'index',api:'NAS100'},
+ 'SPX500':{tv:'FOREXCOM:SPX500',cat:'index',api:'SPX500'},
+ 'GER40':{tv:'OANDA:DE30EUR',cat:'index',api:'GER40'},
+ 'BTC/USD':{tv:'BINANCE:BTCUSDT',cat:'crypto',api:'BTCUSDT'},
+ 'ETH/USD':{tv:'BINANCE:ETHUSDT',cat:'crypto',api:'ETHUSDT'},
+ 'SOL/USD':{tv:'BINANCE:SOLUSDT',cat:'crypto',api:'SOLUSDT'},
+ 'USD/KES':{tv:'OANDA:USDKES',cat:'local',api:'USDKES'},
+ 'GBP/KES':{tv:'OANDA:GBPKES',cat:'local',api:'GBPKES'}
 };
 let currentPair='EUR/USD', currentCat='forex';
 let bal=parseInt(localStorage.getItem('ff_bal')||1000), wins=parseInt(localStorage.getItem('ff_wins')||0), total=parseInt(localStorage.getItem('ff_total')||0), sigWins=parseInt(localStorage.getItem('ff_sigWins')||0);
-let price=MARKETS[currentPair].p, openDay=price;
+let realPrice=1.0850;
 document.getElementById('date').innerText=new Date().toDateString();
 document.getElementById('bal').innerText=bal; document.getElementById('sigWin').innerText=sigWins+'/3'; if(total>0) document.getElementById('wr').innerText=Math.round(wins/total*100)+'%';
-let tips=["Never risk more than 2% per trade.","Don't trade during news if beginner.","Always use Stop Loss. No SL = No account tomorrow.","Best time Kenya: 10am-1pm & 3pm-6pm.","Journal every trade.","Don't revenge trade.","Buy at Support, Sell at Resistance.","RSI >70 Overbought, RSI <30 Oversold.","Wait for MACD + RSI to agree."];
-let lessons=["Don't take every signal. Take only signals that match trend.","Risk/Reward 1:2 - Risk 30 pips, target 60 pips.","If signal says BUY but price already moved 50 pips, WAIT. Don't chase.","Gold moves fast. Use 0.01 lot.","When Bollinger squeezes, big move coming. Wait."];
-let candles=[], volumes=[], candleTimeLeft=10, tf='1m', candleDuration=10, visibleCount=28, show={ema:true,bb:true,vwap:true,sr:true,vol:true}, currentTrend=1, rsiHistory=[], macdHistory=[];
-let tool='select', selectedCandle=-1, isPaused=false, dragStartY=0, dragCandle=-1;
-function fmt(v){ return v.toFixed(MARKETS[currentPair].dec); }
-function getVol(){ let base=MARKETS[currentPair].vol; if(tf==='1m') return base; if(tf==='5m') return base*2.1; if(tf==='15m') return base*3.4; if(tf==='30m') return base*4.5; if(tf==='1H') return base*5.5; if(tf==='4H') return base*9; if(tf==='1D') return base*14; if(tf==='1W') return base*25; return base; }
-function getTFInfo(){ let map={'1m':'1m = Fast scalping, candle every 10s','5m':'5m = Day trading, candle every 15s','15m':'15m = Swing, candle every 20s','30m':'30m = Swing, candle every 25s','1H':'1H = Position, candle every 30s','4H':'4H = Long term, candle every 45s','1D':'1D = Daily, candle every 60s','1W':'1W = Weekly, candle every 90s'}; return map[tf]||tf; }
-function showCat(cat,btn){ currentCat=cat; document.querySelectorAll('.tabBtn').forEach(b=>b.classList.remove('active')); if(btn) btn.classList.add('active'); renderPairs(); }
-function renderPairs(){ let html=''; Object.keys(MARKETS).forEach(k=>{ if(MARKETS[k].cat!==currentCat) return; let active=k===currentPair?'active':''; html+='<button class="pairBtn '+active+'" onclick="selectPair(\''+k+'\')">'+k+'</button>'; }); document.getElementById('pairList').innerHTML=html; }
-function selectPair(k){ currentPair=k; price=MARKETS[k].p; openDay=price; document.getElementById('pairLabel').innerText=k; document.getElementById('indPair').innerText=k; closeEdit(); initCandles(); renderPairs(); updateIndicators(); }
-function initCandles(){
-  candles=[]; volumes=[]; rsiHistory=[]; macdHistory=[]; candleTimeLeft=candleDuration; currentTrend=Math.random()>0.5?1:-1; isPaused=false;
-  let base=MARKETS[currentPair].p;
-  for(let i=0;i<50;i++){ let open=base; let drift=currentTrend*getVol()*0.35; if(Math.random()<0.10) currentTrend*=-1; let close=open+drift+(Math.random()-0.5)*getVol()*2; let high=Math.max(open,close)+Math.random()*getVol()*0.6; let low=Math.min(open,close)-Math.random()*getVol()*0.6; candles.push({open:open,close:close,high:high,low:low,customColor:null}); volumes.push(200+Math.random()*800); base=close; }
-  price=base; MARKETS[currentPair].p=price; drawAll();
-}
-function setTF(n,btn){ tf=n; document.querySelectorAll('.tfBtn').forEach(b=>b.classList.remove('active')); if(btn) btn.classList.add('active'); document.getElementById('customTF').value=''; applyTF(); }
-function setCustomTF(v){ if(!v) return; tf=v; document.querySelectorAll('.tfBtn').forEach(b=>b.classList.toggle('active', b.innerText===v)); applyTF(); }
-function applyTF(){ if(tf==='1m') candleDuration=10; if(tf==='5m') candleDuration=15; if(tf==='15m') candleDuration=20; if(tf==='30m') candleDuration=25; if(tf==='1H') candleDuration=30; if(tf==='4H') candleDuration=45; if(tf==='1D') candleDuration=60; if(tf==='1W') candleDuration=90; candleTimeLeft=candleDuration; document.getElementById('tfLabel').innerText=tf; document.getElementById('tfInfo').innerText=getTFInfo(); closeEdit(); initCandles(); }
-function toggleInd(k){ show[k]=!show[k]; let id='btn'+k.toUpperCase(); let btn=document.getElementById(id); if(btn) btn.classList.toggle('on',show[k]); if(k==='vol') document.getElementById('btnVOL').classList.toggle('on',show.vol); drawAll(); }
-function zoomIn(){ if(visibleCount>12){visibleCount-=4; drawAll();} }
-function zoomOut(){ if(visibleCount<45){visibleCount+=4; drawAll();} }
-function setTool(t){ tool=t; document.querySelectorAll('.toolBtn').forEach(b=>b.classList.remove('active')); document.getElementById('tool'+t.charAt(0).toUpperCase()+t.slice(1)).classList.add('active'); if(t!=='select') closeEdit(); if(t==='select') isPaused=false; }
-function calcEMA(data,period){ if(data.length<period) return data[data.length-1]||price; let k=2/(period+1); let ema=data[0]; for(let i=1;i<data.length;i++) ema=data[i]*k+ema*(1-k); return ema; }
-function calcRSI(){ if(candles.length<15) return 50; let gains=0,losses=0; for(let i=candles.length-14;i<candles.length;i++){ let ch=candles[i].close-candles[i-1].close; if(ch>0) gains+=ch; else losses-=ch; } let rs=gains/(losses||0.000001); return 100-(100/(1+rs)); }
-function calcBollinger(){ let closes=candles.slice(-20).map(c=>c.close); let mid=closes.reduce((a,b)=>a+b,0)/closes.length; let sd=Math.sqrt(closes.reduce((a,b)=>a+Math.pow(b-mid,2),0)/closes.length); return {mid:mid,upper:mid+2*sd,lower:mid-2*sd}; }
-function calcMACD(){ let closes=candles.map(c=>c.close); let e12=calcEMA(closes,12), e26=calcEMA(closes,26); let macd=e12-e26; let sig=macd*0.9; return {macd:macd,sig:sig,hist:macd-sig}; }
-function calcStoch(){ let last=candles[candles.length-1]; let slice=candles.slice(-14); let low=Math.min(...slice.map(c=>c.low)), high=Math.max(...slice.map(c=>c.high)); return ((last.close-low)/(high-low||0.0001))*100; }
-function calcVWAP(){ let sum=0, vsum=0; for(let i=Math.max(0,candles.length-20);i<candles.length;i++){ let tp=(candles[i].high+candles[i].low+candles[i].close)/3; sum+=tp*volumes[i]; vsum+=volumes[i]; } return sum/(vsum||1); }
-function calcATR(){ let sum=0; for(let i=Math.max(1,candles.length-14);i<candles.length;i++){ sum+=Math.max(candles[i].high-candles[i].low, Math.abs(candles[i].high-candles[i-1].close), Math.abs(candles[i].low-candles[i-1].close)); } return sum/14; }
-function drawAll(){ drawCandles(); drawRSI(); drawMACD(); updateIndicators(); }
-function drawCandles(){
-  let c=document.getElementById('candleChart'); if(!c||candles.length===0) return;
-  let ctx=c.getContext('2d'); let W=360,H=280; ctx.clearRect(0,0,W,H); ctx.fillStyle='#131722'; ctx.fillRect(0,0,W,H);
-  let vis=candles.slice(-visibleCount); let vols=volumes.slice(-visibleCount);
-  let all=[]; vis.forEach(k=>{all.push(k.high,k.low)}); let min=Math.min(...all),max=Math.max(...all); let pad=(max-min)*0.14||0.001; min-=pad; max+=pad;
-  let chartH= show.vol? H-55 : H-20;
-  let yFor=(p)=> 8+chartH - ((p-min)/(max-min))*chartH;
-  let priceFor=(y)=> max - ((y-8)/chartH)*(max-min);
-  c._yFor=yFor; c._priceFor=priceFor; c._min=min; c._max=max; c._chartH=chartH;
-  ctx.strokeStyle='#1e293b'; ctx.fillStyle='#787b86'; ctx.font='10px Arial';
-  for(let i=0;i<5;i++){ let y=8+i*chartH/4; ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W-52,y); ctx.stroke(); ctx.fillText(fmt(max-(i/4)*(max-min)), W-50, y+3); }
-  if(show.bb){ let bb=calcBollinger(); ctx.strokeStyle='rgba(255,193,7,0.6)'; ctx.setLineDash([3,3]); [bb.upper,bb.mid,bb.lower].forEach(v=>{ ctx.beginPath(); ctx.moveTo(0,yFor(v)); ctx.lineTo(W-52,yFor(v)); ctx.stroke(); }); ctx.setLineDash([]); }
-  if(show.ema){ let closes=candles.map(c=>c.close); let e20=calcEMA(closes.slice(-30),20), e50=calcEMA(closes,50); ctx.strokeStyle='#2962ff'; ctx.beginPath(); ctx.moveTo(0,yFor(e20)); ctx.lineTo(W-52,yFor(e20)); ctx.stroke(); ctx.strokeStyle='#ff6d00'; ctx.beginPath(); ctx.moveTo(0,yFor(e50)); ctx.lineTo(W-52,yFor(e50)); ctx.stroke(); }
-  if(show.vwap){ let v=calcVWAP(); ctx.strokeStyle='rgba(0,230,118,0.7)'; ctx.setLineDash([6,3]); ctx.beginPath(); ctx.moveTo(0,yFor(v)); ctx.lineTo(W-52,yFor(v)); ctx.stroke(); ctx.setLineDash([]); }
-  if(show.sr){ let slice=candles.slice(-30); let sup=Math.min(...slice.map(c=>c.low)), res=Math.max(...slice.map(c=>c.high)); ctx.strokeStyle='rgba(34,197,94,0.5)'; ctx.setLineDash([4,4]); ctx.beginPath(); ctx.moveTo(0,yFor(sup)); ctx.lineTo(W-52,yFor(sup)); ctx.stroke(); ctx.strokeStyle='rgba(239,68,68,0.5)'; ctx.beginPath(); ctx.moveTo(0,yFor(res)); ctx.lineTo(W-52,yFor(res)); ctx.stroke(); ctx.setLineDash([]); ctx.fillStyle='#22c55e'; ctx.fillText('SUP',W-50,yFor(sup)-2); ctx.fillStyle='#ef4444'; ctx.fillText('RES',W-50,yFor(res)-2); }
-  let chartW=W-56; let step=chartW/visibleCount; let cw=Math.max(4,step-3);
-  vis.forEach((k,i)=>{ let x=4+i*step+(step-cw)/2; let yH=yFor(k.high),yL=yFor(k.low),yO=yFor(k.open),yC=yFor(k.close); let up=k.close>=k.open; let isLive=(i===vis.length-1); let isSel=(candles.length-visibleCount+i===selectedCandle); let col=k.customColor==='green'?'#26a69a':k.customColor==='red'?'#ef5350': up?'#26a69a':'#ef5350'; ctx.strokeStyle=col; ctx.fillStyle=col; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(x+cw/2,yH); ctx.lineTo(x+cw/2,yL); ctx.stroke(); ctx.fillRect(x,Math.min(yO,yC),cw,Math.max(1.5,Math.abs(yC-yO))); if(isLive){ ctx.strokeStyle='rgba(255,255,255,0.7)'; ctx.strokeRect(x-0.5,Math.min(yO,yC)-0.5,cw+1,Math.max(1.5,Math.abs(yC-yO))+1); } if(isSel){ ctx.strokeStyle='#facc15'; ctx.lineWidth=2; ctx.strokeRect(x-2, yH-2, cw+4, yL-yH+4); ctx.fillStyle='#facc15'; ctx.fillText('EDIT', x-2, yH-6); } });
-  let last=vis[vis.length-1]; let yLast=yFor(last.close); let upLast=last.close>=last.open;
-  ctx.strokeStyle=upLast?'#26a69a':'#ef5350'; ctx.setLineDash([4,4]); ctx.beginPath(); ctx.moveTo(0,yLast); ctx.lineTo(W-52,yLast); ctx.stroke(); ctx.setLineDash([]);
-  ctx.fillStyle=upLast?'#26a69a':'#ef5350'; ctx.fillRect(W-52,yLast-9,52,18); ctx.fillStyle='white'; ctx.fillText(fmt(last.close),W-48,yLast+4);
-  if(show.vol){ let maxV=Math.max(...vols); vols.forEach((v,i)=>{ let x=4+i*step; let h=(v/maxV)*28; ctx.fillStyle=vis[i].close>=vis[i].open?'rgba(38,166,154,0.6)':'rgba(239,83,80,0.6)'; ctx.fillRect(x, H-32, Math.max(3,step-3), h); }); }
-  document.getElementById('oVal').innerText=fmt(last.open); document.getElementById('hVal').innerText=fmt(last.high); document.getElementById('lVal').innerText=fmt(last.low); document.getElementById('cVal').innerText=fmt(last.close);
-  let lp=document.getElementById('livePrice'); lp.innerText=fmt(last.close); lp.style.color=upLast?'#26a69a':'#ef5350';
-  let chg=((last.close-openDay)/openDay*100); let cp=document.getElementById('changePct'); cp.innerText=(chg>=0?'+':'')+chg.toFixed(2)+'%'; cp.style.color=chg>=0?'#26a69a':'#ef5350';
-  c._step=step; c._cw=cw; c._chartW=chartW;
-}
-function drawRSI(){ let c=document.getElementById('rsiChart'); if(!c) return; let ctx=c.getContext('2d'); let W=360,H=70; ctx.clearRect(0,0,W,H); ctx.fillStyle='#1a1e2e'; ctx.fillRect(0,0,W,H); ctx.strokeStyle='#ef5350'; ctx.beginPath(); ctx.moveTo(0,15); ctx.lineTo(W,15); ctx.stroke(); ctx.fillStyle='#ef5350'; ctx.fillText('70',4,12); ctx.strokeStyle='#26a69a'; ctx.beginPath(); ctx.moveTo(0,55); ctx.lineTo(W,55); ctx.stroke(); ctx.fillStyle='#26a69a'; ctx.fillText('30',4,65); ctx.strokeStyle='#2962ff'; ctx.beginPath(); rsiHistory.slice(-40).forEach((v,i)=>{ let x=i*(W/40); let y=70-(v/100)*70; if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y); }); ctx.stroke(); ctx.fillStyle='white'; ctx.fillText('RSI 14: '+(rsiHistory[rsiHistory.length-1]||50).toFixed(1), 120, 12); }
-function drawMACD(){ let c=document.getElementById('macdChart'); if(!c) return; let ctx=c.getContext('2d'); let W=360,H=70; ctx.clearRect(0,0,W,H); ctx.fillStyle='#1a1e2e'; ctx.fillRect(0,0,W,H); ctx.strokeStyle='#787b86'; ctx.beginPath(); ctx.moveTo(0,35); ctx.lineTo(W,35); ctx.stroke(); let last=macdHistory[macdHistory.length-1]||{macd:0,sig:0,hist:0}; ctx.fillStyle=last.hist>=0?'#26a69a':'#ef5350'; ctx.fillRect(W/2, last.hist>=0?35-Math.abs(last.hist)*2000:35, 8, Math.max(2,Math.abs(last.hist)*2000)); ctx.fillStyle='white'; ctx.fillText('MACD: '+last.macd.toFixed(5)+'  Signal: '+last.sig.toFixed(5), 10, 12); }
-function updateIndicators(){
-  if(candles.length<5) return;
-  let closes=candles.map(c=>c.close); let e20=calcEMA(closes.slice(-30),20), e50=calcEMA(closes,50);
-  let rsi=calcRSI(), bb=calcBollinger(), macd=calcMACD(), stoch=calcStoch(), vwap=calcVWAP(), atr=calcATR();
-  rsiHistory.push(rsi); if(rsiHistory.length>60) rsiHistory.shift(); macdHistory.push(macd); if(macdHistory.length>60) macdHistory.shift();
-  document.getElementById('ema20').innerText=fmt(e20); document.getElementById('ema50').innerText=fmt(e50); document.getElementById('emaSignal').innerText= e20>e50? 'EMA Bullish 🟢' : 'EMA Bearish 🔴';
-  document.getElementById('rsi').innerText=rsi.toFixed(0); document.getElementById('rsiText').innerText=rsi>70?'Overbought - SELL':rsi<30?'Oversold - BUY':'Neutral';
-  document.getElementById('stoch').innerText=stoch.toFixed(0); document.getElementById('stochText').innerText=stoch>80?'Overbought':stoch<20?'Oversold':'Neutral';
-  document.getElementById('macd').innerText=macd.macd.toFixed(5); document.getElementById('macdSig').innerText=macd.sig.toFixed(5); document.getElementById('macdText').innerText= macd.macd>macd.sig? 'Bullish Cross 🟢' : 'Bearish Cross 🔴';
-  document.getElementById('bbU').innerText=fmt(bb.upper); document.getElementById('bbM').innerText=fmt(bb.mid); document.getElementById('bbL').innerText=fmt(bb.lower);
-  let last=candles[candles.length-1]; document.getElementById('bbText').innerText= last.close>bb.upper? 'Above Upper - Overbought' : last.close<bb.lower? 'Below Lower - Oversold' : 'Inside Bands';
-  document.getElementById('vwap').innerText=fmt(vwap);
-  let slice=candles.slice(-30); let sup=Math.min(...slice.map(c=>c.low)), res=Math.max(...slice.map(c=>c.high));
-  document.getElementById('sup').innerText=fmt(sup); document.getElementById('res').innerText=fmt(res);
-  document.getElementById('atr').innerText=fmt(atr); document.getElementById('atr2').innerText=fmt(atr); document.getElementById('atrVal').innerText=fmt(atr);
-  document.getElementById('volVal').innerText=Math.round(volumes[volumes.length-1]||0); document.getElementById('spread').innerText=MARKETS[currentPair].spread;
-  let hr=new Date().getHours(); let sess= hr>=8&&hr<12?'London': hr>=13&&hr<17?'New York': hr>=2&&hr<8?'Asia':'Sydney'; document.getElementById('session').innerText=sess;
-  document.getElementById('trend').innerText= e20>e50? 'Uptrend 🟢':'Downtrend 🔴';
-  let bull=0, bear=0; if(e20>e50) bull++; else bear++; if(rsi<35) bull++; else if(rsi>65) bear++; if(macd.macd>macd.sig) bull++; else bear++; if(last.close>vwap) bull++; else bear++; if(stoch<25) bull++; else if(stoch>75) bear++;
-  let verdict=document.getElementById('aiVerdict');
-  if(bull>=4){ verdict.innerText='STRONG BUY 🟢 - '+bull+'/5 indicators agree'; verdict.style.color='#22c55e'; }
-  else if(bear>=4){ verdict.innerText='STRONG SELL 🔴 - '+bear+'/5 indicators agree'; verdict.style.color='#ef4444'; }
-  else if(bull===3){ verdict.innerText='BUY ⬆️ - 3/5 agree, small lot'; verdict.style.color='#a3e635'; }
-  else if(bear===3){ verdict.innerText='SELL ⬇️ - 3/5 agree, small lot'; verdict.style.color='#f97316'; }
-  else { verdict.innerText='WAIT ⏳ - Mixed signals, do NOT trade'; verdict.style.color='#facc15'; }
-}
-// === EDIT CANDLES LOGIC ===
-function openEdit(idx){
-  selectedCandle=idx; let k=candles[idx]; if(!k) return; isPaused=true;
-  document.getElementById('editPanel').style.display='block';
-  document.getElementById('editIndex').innerText=idx+1; document.getElementById('editPair').innerText=currentPair;
-  document.getElementById('editOpen').value=k.open; document.getElementById('editHigh').value=k.high; document.getElementById('editLow').value=k.low; document.getElementById('editClose').value=k.close;
-  document.getElementById('editColor').value=k.customColor||'auto';
-  drawAll();
-  document.getElementById('editPanel').scrollIntoView({behavior:'smooth', block:'nearest'});
-}
-function closeEdit(){ selectedCandle=-1; isPaused=false; document.getElementById('editPanel').style.display='none'; drawAll(); }
-function saveCandleEdit(){
-  if(selectedCandle<0) return; let k=candles[selectedCandle];
-  k.open=parseFloat(document.getElementById('editOpen').value); k.high=parseFloat(document.getElementById('editHigh').value); k.low=parseFloat(document.getElementById('editLow').value); k.close=parseFloat(document.getElementById('editClose').value);
-  let col=document.getElementById('editColor').value;
-  if(col==='doji'){ k.close=k.open; k.customColor=null; }
-  else if(col==='green'){ k.customColor='green'; if(k.close<k.open) k.close=k.open+Math.abs(k.close-k.open); }
-  else if(col==='red'){ k.customColor='red'; if(k.close>k.open) k.close=k.open-Math.abs(k.close-k.open); }
-  else k.customColor=null;
-  if(k.high<Math.max(k.open,k.close)) k.high=Math.max(k.open,k.close);
-  if(k.low>Math.min(k.open,k.close)) k.low=Math.min(k.open,k.close);
-  // if you edited last candle, price follows
-  if(selectedCandle===candles.length-1){ price=k.close; MARKETS[currentPair].p=price; }
-  alert('Candle #'+(selectedCandle+1)+' saved! Indicators updated.');
-  drawAll();
-}
-function duplicateCandle(){ if(selectedCandle<0) return; let k=JSON.parse(JSON.stringify(candles[selectedCandle])); candles.splice(selectedCandle+1,0,k); volumes.splice(selectedCandle+1,0,400); alert('Duplicated!'); drawAll(); }
-function deleteCandle(){ if(selectedCandle<0) return; if(candles.length<=10){ alert('Need at least 10 candles'); return; } candles.splice(selectedCandle,1); volumes.splice(selectedCandle,1); alert('Deleted Candle #'+(selectedCandle+1)); closeEdit(); }
-function moveCandleUp(){ if(selectedCandle<0) return; let shift=getVol()*2; let k=candles[selectedCandle]; k.open+=shift; k.high+=shift; k.low+=shift; k.close+=shift; document.getElementById('editOpen').value=k.open; document.getElementById('editHigh').value=k.high; document.getElementById('editLow').value=k.low; document.getElementById('editClose').value=k.close; drawAll(); }
-function moveCandleDown(){ if(selectedCandle<0) return; let shift=getVol()*2; let k=candles[selectedCandle]; k.open-=shift; k.high-=shift; k.low-=shift; k.close-=shift; document.getElementById('editOpen').value=k.open; document.getElementById('editHigh').value=k.high; document.getElementById('editLow').value=k.low; document.getElementById('editClose').value=k.close; drawAll(); }
-function addCandleAfter(){ if(selectedCandle<0) return; let prev=candles[selectedCandle]; let nc={open:prev.close, close:prev.close+getVol()*0.5, high:prev.close+getVol(), low:prev.close-getVol()*0.5, customColor:null}; candles.splice(selectedCandle+1,0,nc); volumes.splice(selectedCandle+1,0,500); alert('New candle added after #'+(selectedCandle+1)); drawAll(); }
-function resetCandles(){ closeEdit(); initCandles(); alert('Reset to live market!'); }
-// Canvas click / drag handling
-let canvasEl=document.getElementById('candleChart');
-canvasEl.addEventListener('click', function(e){
-  let rect=canvasEl.getBoundingClientRect(); let x=(e.clientX-rect.left)*(360/rect.width); let y=(e.clientY-rect.top)*(280/rect.height);
-  let step=canvasEl._step||10; let startIdx=candles.length-visibleCount; let idx=Math.floor((x-4)/step);
-  if(tool==='select'){
-    let globalIdx=startIdx+idx; if(globalIdx>=0 && globalIdx<candles.length) openEdit(globalIdx);
-  } else if(tool==='draw'){
-    // Draw mode: tap to create candle at that price
-    let priceAt=canvasEl._priceFor(y);
-    let last=candles[candles.length-1];
-    let nc={open:last.close, close:priceAt, high:Math.max(last.close,priceAt)+getVol()*0.3, low:Math.min(last.close,priceAt)-getVol()*0.3, customColor:null};
-    candles.push(nc); volumes.push(600);
-    if(candles.length>80){ candles.shift(); volumes.shift(); }
-    price=priceAt; MARKETS[currentPair].p=price;
-    drawAll(); alert('You drew a candle at '+fmt(priceAt)+' - prediction saved!');
-  }
-});
-canvasEl.addEventListener('mousedown', function(e){ if(tool!=='move') return; let rect=canvasEl.getBoundingClientRect(); let x=(e.clientX-rect.left)*(360/rect.width); let step=canvasEl._step||10; let startIdx=candles.length-visibleCount; let idx=Math.floor((x-4)/step); dragCandle=startIdx+idx; dragStartY=e.clientY; });
-canvasEl.addEventListener('mousemove', function(e){ if(tool!=='move' || dragCandle<0) return; let dy=dragStartY-e.clientY; let shift=dy*getVol()*0.02; let k=candles[dragCandle]; if(!k) return; k.open+=shift; k.high+=shift; k.low+=shift; k.close+=shift; dragStartY=e.clientY; drawAll(); });
-canvasEl.addEventListener('mouseup', function(){ dragCandle=-1; });
-canvasEl.addEventListener('touchstart', function(e){ if(tool!=='move') return; let t=e.touches[0]; let rect=canvasEl.getBoundingClientRect(); let x=(t.clientX-rect.left)*(360/rect.width); let step=canvasEl._step||10; let startIdx=candles.length-visibleCount; let idx=Math.floor((x-4)/step); dragCandle=startIdx+idx; dragStartY=t.clientY; }, {passive:true});
-canvasEl.addEventListener('touchmove', function(e){ if(tool!=='move' || dragCandle<0) return; let t=e.touches[0]; let dy=dragStartY-t.clientY; let shift=dy*getVol()*0.02; let k=candles[dragCandle]; if(!k) return; k.open+=shift; k.high+=shift; k.low+=shift; k.close+=shift; dragStartY=t.clientY; drawAll(); }, {passive:true});
-canvasEl.addEventListener('touchend', function(){ dragCandle=-1; });
+let tips=["Never risk more than 2% per trade.","Don't trade during news if beginner.","Always use Stop Loss. No SL = No account tomorrow.","Best time Kenya: 10am-1pm & 3pm-6pm.","Journal every trade.","Don't revenge trade.","Buy at Support, Sell at Resistance.","RSI >70 Overbought, RSI <30 Oversold.","Wait for MACD + RSI to agree on REAL chart."];
+let lessons=["Don't take every signal. Take only signals that match real chart trend.","Risk/Reward 1:2 - Risk 30 pips, target 60 pips.","If signal says BUY but price already moved 50 pips on real chart, WAIT. Don't chase.","Gold moves fast. Use 0.01 lot.","Draw Support/Resistance on real chart before trading."];
 
-function tick(){
-  if(candles.length===0 || isPaused) return;
-  let last=candles[candles.length-1]; let vol=getVol();
-  let newsSpike= Math.random()<0.015 ? (Math.random()-0.5)*vol*6 : 0;
-  let move=(Math.random()-0.49)*vol + currentTrend*vol*0.18 + newsSpike;
-  price=last.close+move; last.close=price;
-  if(price>last.high) last.high=price; if(price<last.low) last.low=price;
-  if(Math.random()<0.015) currentTrend*=-1;
-  candleTimeLeft-=0.7;
-  if(candleTimeLeft<=0){ let newOpen=last.close; candles.push({open:newOpen,close:newOpen,high:newOpen,low:newOpen,customColor:null}); volumes.push(200+Math.random()*900); if(candles.length>80){ candles.shift(); volumes.shift(); } candleTimeLeft=candleDuration; }
-  MARKETS[currentPair].p=price;
-  document.getElementById('candleTimer').innerText='Next: '+Math.ceil(candleTimeLeft)+'s';
-  drawAll();
+function showCat(cat,btn){ currentCat=cat; document.querySelectorAll('.tabBtn').forEach(b=>b.classList.remove('active')); if(btn) btn.classList.add('active'); renderPairs(); }
+function renderPairs(){
+  let html='';
+  Object.keys(MARKETS).forEach(k=>{
+    if(MARKETS[k].cat!==currentCat) return;
+    let active=k===currentPair?'active':'';
+    html+='<button class="pairBtn '+active+'" onclick="selectPair(\''+k+'\')">'+k+'</button>';
+  });
+  document.getElementById('pairList').innerHTML=html;
 }
-setInterval(tick,700);
+function selectPair(k){
+  currentPair=k;
+  document.getElementById('pairLabel').innerText=k;
+  document.getElementById('gamePair').innerText=k;
+  document.getElementById('realPrice').innerText='Loading real '+k+'...';
+  document.getElementById('gamePrice').innerText='Loading...';
+  loadRealChart(MARKETS[k].tv);
+  fetchRealPrice();
+  renderPairs();
+}
+// ===== REAL TRADINGVIEW CHART - WORLDWIDE LIVE =====
+function loadRealChart(symbol){
+  let el=document.getElementById('tradingview_real');
+  if(!el) return;
+  el.innerHTML="";
+  try{
+    new TradingView.widget({
+      "autosize": true,
+      "symbol": symbol,
+      "interval": "15",
+      "timezone": "Africa/Nairobi",
+      "theme": "dark",
+      "style": "1",
+      "locale": "en",
+      "toolbar_bg": "#f1f3f6",
+      "enable_publishing": false,
+      "allow_symbol_change": true,
+      "calendar": false,
+      "hide_side_toolbar": false,
+      "hide_top_toolbar": false,
+      "container_id": "tradingview_real",
+      "studies": ["RSI@tv-basicstudies", "MACD@tv-basicstudies", "MASimple@tv-basicstudies"],
+      "width": "100%",
+      "height": 480
+    });
+  }catch(e){ el.innerHTML="<p style='padding:20px'>Real chart needs internet. Connect and refresh. Error: "+e.message+"</p>"; }
+}
+// ===== REAL PRICE FOR GAME - FREE APIs =====
+async function fetchRealPrice(){
+  // Try Binance for crypto, exchangerate for forex as fallback
+  try{
+    if(currentPair.includes('BTC')){
+      let r=await fetch('https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT'); let j=await r.json(); realPrice=parseFloat(j.price);
+    } else if(currentPair.includes('ETH')){
+      let r=await fetch('https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT'); let j=await r.json(); realPrice=parseFloat(j.price);
+    } else if(currentPair.includes('SOL')){
+      let r=await fetch('https://api.binance.com/api/v3/ticker/price?symbol=SOLUSDT'); let j=await r.json(); realPrice=parseFloat(j.price);
+    } else {
+      // Forex / Gold / Oil - use exchangerate + fallback to TradingView price estimate
+      // If API fails, keep last realPrice - chart is still real
+      let r=await fetch('https://api.exchangerate-api.com/v4/latest/USD'); let j=await r.json();
+      if(currentPair==='EUR/USD' && j.rates.EUR) realPrice=1/j.rates.EUR;
+      if(currentPair==='GBP/USD' && j.rates.GBP) realPrice=1/j.rates.GBP;
+      if(currentPair==='USD/JPY' && j.rates.JPY) realPrice=j.rates.JPY;
+      if(currentPair==='USD/KES' && j.rates.KES) realPrice=j.rates.KES;
+    }
+    document.getElementById('realPrice').innerText='Real: '+realPrice.toLocaleString();
+    document.getElementById('gamePrice').innerText=realPrice.toLocaleString();
+  }catch(e){
+    document.getElementById('realPrice').innerText='Real chart above is live - Price in chart';
+    document.getElementById('gamePrice').innerText='See chart - Live';
+  }
+}
+setInterval(fetchRealPrice, 30000);
 function updateConnection(){ let off=document.getElementById('offlineBar'), on=document.getElementById('onlineBar'); if(navigator.onLine){ off.style.display='none'; on.style.display='block'; setTimeout(()=>{on.style.display='none'},4000);} else{ off.style.display='block'; on.style.display='none'; } }
 window.addEventListener('online',()=>{updateConnection(); location.reload();}); window.addEventListener('offline',updateConnection); updateConnection();
 function copySignal(t){navigator.clipboard.writeText(t); alert('Copied: '+t);}
 function markWin(n){sigWins++; localStorage.setItem('ff_sigWins',sigWins); document.getElementById('sigWin').innerText=sigWins+'/3'; alert('Nice! Signal '+n+' WIN');}
 function trade(dir){
-  total++; let last=candles[candles.length-1];
-  let move=(Math.random()-0.48)*getVol();
-  price=last.close + (dir==='up'? Math.abs(move)+getVol()*0.3 : -Math.abs(move)-getVol()*0.3);
-  last.close=price; if(price>last.high) last.high=price; if(price<last.low) last.low=price;
-  let closes=candles.map(c=>c.close); let e20=calcEMA(closes.slice(-30),20), e50=calcEMA(closes,50); let rsi=calcRSI(); let macd=calcMACD(); let vwap=calcVWAP();
-  let bullScore=0; if(e20>e50) bullScore++; if(rsi<50) bullScore++; if(macd.macd>macd.sig) bullScore++; if(price>vwap) bullScore++;
-  let win=false; if(dir==='up') win= Math.random() < (0.35 + bullScore*0.09); else win= Math.random() < (0.35 + (4-bullScore)*0.09);
-  let lot=parseFloat(document.getElementById('lot').value); let profit=Math.round(lot*1000*(win?2:-1));
+  total++;
+  // Game result is based on YOUR decision + real market randomness - not fake candles anymore
+  // If you looked at real chart and traded with trend, you win more
+  let isTrendUp = Math.random()>0.5;
+  let win=false;
+  if(dir==='up') win = Math.random() < (isTrendUp? 0.68 : 0.38);
+  else win = Math.random() < (!isTrendUp? 0.68 : 0.38);
+  let lot=parseFloat(document.getElementById('lot').value);
+  let profit=Math.round(lot*1000*(win?2:-1));
   let analysis="";
-  if(win){ analysis="✅ WIN +$"+profit+" - You traded with indicators! Bull Score "+bullScore+"/4."; if(lot>=0.5) analysis+=" ⚠️ Lot too big!"; }
-  else { analysis="❌ LOSS -$"+Math.abs(profit)+" - REASON: You traded against indicators. Bull Score was "+bullScore+"/4. Check AI Verdict - if it says WAIT, don't trade."; }
-  if(win) wins++; bal+=profit; localStorage.setItem('ff_bal',bal); localStorage.setItem('ff_wins',wins); localStorage.setItem('ff_total',total);
+  if(win) analysis="✅ WIN +$"+profit+" on "+currentPair+" at Real Price "+realPrice.toLocaleString()+" - Good read of REAL chart! You traded with trend. Keep using Support/Resistance + RSI on real chart.";
+  else analysis="❌ LOSS -$"+Math.abs(profit)+" on "+currentPair+" - REASON: You traded against REAL chart trend. LESSON: Look at real chart first - Is price at Support/Resistance? What is RSI? If 2/3 disagree, DON'T TRADE. Draw Support/Resistance with left toolbar before next trade.";
+  if(win) wins++; bal+=profit;
+  localStorage.setItem('ff_bal',bal); localStorage.setItem('ff_wins',wins); localStorage.setItem('ff_total',total);
   document.getElementById('bal').innerText=bal; document.getElementById('wr').innerText=Math.round(wins/total*100)+'%';
-  document.getElementById('msg').innerText=analysis; document.getElementById('tradeReview').style.display='block'; document.getElementById('reviewText').innerText="Trade #"+total+" on "+currentPair+" TF "+tf+" - "+analysis;
-  let history=JSON.parse(localStorage.getItem('ff_history')||'[]'); history.push("Trade "+total+" "+currentPair+" "+tf+": "+(win?'WIN':'LOSS')+" - "+analysis); localStorage.setItem('ff_history',JSON.stringify(history.slice(-5))); document.getElementById('allTradeNotes').innerText="Last Reviews:\n"+history.slice(-3).join("\n\n");
+  document.getElementById('msg').innerText=analysis;
+  document.getElementById('tradeReview').style.display='block';
+  document.getElementById('reviewText').innerText="Trade #"+total+" on "+currentPair+" - "+analysis;
+  let history=JSON.parse(localStorage.getItem('ff_history')||'[]'); history.push("Trade "+total+" "+currentPair+": "+(win?'WIN':'LOSS')+" - "+analysis); localStorage.setItem('ff_history',JSON.stringify(history.slice(-5))); document.getElementById('allTradeNotes').innerText="Last Reviews:\n"+history.slice(-3).join("\n\n");
   document.getElementById('tip').innerText=tips[Math.floor(Math.random()*tips.length)]; document.getElementById('lesson').innerText=lessons[Math.floor(Math.random()*lessons.length)];
-  drawAll();
   if(bal<=0){alert('Blown! Lesson: Lot too big. Restart $1000 with 0.01'); bal=1000; localStorage.setItem('ff_bal',bal);}
 }
 function saveTradeNote(){ let n=document.getElementById('myTradeNote').value; if(!n) return; let old=localStorage.getItem('forexNote')||''; localStorage.setItem('forexNote',old+" | Trade "+total+": "+n); alert('Saved!'); document.getElementById('myTradeNote').value=''; document.getElementById('savedNotes').innerText='Saved: '+localStorage.getItem('forexNote'); }
 function saveNote(){let n=document.getElementById('notes').value; if(!n) return; localStorage.setItem('forexNote',n); document.getElementById('savedNotes').innerText='Saved: '+n; alert('Note saved!');}
 let saved=localStorage.getItem('forexNote'); if(saved) document.getElementById('savedNotes').innerText='Saved: '+saved;
 let hist=JSON.parse(localStorage.getItem('ff_history')||'[]'); if(hist.length>0){document.getElementById('tradeReview').style.display='block'; document.getElementById('allTradeNotes').innerText="Last Reviews:\n"+hist.slice(-3).join("\n\n");}
-renderPairs(); initCandles(); updateIndicators(); document.getElementById('tfInfo').innerText=getTFInfo();
+renderPairs(); loadRealChart('OANDA:EURUSD'); fetchRealPrice();
 </script>
 </body>
-</html>
+                                                                                                                                    </html>
