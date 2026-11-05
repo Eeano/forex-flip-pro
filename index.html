@@ -25,6 +25,7 @@ button{padding:12px;margin:5px;border:none;border-radius:10px;font-weight:bold;c
 #offlineBar{background:#ef4444;padding:10px;border-radius:10px;display:none;text-align:center;font-weight:bold;margin-bottom:10px}
 #onlineBar{background:#22c55e;padding:10px;border-radius:10px;display:none;text-align:center;font-weight:bold;margin-bottom:10px}
 .reviewBox{background:#fef08a;color:black;padding:12px;border-radius:10px;margin-top:10px;text-align:left;display:none}
+canvas{width:100%;border-radius:10px}
 </style>
 </head>
 <body>
@@ -45,7 +46,9 @@ button{padding:12px;margin:5px;border:none;border-radius:10px;font-weight:bold;c
 
 <label>Choose Pair to Practice:</label>
 <select id="pair" onchange="changePair()"><option>EUR/USD</option><option>GBP/USD</option><option>USD/JPY</option><option>USD/KES</option><option>XAU/USD (GOLD)</option><option>BTC/USD</option></select>
-<div style="font-size:32px" id="chart">📈 1.0850</div>
+
+<div class="box" style="padding:8px"><b>📊 LIVE CHART - <span id="pairLabel">EUR/USD</span></b><br><canvas id="candleChart" width="340" height="200"></canvas><div style="display:flex;justify-content:space-between;font-size:12px"><span>🟢 Green = Up</span><span>🔴 Red = Down</span><span id="chart">📈 1.0850</span></div></div>
+
 <div class="box">Trend: <span id="trend">Uptrend 🟢</span> | RSI: <span id="rsi">62</span> - <span id="rsiText">Neutral</span><br>Support: <span id="sup">1.0800</span> | Resistance: <span id="res">1.0900</span><br>News: US Jobs Data 3:30pm - Expect Volatility!</div>
 
 <label>Lot Size:</label><select id="lot"><option value="0.01">0.01 - Safe (Beginner)</option><option value="0.05">0.05 - Medium</option><option value="0.1">0.10 - Aggressive</option></select>
@@ -71,6 +74,55 @@ document.getElementById('bal').innerText=bal; document.getElementById('sigWin').
 let tips=["Never risk more than 2% per trade.","Don't trade during news if beginner.","Always use Stop Loss. No SL = No account tomorrow.","Best time Kenya: 10am-1pm & 3pm-6pm.","Journal every trade.","Don't revenge trade.","Buy at Support, Sell at Resistance.","RSI >70 Overbought, RSI <30 Oversold."];
 let lessons=["Don't take every signal. Take only signals that match trend.","Risk/Reward 1:2 - Risk 30 pips, target 60 pips.","If signal says BUY but price already moved 50 pips, WAIT. Don't chase.","Gold moves fast. Use 0.01 lot."];
 
+// --- CANDLE CHART ---
+let candles=[];
+function initCandles(){
+  candles=[];
+  let base=price;
+  for(let i=0;i<20;i++){
+    let open=base+(Math.random()-0.5)*0.002;
+    let close=open+(Math.random()-0.5)*0.002;
+    candles.push({open:open, close:close, high:Math.max(open,close)+0.0006, low:Math.min(open,close)-0.0006});
+    base=close;
+  }
+  drawCandles();
+}
+function drawCandles(){
+  let c=document.getElementById('candleChart'); if(!c) return;
+  let ctx=c.getContext('2d'); ctx.clearRect(0,0,340,200);
+  ctx.fillStyle='#0f172a'; ctx.fillRect(0,0,340,200);
+  let all=[]; candles.forEach(k=>{all.push(k.high,k.low)}); let min=Math.min(...all)-0.0005, max=Math.max(...all)+0.0005;
+  // grid lines
+  ctx.strokeStyle='#1e293b'; ctx.beginPath();
+  for(let y=0;y<200;y+=40){ctx.moveTo(0,y); ctx.lineTo(340,y)} ctx.stroke();
+  candles.forEach((k,i)=>{
+    let x=8+i*16;
+    let yH=200-((k.high-min)/(max-min))*200;
+    let yL=200-((k.low-min)/(max-min))*200;
+    let yO=200-((k.open-min)/(max-min))*200;
+    let yC=200-((k.close-min)/(max-min))*200;
+    let up=k.close>=k.open;
+    ctx.strokeStyle=up?'#22c55e':'#ef4444'; ctx.fillStyle=up?'#22c55e':'#ef4444';
+    ctx.beginPath(); ctx.moveTo(x+5,yH); ctx.lineTo(x+5,yL); ctx.stroke();
+    ctx.fillRect(x, Math.min(yO,yC), 10, Math.max(3,Math.abs(yC-yO)));
+  });
+  // last price line
+  let last=candles[candles.length-1];
+  let yLast=200-((last.close-min)/(max-min))*200;
+  ctx.strokeStyle='#facc15'; ctx.setLineDash([4,4]); ctx.beginPath(); ctx.moveTo(0,yLast); ctx.lineTo(340,yLast); ctx.stroke(); ctx.setLineDash([]);
+}
+function addCandle(dir){
+  let last=candles[candles.length-1];
+  let open=last.close;
+  let move=(Math.random()-0.48)*0.0025;
+  if(dir=='up') move=Math.abs(move)*0.6+0.0003;
+  if(dir=='down') move=-Math.abs(move)*0.6-0.0003;
+  let close=open+move;
+  candles.push({open:open, close:close, high:Math.max(open,close)+0.0006, low:Math.min(open,close)-0.0006});
+  if(candles.length>20) candles.shift();
+  drawCandles();
+}
+
 function updateConnection(){
   let off=document.getElementById('offlineBar'), on=document.getElementById('onlineBar');
   if(navigator.onLine){ off.style.display='none'; on.style.display='block'; setTimeout(()=>{on.style.display='none'},4000); }
@@ -82,8 +134,17 @@ updateConnection();
 
 function copySignal(t){navigator.clipboard.writeText(t); alert('Copied: '+t);}
 function markWin(n){sigWins++; localStorage.setItem('ff_sigWins',sigWins); document.getElementById('sigWin').innerText=sigWins+'/3'; alert('Nice! Signal '+n+' marked as WIN');}
-function changePair(){let p=document.getElementById('pair').value; if(p.includes('JPY')) price=151.20; else if(p.includes('KES')) price=129.50; else if(p.includes('GOLD')) price=2650; else if(p.includes('BTC')) price=97000; else price=1.0850; updateMarket();}
-function updateMarket(){let rsi=Math.floor(25+Math.random()*50); document.getElementById('rsi').innerText=rsi; document.getElementById('rsiText').innerText=rsi>70?'Overbought - SELL':rsi<30?'Oversold - BUY':'Neutral'; document.getElementById('trend').innerText=Math.random()>0.5?'Uptrend 🟢':'Downtrend 🔴'; document.getElementById('sup').innerText=(price-0.005).toFixed(4); document.getElementById('res').innerText=(price+0.005).toFixed(4);}
+function changePair(){
+  let p=document.getElementById('pair').value;
+  document.getElementById('pairLabel').innerText=p;
+  if(p.includes('JPY')) price=151.20; else if(p.includes('KES')) price=129.50; else if(p.includes('GOLD')) price=2650; else if(p.includes('BTC')) price=97000; else price=1.0850;
+  initCandles(); updateMarket();
+}
+function updateMarket(){
+  let rsi=Math.floor(25+Math.random()*50); document.getElementById('rsi').innerText=rsi; document.getElementById('rsiText').innerText=rsi>70?'Overbought - SELL':rsi<30?'Oversold - BUY':'Neutral'; document.getElementById('trend').innerText=Math.random()>0.5?'Uptrend 🟢':'Downtrend 🔴';
+  // keep sup/res relative to price for display
+  document.getElementById('sup').innerText=(price-0.005).toFixed(4); document.getElementById('res').innerText=(price+0.005).toFixed(4);
+}
 
 function trade(dir){
   total++;
@@ -126,6 +187,7 @@ function trade(dir){
   document.getElementById('allTradeNotes').innerText="Last Reviews:\n"+history.slice(-3).join("\n\n");
   document.getElementById('tip').innerText=tips[Math.floor(Math.random()*tips.length)];
   document.getElementById('lesson').innerText=lessons[Math.floor(Math.random()*lessons.length)];
+  addCandle(dir);
   updateMarket();
   if(bal<=0){alert('Blown! Lesson: Lot too big. Restart $1000 with 0.01'); bal=1000; localStorage.setItem('ff_bal',bal);}
 }
@@ -141,7 +203,9 @@ function saveTradeNote(){
 function saveNote(){let n=document.getElementById('notes').value; if(!n) return; localStorage.setItem('forexNote',n); document.getElementById('savedNotes').innerText='Saved: '+n; alert('Note saved! Works offline too.');}
 let saved=localStorage.getItem('forexNote'); if(saved) document.getElementById('savedNotes').innerText='Saved: '+saved;
 let hist=JSON.parse(localStorage.getItem('ff_history')||'[]'); if(hist.length>0){document.getElementById('tradeReview').style.display='block'; document.getElementById('allTradeNotes').innerText="Last Reviews:\n"+hist.slice(-3).join("\n\n");}
+initCandles();
 updateMarket();
+setInterval(()=>{ if(Math.random()>0.6){ addCandle(); } }, 4000);
 let deferredPrompt;
 window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault(); deferredPrompt = e;
@@ -153,4 +217,4 @@ window.addEventListener('beforeinstallprompt', (e) => {
 });
 </script>
 </body>
-  </html>
+</html>
