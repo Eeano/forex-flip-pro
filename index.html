@@ -8,7 +8,6 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Forex Flip Pro">
-<link 
 <style>
 body{background:#0f172a;color:white;font-family:Arial;padding:15px}
 .card{background:#1e293b;padding:15px;border-radius:15px;max-width:450px;margin:auto}
@@ -29,7 +28,7 @@ canvas{width:100%;border-radius:10px}
 </head>
 <body>
 <div class="card">
-<div id="offlineBar">⚠️ OFFLINE - Game works, but connect to internet for Today's Signals. Ads will load when back online.</div>
+<div id="offlineBar">⚠️ OFFLINE - Game works, but connect to internet for Today's Signals.</div>
 <div id="onlineBar">✅ ONLINE - Today's Signals Live</div>
 
 <h2>💹 FOREX FLIP PRO 🇰🇪</h2>
@@ -60,8 +59,6 @@ canvas{width:100%;border-radius:10px}
 <div class="box"><b>📝 My Trading Journal (Saved even offline):</b><textarea id="notes" rows="3" placeholder="e.g. Signal 1 won because I waited..."></textarea><button onclick="saveNote()" style="background:#3b82f6;color:white">Save Note</button><p id="savedNotes"></p></div>
 <div class="box"><b>📚 Lesson:</b> <span id="lesson">Don't take every signal. Take only signals that match trend.</span></div>
 
-<div id="adBox" style="display:none;background:#facc15;color:black;padding:15px;border-radius:10px;margin-top:10px;text-align:center"><b>AD - Support Free Game</b><br>Your AdMob Ad Here - V2</div>
-
 <h3>🏆 Leaderboard</h3><p>1. Kevin K. - $9,500<br>2. Brian M. - $7,200<br>3. Faith W. - $6,800</p>
 <p><small>Practice Only. No Real Money. Learn Before You Earn.</small></p>
 </div>
@@ -73,7 +70,6 @@ document.getElementById('bal').innerText=bal; document.getElementById('sigWin').
 let tips=["Never risk more than 2% per trade.","Don't trade during news if beginner.","Always use Stop Loss. No SL = No account tomorrow.","Best time Kenya: 10am-1pm & 3pm-6pm.","Journal every trade.","Don't revenge trade.","Buy at Support, Sell at Resistance.","RSI >70 Overbought, RSI <30 Oversold."];
 let lessons=["Don't take every signal. Take only signals that match trend.","Risk/Reward 1:2 - Risk 30 pips, target 60 pips.","If signal says BUY but price already moved 50 pips, WAIT. Don't chase.","Gold moves fast. Use 0.01 lot."];
 
-// --- CANDLE CHART ---
 let candles=[];
 function initCandles(){
   candles=[];
@@ -91,7 +87,6 @@ function drawCandles(){
   let ctx=c.getContext('2d'); ctx.clearRect(0,0,340,200);
   ctx.fillStyle='#0f172a'; ctx.fillRect(0,0,340,200);
   let all=[]; candles.forEach(k=>{all.push(k.high,k.low)}); let min=Math.min(...all)-0.0005, max=Math.max(...all)+0.0005;
-  // grid lines
   ctx.strokeStyle='#1e293b'; ctx.beginPath();
   for(let y=0;y<200;y+=40){ctx.moveTo(0,y); ctx.lineTo(340,y)} ctx.stroke();
   candles.forEach((k,i)=>{
@@ -105,7 +100,6 @@ function drawCandles(){
     ctx.beginPath(); ctx.moveTo(x+5,yH); ctx.lineTo(x+5,yL); ctx.stroke();
     ctx.fillRect(x, Math.min(yO,yC), 10, Math.max(3,Math.abs(yC-yO)));
   });
-  // last price line
   let last=candles[candles.length-1];
   let yLast=200-((last.close-min)/(max-min))*200;
   ctx.strokeStyle='#facc15'; ctx.setLineDash([4,4]); ctx.beginPath(); ctx.moveTo(0,yLast); ctx.lineTo(340,yLast); ctx.stroke(); ctx.setLineDash([]);
@@ -127,7 +121,7 @@ function updateConnection(){
   if(navigator.onLine){ off.style.display='none'; on.style.display='block'; setTimeout(()=>{on.style.display='none'},4000); }
   else{ off.style.display='block'; on.style.display='none'; }
 }
-window.addEventListener('online', ()=>{ updateConnection(); alert("✅ Back Online! Signals refreshed."); location.reload(); });
+window.addEventListener('online', ()=>{ updateConnection(); location.reload(); });
 window.addEventListener('offline', updateConnection);
 updateConnection();
 
@@ -141,7 +135,6 @@ function changePair(){
 }
 function updateMarket(){
   let rsi=Math.floor(25+Math.random()*50); document.getElementById('rsi').innerText=rsi; document.getElementById('rsiText').innerText=rsi>70?'Overbought - SELL':rsi<30?'Oversold - BUY':'Neutral'; document.getElementById('trend').innerText=Math.random()>0.5?'Uptrend 🟢':'Downtrend 🔴';
-  // keep sup/res relative to price for display
   document.getElementById('sup').innerText=(price-0.005).toFixed(4); document.getElementById('res').innerText=(price+0.005).toFixed(4);
 }
 
@@ -199,21 +192,12 @@ function saveTradeNote(){
   document.getElementById('myTradeNote').value='';
   document.getElementById('savedNotes').innerText='Saved: '+localStorage.getItem('forexNote');
 }
-function saveNote(){let n=document.getElementById('notes').value; if(!n) return; localStorage.setItem('forexNote',n); document.getElementById('savedNotes').innerText='Saved: '+n; alert('Note saved! Works offline too.');}
+function saveNote(){let n=document.getElementById('notes').value; if(!n) return; localStorage.setItem('forexNote',n); document.getElementById('savedNotes').innerText='Saved: '+n; alert('Note saved!');}
 let saved=localStorage.getItem('forexNote'); if(saved) document.getElementById('savedNotes').innerText='Saved: '+saved;
 let hist=JSON.parse(localStorage.getItem('ff_history')||'[]'); if(hist.length>0){document.getElementById('tradeReview').style.display='block'; document.getElementById('allTradeNotes').innerText="Last Reviews:\n"+hist.slice(-3).join("\n\n");}
 initCandles();
 updateMarket();
 setInterval(()=>{ if(Math.random()>0.6){ addCandle(); } }, 4000);
-let deferredPrompt;
-window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault(); deferredPrompt = e;
-  let btn = document.createElement('button');
-  btn.innerText = '📱 INSTALL APP - Add to Homescreen';
-  btn.style.cssText = 'background:#facc15;color:black;width:100%;padding:15px;font-weight:bold;margin-top:10px';
-  btn.onclick = () => { deferredPrompt.prompt(); };
-  document.querySelector('.card').appendChild(btn);
-});
 </script>
 </body>
 </html>
