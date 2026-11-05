@@ -3,79 +3,53 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>V30 Sessions Test</title>
+<title>Forex Flip Pro V32 FULL</title>
 <style>
-body{background:#0f172a;color:white;font-family:Arial;padding:12px}
-.box{background:#0f172a;border:2px solid #22c55e;padding:12px;border-radius:12px}
-.row{display:flex;justify-content:space-between;padding:10px;background:#1e293b;border-radius:10px;margin:6px 0}
-.on{background:#22c55e;color:white}
-.best{background:#f59e0b;color:black}
+*{box-sizing:border-box}body{margin:0;background:#0f172a;color:#fff;font-family:Arial;padding-bottom:90px}
+.top{position:sticky;top:0;background:#0f172a;padding:12px;border-bottom:1px solid #334155}
+.c{padding:12px}.box{background:#1e293b;padding:12px;border-radius:12px;margin-top:12px;font-size:14px}
+select,input{width:100%;padding:12px;margin:5px 0;border-radius:10px;border:none;background:#fff;color:#000;font-size:15px}
+button{padding:12px;margin:4px;border:none;border-radius:10px;font-weight:bold;cursor:pointer}
+.pairBtn{background:#1e293b;color:#fff;padding:10px;border:1px solid #475569}
+.pairBtn.on{background:#22c55e;color:#000}.tabBtn{background:#334155;color:#fff;padding:9px}
+.tabBtn.on{background:#f59e0b;color:#000}.mini{font-size:12px;color:#94a3b8}
+.buy{background:#22c55e;color:#fff;padding:14px;border-radius:12px;text-align:center;font-size:20px;font-weight:bold}
+.sell{background:#ef4444;color:#fff;padding:14px;border-radius:12px;text-align:center;font-size:20px;font-weight:bold}
+.wait{background:#f59e0b;color:#000;padding:14px;border-radius:12px;text-align:center;font-size:20px;font-weight:bold}
+.row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #475569}
+.bar{height:12px;background:#475569;border-radius:6px;overflow:hidden}.fill{height:100%;background:#22c55e}
+.big{background:#fff;color:#000;padding:12px;border-radius:12px;margin-top:8px;line-height:1.9}
+.bot{position:fixed;bottom:0;left:0;right:0;background:#1e293b;border-top:2px solid #f59e0b;padding:10px;display:flex;gap:8px}
+.bot button{flex:1}.sbox{background:#0f172a;border:2px solid #22c55e;padding:12px;border-radius:12px;margin-top:12px}
+.srow{display:flex;justify-content:space-between;padding:10px;border-radius:10px;margin:6px 0;background:#1e293b}
+.srow.on{background:#22c55e}.srow.best{background:#f59e0b;color:#000}
+.tv{background:#fff;padding:8px;border-radius:12px;margin-top:12px;color:#000}
+iframe{border:none;width:100%;height:400px;background:#fff;border-radius:8px;display:block}
+.pay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(15,23,42,.98);z-index:9999;padding:20px;display:none;overflow-y:auto}
+.card{background:#1e293b;padding:18px;border-radius:14px;max-width:460px;margin:20px auto;text-align:center;border:3px solid #f59e0b}
+.trial{background:#22c55e;color:#fff;padding:12px;border-radius:12px;text-align:center;font-weight:bold;margin-top:12px}
 </style>
 </head>
 <body>
-<h2>🎯 V30 - SESSIONS TEST - If clock ticks, JS works</h2>
-<div class="box">
-<b>🕐 TIME SESSIONS - KENYA</b>
-<div style="font-size:28px;font-weight:bold" id="clock">--:--:--</div>
-<div id="day">Loading...</div>
-<div id="badge" style="font-weight:bold;margin-top:8px">Checking...</div>
-<div id="list"></div>
-<div id="count" style="background:#f59e0b;color:black;padding:10px;border-radius:10px;margin-top:10px;text-align:center;font-weight:bold">Starting...</div>
+<div id="paywall" class="pay"><div class="card"><h2>🔒 TRIAL ENDED</h2><p>Pay <b style="color:#facc15">300 KES / Week</b></p><div style="background:#0f172a;padding:12px;border-radius:10px">M-Pesa 300 KES to:<div style="background:#fff;color:#000;padding:10px;border-radius:8px;font-size:22px;font-weight:bold;margin:8px 0">0181628290</div></div><input id="mpesaCode" placeholder="QK7XAB12CD" style="text-transform:uppercase;text-align:center;font-weight:bold" maxlength="12"><input id="payerPhone" placeholder="0722123456"><button onclick="payNow()" style="background:#22c55e;color:#fff;width:100%">✅ I PAID - UNLOCK</button><p id="payMsg" style="color:#facc15"></p><button onclick="ownerBox()" style="background:#334155;color:#fff;width:100%">👑 Owner</button><div id="ownerBox" style="display:none;margin-top:10px"><input id="ownerCode" placeholder="Owner code" type="password"><button onclick="ownerGo()" style="background:#f59e0b;color:#000;width:100%">🔓 Unlock</button></div></div></div>
+<div class="top"><h2 style="margin:0">🎯 FOREX FLIP PRO 🇰🇪 V32 FULL</h2><p style="margin:4px 0"><span id="sync">LIVE</span> | <span id="nairobiTime">--:--:--</span> | WR: <b id="topWR">-</b></p></div>
+<div class="c">
+<div id="trialBanner" class="trial">🎁 FREE TRIAL: 14 days left</div>
+<div class="sbox"><b>🕐 TIME SESSIONS - KENYA (EAT) LIVE</b>
+<div style="display:flex;justify-content:space-between;margin-top:10px;background:#1e293b;padding:12px;border-radius:10px"><div><div class="mini">NOW - KENYA</div><div id="clock" style="font-size:24px;font-weight:bold">--:--:--</div><div class="mini" id="dayTxt">-</div></div><div style="text-align:right"><div id="badge" style="font-weight:bold">Checking...</div><div class="mini" id="advice">-</div></div></div>
+<div id="slist" style="margin-top:10px"></div>
+<div id="count" style="background:#f59e0b;color:#000;padding:10px;border-radius:10px;margin-top:10px;text-align:center;font-weight:bold">Starting...</div>
+<div style="display:flex;gap:8px;margin-top:10px;text-align:center"><div style="background:#1e293b;padding:10px;border-radius:10px;flex:1"><b style="color:#22c55e">✅ BEST</b><br><span style="font-size:12px">10am-1pm London<br>3pm-7pm Overlap 🔥</span></div><div style="background:#1e293b;padding:10px;border-radius:10px;flex:1"><b style="color:#ef4444">❌ DON'T TRADE</b><br><span style="font-size:12px">12am-9am Asia<br>Sat/Sun Closed</span></div></div>
 </div>
-<p>If clock stays --:--:--, JS is blocked. If clock ticks, JS works.</p>
-<script>
-function pad(n){return n<10?'0'+n:''+n;}
-function tick(){
-  var d=new Date();
-  var h=(d.getUTCHours()+3)%24;
-  var m=d.getUTCMinutes();
-  var s=d.getUTCSeconds();
-  var day=d.getUTCDay();
-  if(d.getUTCHours()+3>=24) day=(day+1)%7;
-  var mins=h*60+m;
-  var time=pad(h)+':'+pad(m)+':'+pad(s);
-  document.getElementById('clock').textContent=time;
-  var days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-  document.getElementById('day').textContent=days[day]+' Kenya';
-  var isSydney=mins>=0&&mins<540;
-  var isTokyo=mins>=180&&mins<720;
-  var isLondon=mins>=600&&mins<1140;
-  var isNY=mins>=900&&mins<1440;
-  var isOverlap=mins>=900&&mins<1140;
-  var cur='';
-  if(day===6) cur='❌ SATURDAY CLOSED';
-  else if(day===0&&mins<1380) cur='❌ SUNDAY CLOSED';
-  else if(isOverlap) cur='🔥 OVERLAP BEST';
-  else if(isLondon) cur='🇬🇧 LONDON GOOD';
-  else if(isNY) cur='🗽 NEW YORK GOOD';
-  else if(isTokyo) cur='🗼 TOKYO SLOW';
-  else if(isSydney) cur='🌏 SYDNEY VERY SLOW';
-  else cur='OFF';
-  document.getElementById('badge').textContent=cur;
-  var rows=[
-    ['🌏 SYDNEY','12am-9am',isSydney&&!isTokyo,false],
-    ['🗼 TOKYO','3am-12pm',isTokyo,false],
-    ['🇬🇧 LONDON','10am-7pm',isLondon&&!isOverlap,false],
-    ['🗽 NEW YORK','3pm-12am',isNY&&!isOverlap,false],
-    ['🔥 OVERLAP','3pm-7pm',isOverlap,true]
-  ];
-  var html='';
-  for(var i=0;i<rows.length;i++){
-    var cls='row';
-    if(rows[i][2]&&rows[i][3]) cls='row best';
-    else if(rows[i][2]) cls='row on';
-    html+='<div class="'+cls+'"><b>'+rows[i][0]+' '+rows[i][1]+'</b><b>'+(rows[i][2]?'● LIVE NOW':'○ OFF')+'</b></div>';
-  }
-  document.getElementById('list').innerHTML=html;
-  var cd=document.getElementById('count');
-  if(day===6) cd.textContent='SATURDAY - Closed';
-  else if(isOverlap) cd.textContent='OVERLAP LIVE - Ends in '+(1140-mins)+' mins - TRADE NOW';
-  else if(mins<600) cd.textContent='LONDON OPENS IN '+Math.floor((600-mins)/60)+'h '+((600-mins)%60)+'m';
-  else if(mins<900) cd.textContent='OVERLAP IN '+Math.floor((900-mins)/60)+'h '+((900-mins)%60)+'m';
-  else cd.textContent='New York only';
-}
-tick();
-setInterval(tick,1000);
-</script>
-</body>
-</html>
+<div class="box" style="border:2px solid #22c55e"><b>🛡️ TRUST MODE <span id="trustLabel">ON</span> <button onclick="toggleTrust()" style="background:#22c55e;padding:6px 10px">ON/OFF</button></b><p class="mini">Blocks if Conf &lt;70%, Asia, 2 losses, News.</p><b>Discipline: <span id="disc">100%</span></b><div class="bar"><div id="discBar" class="fill" style="width:100%"></div></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px;text-align:center"><div style="background:#0f172a;padding:10px;border-radius:10px"><b id="tTrades">0</b><br><span style="font-size:11px">Trades Today</span></div><div style="background:#0f172a;padding:10px;border-radius:10px"><b id="tLoss">0</b><br><span style="font-size:11px">Losses</span></div><div style="background:#0f172a;padding:10px;border-radius:10px"><b id="tStatus">✅ ALLOWED</b><br><span style="font-size:11px">Trust</span></div><div style="background:#0f172a;padding:10px;border-radius:10px"><b>🔒 $10 Mode</b><br><span style="font-size:11px">Unlock</span></div></div><div id="blockMsg" style="display:none;background:#ef4444;padding:10px;border-radius:10px;margin-top:10px;text-align:center;font-weight:bold"></div><div id="allowMsg" style="background:#22c55e;padding:10px;border-radius:10px;margin-top:10px;text-align:center">✅ TRUST: Allowed</div></div>
+<div class="box" style="border:2px solid #f59e0b"><b>📰 NEWS</b> <button onclick="window.open('https://www.forexfactory.com/calendar','_blank')" style="background:#fff;color:#000">📅 ForexFactory ↗</button><div id="newsWarn" style="margin-top:10px"><div style="background:#22c55e;padding:10px;border-radius:10px">✅ No High Impact - Check ForexFactory before trading</div></div><div class="mini">News check is in Trust: If you tap FAST and news is high impact, it will say WAIT. Open ForexFactory for full calendar.</div></div>
+<div class="box" style="border:2px solid #22c55e"><b>🌍 <span id="tickPair">EUR/USD</span> LIVE</b><div style="background:#000;padding:10px;border-radius:10px;margin-top:8px"><div class="mini">LIVE PRICE</div><div id="livePrice" style="font-size:30px;font-weight:bold">1.0850</div><div class="mini" id="tickChg">Waiting...</div><div class="mini">Polls: <b id="polls">0</b> | Working: <b id="workSrc">Starting...</b></div></div><div class="mini">Status: <b id="pollStatus">Starting...</b></div></div>
+<div class="box"><b>STEP 1: PAIR</b><br><div style="margin-top:8px"><button class="tabBtn on" onclick="showCat('forex',this)">💱 FOREX</button><button class="tabBtn" onclick="showCat('metal',this)">🥇 METALS</button><button class="tabBtn" onclick="showCat('energy',this)">🛢️ OIL</button><button class="tabBtn" onclick="showCat('index',this)">📈 INDICES</button><button class="tabBtn" onclick="showCat('crypto',this)">₿ CRYPTO</button><button class="tabBtn" onclick="showCat('local',this)">🇰🇪 KENYA</button></div><div id="pairList" style="margin-top:10px"></div><label>Balance ($):</label><input id="bal" type="number" value="100" oninput="analyze()"><label>Risk:</label><select id="risk" onchange="analyze()"><option value="1">1% Safe</option><option value="2" selected>2% Standard</option><option value="3">3% Aggressive</option></select><label>Style:</label><select id="style" onchange="analyze()"><option value="scalp">Scalp</option><option value="day" selected>Day Trade</option><option value="swing">Swing</option></select><label>Timeframe:</label><select id="tf" onchange="changeTF()"><option value="1" selected>1m - MOVES</option><option value="5">5m</option><option value="15">15m</option><option value="60">1H</option><option value="D">1D</option></select></div>
+<div class="tv"><b>STEP 2: CHART - <span id="pairLabel">EUR/USD</span> ● LIVE</b><br><span class="mini">Wait 5 sec.</span><iframe id="tvFrame" src="https://s.tradingview.com/widgetembed/?frameElementId=tradingview_123&symbol=OANDA%3AEURUSD&interval=1&hidesidetoolbar=0&hidetoptoolbar=0&symboledit=1&saveimage=0&toolbarbg=f1f3f6&studies=&hideideas=1&theme=light&style=1&timezone=Africa%2FNairobi&withdateranges=1&showpopupbutton=1&locale=en&utm_source=github&utm_medium=widget&utm_campaign=chart&utm_term=OANDA%3AEURUSD"></iframe><div style="display:flex;gap:6px"><button onclick="analyze()" style="background:#22c55e;color:#fff;flex:1">⚡ FAST</button><button onclick="loadChart()" style="background:#2962ff;color:#fff;flex:1">🔄 RELOAD CHART</button><button onclick="openTV()" style="background:#f59e0b;color:#000;flex:1">📊 Full TV ↗</button></div><div style="display:flex;gap:6px;margin-top:6px"><button onclick="setTF('1')" style="background:#22c55e;color:#fff;flex:1">1m ⚡</button><button onclick="setTF('5')" style="background:#eee;flex:1">5m</button><button onclick="setTF('15')" style="background:#eee;flex:1">15m</button><button onclick="setTF('60')" style="background:#eee;flex:1">1H</button></div></div>
+<div class="box"><b>STEP 3: ANALYSIS - <span id="aPair">EUR/USD</span></b><div class="mini">Last: <b id="lastA">-</b> | Live: <b id="aPrice">-</b> | Session: <b id="aSess">-</b></div><div id="verdict" class="wait" style="margin-top:10px">⏳ TAP ⚡ FAST ANALYSIS</div><div style="margin-top:10px"><b>Confidence: <span id="conf">-</span></b><div class="bar"><div id="confBar" class="fill" style="width:50%"></div></div></div><div style="margin-top:10px"><div class="row"><span>📈 Trend</span><b id="cTrend">-</b></div><div class="row"><span>📊 RSI</span><b id="cRsi">-</b></div><div class="row"><span>📉 MACD</span><b id="cMacd">-</b></div><div class="row"><span>📦 Bollinger</span><b id="cBb">-</b></div><div class="row"><span>📍 Support/Resistance</span><b id="cSr">-</b></div><div class="row"><span>🕐 Session</span><b id="cSess">-</b></div><div class="row"><span>🌪️ ATR</span><b id="cVol">-</b></div><div class="row"><span>🛡️ Trust</span><b id="cTrust">-</b></div></div><button onclick="toggleWork()" style="background:#f59e0b;color:#000;width:100%;margin-top:10px">🔍 SHOW MY WORK</button><div id="workBox" style="display:none;background:#000;padding:10px;border-radius:10px;margin-top:8px;font-size:13px;white-space:pre-wrap"></div></div>
+<div class="box" style="background:#0ea5e9"><b>STEP 4: COPY TO BROKER</b><div class="big">Pair: <b id="pPair">EUR/USD</b> <button onclick="copyOne('pPair','Pair')">Copy</button><br>Direction: <b id="pDir">WAIT</b><br>Entry: <b id="pEntry">-</b> <button onclick="copyOne('pEntry','Entry')" style="background:#22c55e;color:#fff">📋 Copy Entry</button><br>SL: <b id="pSL">-</b> <button onclick="copyOne('pSL','SL')" style="background:#ef4444;color:#fff">📋 Copy SL</button><br>TP1: <b id="pTP1">-</b> <button onclick="copyOne('pTP1','TP1')" style="background:#2962ff;color:#fff">📋 Copy TP1</button><br>TP2: <b id="pTP2">-</b> <button onclick="copyOne('pTP2','TP2')" style="background:#2962ff;color:#fff">📋 Copy TP2</button><br>Lot: <b id="pLot">-</b> <button onclick="copyOne('pLot','Lot')">Copy</button><br>Risk: $<span id="pRisk">-</span> | RR: <b id="pRR">-</b> | Best: <b id="pTime">-</b></div><p id="copyMsg" style="color:#fef08a"></p><div style="display:flex"><button onclick="copyAll()" style="background:#fff;flex:1">📋 COPY ALL</button><button onclick="copyWA()" style="background:#22c55e;color:#fff;flex:1">💬 WHATSAPP</button></div></div>
+<div class="box"><b>STEP 5: APPROACH</b><div id="approach" style="background:#0f172a;padding:10px;border-radius:10px;margin-top:8px">Tap FAST...</div></div>
+<div class="box" style="border:2px solid #22c55e"><b>STEP 6: LOG TRADE</b><br><label>Result:</label><select id="tRes"><option value="WIN">✅ WIN</option><option value="LOSS">❌ LOSS</option><option value="BREAKEVEN">➖ BREAKEVEN</option><option value="WAITED">⏳ WAITED</option></select><label>Profit ($):</label><input id="tProf" type="number" value="0"><label>Followed?</label><select id="tFollow"><option value="YES">YES - 100%</option><option value="NO">NO</option><option value="PARTIAL">PARTIAL</option></select><label>Note:</label><input id="tNote" placeholder="e.g. Waited"><button onclick="logTrade()" style="background:#22c55e;color:#fff;width:100%;margin-top:8px">✅ SAVE</button><p id="logMsg" style="color:#facc15"></p><b>📜 HISTORY:</b><div id="histList"></div></div>
+<p style="text-align:center;padding:16px 0 30px"><small>V32 FULL - Trial 14 Days, Then 300 KES / Week to 0181628290.</small></p>
+</div>
+<div class="bot"><div style="flex:1.2"><span id="botPair">EUR/USD</span><br><b id="botVerdict">⏳ TAP FAST</b></div><button onclick="copyAll()" style="background:#fff">📋 COPY ALL</button><button onclick="analyze()" style="background:#22c55e;color:#fff">⚡ FAST</button></div>
