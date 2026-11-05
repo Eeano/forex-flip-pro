@@ -1,612 +1,199 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Forex Flip Pro V22 - REAL TRADE WORLDWIDE</title>
+<title>Forex Flip Pro V25 - MOVES LIKE TRADINGVIEW</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover, user-scalable=no">
 <meta name="theme-color" content="#0f172a">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Flip Pro">
-<link rel="manifest" href="./manifest.json">
-<link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/1628/1628613.png">
 <style>
-*{box-sizing:border-box}
-html,body{margin:0;padding:0;width:100%;background:#0f172a;color:white;font-family:Arial;overflow-x:hidden}
-.app{width:100%;min-height:100vh;padding-bottom:95px}
-.topBar{position:sticky;top:0;z-index:100;background:#0f172a;border-bottom:1px solid #334155;padding:12px 14px;padding-top:calc(12px + env(safe-area-inset-top));display:flex;justify-content:space-between;align-items:center}
-.content{width:100%;padding:12px}
-select,input{width:100%;padding:12px;margin:5px 0;border-radius:10px;border:none;background:white;color:black;font-size:15px}
+*{box-sizing:border-box} html,body{margin:0;padding:0;width:100%;background:#0f172a;color:white;font-family:Arial;overflow-x:hidden}
+.app{width:100%;min-height:100vh;padding-bottom:95px} .topBar{position:sticky;top:0;z-index:100;background:#0f172a;border-bottom:1px solid #334155;padding:12px 14px;display:flex;justify-content:space-between;align-items:center}
+.content{width:100%;padding:12px} select,input{width:100%;padding:12px;margin:5px 0;border-radius:10px;border:none;background:white;color:black;font-size:15px}
 button{padding:12px;margin:4px;border:none;border-radius:10px;font-weight:bold;cursor:pointer}
 .box{background:#1e293b;padding:14px;border-radius:14px;margin-top:12px;font-size:14px}
-.copyBtn{background:white;color:black;padding:7px 10px;font-size:12px}
-.pairBtn{background:#1e293b;color:white;padding:10px 13px;font-size:13px;margin:3px;border:1px solid #475569}
-.pairBtn.active{background:#22c55e;color:black}
-.tabBtn{background:#334155;color:white;padding:9px 12px;font-size:13px}
-.tabBtn.active{background:#f59e0b;color:black}
-.mini{font-size:12px;color:#94a3b8}
-.verdictBuy{background:#22c55e;color:white;padding:16px;border-radius:14px;text-align:center;font-size:20px;font-weight:bold}
+.copyBtn{background:white;color:black;padding:7px 10px;font-size:12px} .pairBtn{background:#1e293b;color:white;padding:10px 13px;font-size:13px;margin:3px;border:1px solid #475569}
+.pairBtn.active{background:#22c55e;color:black} .tabBtn{background:#334155;color:white;padding:9px 12px;font-size:13px} .tabBtn.active{background:#f59e0b;color:black}
+.mini{font-size:12px;color:#94a3b8} .verdictBuy{background:#22c55e;color:white;padding:16px;border-radius:14px;text-align:center;font-size:20px;font-weight:bold}
 .verdictSell{background:#ef4444;color:white;padding:16px;border-radius:14px;text-align:center;font-size:20px;font-weight:bold}
 .verdictWait{background:#f59e0b;color:black;padding:16px;border-radius:14px;text-align:center;font-size:20px;font-weight:bold}
 .checkRow{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #475569;font-size:14px;gap:10px}
-.bar{height:12px;background:#475569;border-radius:6px;overflow:hidden;margin:6px 0}
-.barFill{height:100%;background:#22c55e}
+.bar{height:12px;background:#475569;border-radius:6px;overflow:hidden;margin:6px 0} .barFill{height:100%;background:#22c55e}
 .bigNum{background:white;color:black;padding:14px;border-radius:12px;margin-top:10px;font-size:16px;line-height:1.9}
-.bottomBar{position:fixed;bottom:0;left:0;right:0;z-index:100;background:#1e293b;border-top:2px solid #f59e0b;padding:10px 12px;padding-bottom:calc(10px + env(safe-area-inset-bottom));display:flex;gap:8px;align-items:center}
-.bottomBar button{flex:1;padding:13px;font-size:14px}
-.bottomInfo{flex:1.2;font-size:13px}
-.trustBox{background:#0f172a;border:3px solid #22c55e;padding:14px;border-radius:14px;margin-top:12px}
-.trustBox.locked{border-color:#ef4444;background:#450a0a}
+.bottomBar{position:fixed;bottom:0;left:0;right:0;z-index:100;background:#1e293b;border-top:2px solid #f59e0b;padding:10px 12px;display:flex;gap:8px;align-items:center}
+.bottomBar button{flex:1;padding:13px;font-size:14px} .bottomInfo{flex:1.2;font-size:13px}
+.trustBox{background:#0f172a;border:3px solid #22c55e;padding:14px;border-radius:14px;margin-top:12px} .trustBox.locked{border-color:#ef4444;background:#450a0a}
 .newsBox{background:#0f172a;border:2px solid #f59e0b;padding:12px;border-radius:12px;margin-top:10px}
-.newsItem{padding:10px 0;border-bottom:1px solid #334155}
-.newsHigh{border-left:4px solid #ef4444;padding-left:8px}
-.newsMed{border-left:4px solid #f59e0b;padding-left:8px}
-.newsLow{border-left:4px solid #22c55e;padding-left:8px}
-.trustToggle{width:50px;height:28px;background:#334155;border-radius:20px;position:relative;cursor:pointer;display:inline-block;vertical-align:middle}
-.trustToggle.on{background:#22c55e}
-.trustToggle::after{content:'';position:absolute;top:3px;left:3px;width:22px;height:22px;background:white;border-radius:50%}
-.trustToggle.on::after{left:25px}
+.newsItem{padding:10px 0;border-bottom:1px solid #334155} .newsHigh{border-left:4px solid #ef4444;padding-left:8px} .newsMed{border-left:4px solid #f59e0b;padding-left:8px} .newsLow{border-left:4px solid #22c55e;padding-left:8px}
+.trustToggle{width:50px;height:28px;background:#334155;border-radius:20px;position:relative;cursor:pointer;display:inline-block;vertical-align:middle} .trustToggle.on{background:#22c55e}
+.trustToggle::after{content:'';position:absolute;top:3px;left:3px;width:22px;height:22px;background:white;border-radius:50%} .trustToggle.on::after{left:25px}
 .speedBadge{background:#22c55e;color:white;padding:3px 8px;border-radius:20px;font-size:11px;font-weight:bold}
 .paywallOverlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(15,23,42,0.98);z-index:9999;overflow-y:auto;padding:20px;display:none}
 .payCard{background:#1e293b;padding:20px;border-radius:16px;max-width:480px;margin:20px auto;text-align:center;border:3px solid #f59e0b}
 .trialBanner{background:linear-gradient(135deg,#22c55e,#16a34a);color:white;padding:12px;border-radius:12px;margin-top:12px;text-align:center;font-size:14px;font-weight:bold}
-.trialBanner.warning{background:linear-gradient(135deg,#f59e0b,#f97316);color:black}
-.trialBanner.expired{background:linear-gradient(135deg,#ef4444,#dc2626);color:white}
-.tvBox{background:#ffffff;padding:8px;border-radius:14px;margin-top:12px;width:100%;color:#000}
-.tvBox b{color:#000}
+.tvBox{background:#ffffff;padding:8px;border-radius:14px;margin-top:12px;width:100%;color:#000} .tvBox b{color:#000}
 .workBox{background:#000;padding:12px;border-radius:12px;margin-top:10px;font-size:13px;line-height:1.7;display:none;white-space:pre-wrap}
-.installBox{background:#f59e0b;color:black;padding:12px;border-radius:12px;margin-top:12px;text-align:center;font-weight:bold;display:none}
-.liveDot{display:inline-block;width:10px;height:10px;background:#22c55e;border-radius:50%;animation:blink 1s infinite}
-@keyframes blink{0%{opacity:1}50%{opacity:0.3}100%{opacity:1}}
+.liveDot{display:inline-block;width:10px;height:10px;background:#22c55e;border-radius:50%;animation:blink 1s infinite} @keyframes blink{0%{opacity:1}50%{opacity:0.3}100%{opacity:1}}
 .tickBox{background:#000;padding:10px;border-radius:10px;margin-top:8px;display:flex;justify-content:space-between;align-items:center}
-#tvChart{width:100%;height:420px;background:#fff;border-radius:8px}
-.realBadge{background:#22c55e;color:white;padding:4px 8px;border-radius:20px;font-size:11px;font-weight:bold}
+.flashGreen{animation:flashG 0.4s} .flashRed{animation:flashR 0.4s} @keyframes flashG{0%{background:#22c55e}100%{background:#000}} @keyframes flashR{0%{background:#ef4444}100%{background:#000}}
+.tickHistory{display:flex;gap:2px;margin-top:8px;overflow:hidden;height:28px;align-items:flex-end} .tickBar{width:6px;min-height:4px;border-radius:2px}
 </style>
 </head>
 <body>
-<div id="paywallOverlay" class="paywallOverlay">
-<div class="payCard">
-<h2 style="margin:0">🔒 FREE TRIAL ENDED</h2>
-<p style="color:#cbd5e1">Free 14 days done.<br>Pay <b style="color:#facc15;font-size:20px">300 KES / Week</b></p>
-<div style="background:#0f172a;padding:14px;border-radius:12px;text-align:left;line-height:1.8">
-<b>HOW TO PAY - M-PESA:</b><br>1. M-Pesa → Send Money<br>2. Send <b style="color:#22c55e">300 KES</b> to:<br>
-<div style="background:white;color:black;padding:12px;border-radius:10px;text-align:center;font-size:22px;font-weight:bold;margin:8px 0">0181628290</div>
-3. You get SMS Code e.g. <b>QK7XAB12CD</b><br>4. Enter below 👇
-</div>
-<label style="display:block;text-align:left;margin-top:14px">M-Pesa Code:</label>
-<input id="mpesaCodeInput" placeholder="e.g. QK7XAB12CD" style="text-transform:uppercase;text-align:center;font-size:18px;font-weight:bold;letter-spacing:2px" maxlength="12">
-<label style="display:block;text-align:left">Your Phone:</label>
-<input id="payerPhoneInput" placeholder="e.g. 0722123456" type="tel">
-<button onclick="submitPayment()" style="background:#22c55e;color:white;width:100%;margin-top:10px;font-size:16px">✅ I PAID 300 - UNLOCK 7 DAYS</button>
-<p id="payMsg" style="font-size:13px;color:#facc15"></p>
-<button onclick="openOwnerLogin()" style="background:#334155;color:white;width:100%;margin-top:12px">👑 Owner Login</button>
-<div id="ownerLoginBox" style="display:none;margin-top:10px;background:#0f172a;padding:12px;border-radius:10px">
-<input id="ownerCodeInput" placeholder="Enter owner code" type="password">
-<button onclick="submitOwnerCode()" style="background:#f59e0b;color:black;width:100%;margin-top:8px">🔓 Unlock As Owner - Free Forever</button>
-</div>
-</div>
-</div>
-<div class="app">
-<div class="topBar"><div><h2>🎯 FOREX FLIP PRO 🇰🇪 V22 🌍 REAL WORLDWIDE</h2><p><span class="liveDot"></span> <span id="syncStatus">LIVE</span> | <span id="date"></span> | <span id="nairobiTime"></span> | WR: <b id="topWR">-</b></p></div><button onclick="toggleFullscreen()" style="background:#334155;color:white;padding:8px 12px;border:none;border-radius:8px;font-weight:bold">⛶ Full</button></div>
-<div class="content">
-<div id="trialBanner" class="trialBanner">🎁 FREE TRIAL: Loading...</div>
-<div id="installBox" class="installBox">📱 SAVE TO HOMESCREEN FOR FASTER ACCESS<br><span style="font-size:12px;font-weight:normal">Opens like MT5, no Chrome bar, 1-sec open</span><br><button onclick="installPWA()" style="background:black;color:white;width:100%;margin-top:8px">📲 ADD TO HOMESCREEN NOW</button><button onclick="hideInstallBox()" style="background:white;color:black;width:100%;margin-top:6px">Later</button></div>
-<div class="trustBox" id="trustBox">
-<div style="display:flex;justify-content:space-between;align-items:center"><b>🛡️ TRUST MODE</b><div><span id="trustLabel">ON</span> <span class="trustToggle on" id="trustToggle" onclick="toggleTrust()"></span></div></div>
-<p class="mini">Blocks if Confidence &lt;70%, Asia, 2 losses today, News in 30 mins.</p>
-<div style="margin-top:10px"><b>Discipline: <span id="disciplineScore">100%</span> (<span id="disciplineDetail">0/0</span>)</b><div class="bar"><div id="disciplineBar" class="barFill" style="width:100%"></div></div><div class="mini" id="disciplineVerdict">Need 20 trades for $50 mode.</div></div>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px;text-align:center">
-<div style="background:#1e293b;padding:10px;border-radius:10px"><b id="todayTrades">0</b><br><span style="font-size:11px">Trades Today</span></div>
-<div style="background:#1e293b;padding:10px;border-radius:10px"><b id="todayLosses" style="color:#ef4444">0</b><br><span style="font-size:11px">Losses (Max 2)</span></div>
-<div style="background:#1e293b;padding:10px;border-radius:10px"><b id="trustStatus">✅ ALLOWED</b><br><span style="font-size:11px">Trust</span></div>
-<div style="background:#1e293b;padding:10px;border-radius:10px"><b id="trustUnlock">🔒 $10 Mode</b><br><span style="font-size:11px">Unlock</span></div>
-</div>
-<div id="trustBlockMsg" style="display:none;background:#ef4444;color:white;padding:12px;border-radius:10px;margin-top:10px;font-weight:bold;text-align:center"></div>
-<div id="trustAllowMsg" style="background:#22c55e;color:white;padding:10px;border-radius:10px;margin-top:10px;text-align:center;font-size:13px">✅ TRUST MODE: Allowed</div>
-</div>
-<div class="newsBox">
-<b>📰 LIVE NEWS - KENYA TIME <span class="speedBadge">LIVE</span></b>
-<div class="mini">ForexFactory. High Impact = 50-100 pips. Do NOT trade that currency 30 mins before/after.</div>
-<div style="display:flex;gap:6px;margin-top:8px">
-<button onclick="fetchNews(true)" style="background:#f59e0b;color:black;flex:1">🔄 Refresh News</button>
-<button onclick="window.open('https://www.forexfactory.com/calendar','_blank')" style="background:white;color:black;flex:1">📅 ForexFactory</button>
-</div>
-<div id="newsWarning" style="margin-top:10px"></div>
-<div id="newsList" style="margin-top:8px"><p class="mini">Loading news...</p></div>
-</div>
-<div class="box" style="border:2px solid #22c55e">
-<b>🌍 REAL TRADE WORLDWIDE - <span id="tickPair">EUR/USD</span> <span class="realBadge" id="realBadge">✅ REAL - Deriv / Binance</span> <span class="mini" id="tickSource">Source: Deriv WS - Real Worldwide</span></b>
-<div class="tickBox">
-<div><div class="mini">LIVE PRICE - WORLDWIDE - SAME AS LONDON / NEW YORK / TOKYO</div><div id="liveTickPrice" style="font-size:24px;font-weight:bold">Loading...</div><div class="mini" id="tickChange">-</div><div class="mini">Ticks: <b id="tickCount">0</b> | Candles: <b id="candleCountReal">0</b> <span id="candleRealLabel" style="color:#22c55e">REAL</span> | Last tick: <b id="lastTickTime">-</b></div></div>
-<div style="text-align:right"><div id="tickDir" style="font-size:28px">⏳</div><div class="mini" id="tickAge">-</div></div>
-</div>
-<div class="mini" style="margin-top:6px">Load: <b id="loadTime">-</b> | Chart: <b>TradingView Lightweight 40KB</b> | Analysis: <b id="analysisTime">-</b> | Data: <b id="dataSourceLabel">Deriv Real Worldwide</b> | <span id="errorMsg" style="color:#facc15"></span></div>
-</div>
-<div class="box">
-<b>STEP 1: PAIR - REAL WORLDWIDE</b><br>
-<div style="margin-top:10px">
-<button class="tabBtn active" onclick="showCat('forex',this)">💱 FOREX - REAL Deriv</button>
-<button class="tabBtn" onclick="showCat('metal',this)">🥇 METALS - REAL Binance</button>
-<button class="tabBtn" onclick="showCat('energy',this)">🛢️ OIL</button>
-<button class="tabBtn" onclick="showCat('index',this)">📈 INDICES</button>
-<button class="tabBtn" onclick="showCat('crypto',this)">₿ CRYPTO - REAL Binance 0.2s</button>
-<button class="tabBtn" onclick="showCat('local',this)">🇰🇪 KENYA</button>
-</div>
-<div id="pairList" style="margin-top:10px"></div>
-<label>Balance ($):</label><input id="accountBal" type="number" value="100" oninput="runFastAnalysis()">
-<label>Risk:</label><select id="riskPct" onchange="runFastAnalysis()"><option value="1">1% - Safe</option><option value="2" selected>2% - Standard</option><option value="3">3% - Aggressive</option></select>
-<label>Style:</label>
-<select id="style" onchange="runFastAnalysis()"><option value="scalp">Scalp - Fast, Small TP</option><option value="day" selected>Day Trade - Standard</option><option value="swing">Swing - Big TP, Hold Longer</option></select>
-<label>Timeframe - Real Candles:</label>
-<select id="tf" onchange="changeTF()"><option value="1m">1m - Real 1-min candles</option><option value="5m">5m</option><option value="15m" selected>15m - Day Trade</option><option value="1h">1H</option><option value="4h">4H</option><option value="1d">1D - Sep Oct Nov</option></select>
-</div>
-<div class="tvBox">
-<b>STEP 2: REAL CHART WORLDWIDE - <span id="pairLabel">EUR/USD</span> <span style="color:#22c55e;font-size:12px">● LIVE - Real Candles - No Fake</span></b><br>
-<span class="mini" style="color:#666">White, Green/Red candles, Volume at bottom, Price on right, Dates at bottom. Candles are built from REAL worldwide ticks - Deriv for Forex, Binance for Crypto. Last candle moves live every tick. Tap Full TradingView to compare - Should match.</span>
-<div id="tvChart"></div>
-<div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
-<button onclick="runFastAnalysis()" style="background:#22c55e;color:white;flex:1">⚡ FAST ANALYSIS - REAL DATA</button>
-<button onclick="reloadChart()" style="background:#2962ff;color:white;flex:1">🔄 RELOAD REAL CANDLES</button>
-<button onclick="toggleChartTheme()" style="background:#334155;color:white;flex:1">🌙 Dark / ☀️ Light</button>
-<button onclick="openFullTV()" style="background:#f59e0b;color:black;flex:1">📊 Compare on TradingView ↗</button>
-</div>
-<div style="display:flex;gap:6px;margin-top:6px">
-<button onclick="setTFQuick('1m')" style="background:#e5e7eb;color:black;flex:1">1m</button>
-<button onclick="setTFQuick('5m')" style="background:#e5e7eb;color:black;flex:1">5m</button>
-<button onclick="setTFQuick('15m')" style="background:#22c55e;color:white;flex:1">15m</button>
-<button onclick="setTFQuick('1h')" style="background:#e5e7eb;color:black;flex:1">1H</button>
-<button onclick="setTFQuick('1d')" style="background:#f59e0b;color:black;flex:1">D</button>
-</div>
-</div>
-<div class="box">
-<b>STEP 3: ANALYSIS - <span id="analysisPair">EUR/USD</span> - FROM REAL WORLDWIDE CANDLES</b>
-<div class="mini">Last: <b id="lastAnalysisTime">-</b> | Time: <b id="analysisTime2">-</b> | Live: <b id="analysisPrice">-</b> | Candles: <b id="analysisCandleCount">0 REAL</b> | Session: <b id="analysisSession">-</b> | News: <b id="analysisNews">Checking...</b></div>
-<div id="verdictBox" class="verdictWait" style="margin-top:12px">⏳ TAP ⚡ FAST ANALYSIS - REAL DATA</div>
-<div style="margin-top:12px"><b>Confidence: <span id="confVal">-</span></b><div class="bar"><div id="confBar" class="barFill" style="width:50%"></div></div><div class="mini">Need 70%+ to trade. From real RSI / EMA / MACD / Support.</div></div>
-<div style="margin-top:10px">
-<div class="checkRow"><span>📈 Trend (EMA 20/50) - REAL</span><b id="cTrend">-</b></div>
-<div class="checkRow"><span>📊 RSI (14) - REAL</span><b id="cRsi">-</b></div>
-<div class="checkRow"><span>📉 MACD - REAL</span><b id="cMacd">-</b></div>
-<div class="checkRow"><span>📦 Bollinger - REAL</span><b id="cBb">-</b></div>
-<div class="checkRow"><span>📍 Support / Resistance - REAL</span><b id="cSr">-</b></div>
-<div class="checkRow"><span>📰 News</span><b id="cNews">-</b></div>
-<div class="checkRow"><span>🕯️ Last Candles - REAL</span><b id="cPattern">-</b></div>
-<div class="checkRow"><span>🕐 Session</span><b id="cSession">-</b></div>
-<div class="checkRow"><span>🌪️ ATR - REAL</span><b id="cVol">-</b></div>
-<div class="checkRow"><span>🛡️ Trust Mode</span><b id="cTrust">-</b></div>
-</div>
-<button onclick="toggleWork()" style="background:#f59e0b;color:black;width:100%;margin-top:12px">🔍 SHOW MY WORK - REAL DATA</button>
-<div id="workBox" class="workBox">Tap Show My Work...</div>
-</div>
-<div class="box" style="background:#0ea5e9;color:white">
-<b>STEP 4: COPY TO BROKER - FROM REAL PRICE</b>
-<div class="bigNum">
-Pair: <b id="planPair">EUR/USD</b> <button class="copyBtn" onclick="copyOne('planPair','Pair')">Copy</button><br>
-Direction: <b id="planDir">WAIT</b> <button class="copyBtn" onclick="copyOne('planDir','Direction')">Copy</button><br>
-Entry (REAL WORLDWIDE): <b id="planEntry">-</b> <button class="copyBtn" style="background:#22c55e;color:white" onclick="copyOne('planEntry','Entry')">📋 Copy Entry</button> <span style="font-size:11px;color:#666" id="entryAge"></span><br>
-Stop Loss: <b id="planSL">-</b> <button class="copyBtn" style="background:#ef4444;color:white" onclick="copyOne('planSL','SL')">📋 Copy SL</button><br>
-Take Profit 1: <b id="planTP1">-</b> <button class="copyBtn" style="background:#2962ff;color:white" onclick="copyOne('planTP1','TP1')">📋 Copy TP1</button><br>
-Take Profit 2: <b id="planTP2">-</b> <button class="copyBtn" style="background:#2962ff;color:white" onclick="copyOne('planTP2','TP2')">📋 Copy TP2</button><br>
-Lot Size: <b id="planLot">-</b> <button class="copyBtn" onclick="copyOne('planLot','Lot')">Copy</button><br>
-Risk: $<span id="planRisk">-</span> | RR: <b id="planRR">-</b> | Best: <b id="planTime">-</b>
-</div>
-<p id="copyMsg" style="font-size:13px;color:#fef08a;margin:8px 0"></p>
-<div style="display:flex;gap:8px;flex-wrap:wrap">
-<button onclick="copyAll()" style="background:white;color:black;flex:1">📋 COPY ALL</button>
-<button onclick="copyPlanWhatsApp()" style="background:#22c55e;color:white;flex:1">💬 WHATSAPP</button>
-</div>
-</div>
-<div class="box">
-<b>STEP 5: CORRECT APPROACH - REAL TRADE</b>
-<div id="approachBox" style="background:#0f172a;padding:12px;border-radius:10px;margin-top:10px;font-size:14px;line-height:1.7">Tap FAST ANALYSIS...</div>
-</div>
-<div class="box" style="border:2px solid #22c55e">
-<b>STEP 6: LOG YOUR REAL TRADE</b><br>
-<label>Result:</label>
-<select id="tradeResult"><option value="WIN">✅ WIN</option><option value="LOSS">❌ LOSS</option><option value="BREAKEVEN">➖ BREAKEVEN</option><option value="WAITED">⏳ WAITED</option></select>
-<label>Profit / Loss ($):</label><input id="tradeProfit" type="number" value="0">
-<label>Followed 100%?</label><select id="followedPlan"><option value="YES">YES - 100%</option><option value="NO">NO - Moved SL / bigger lot / news</option><option value="PARTIAL">PARTIAL</option></select>
-<label>Note:</label><input id="tradeNote" placeholder="e.g. Waited for Support">
-<button onclick="logRealTrade()" style="background:#22c55e;color:white;width:100%;margin-top:8px">✅ SAVE</button>
-<p id="logMsg" style="font-size:13px;color:#facc15"></p>
-<b>📜 HISTORY:</b><div id="historyList" style="margin-top:8px"></div>
-</div>
-<div class="box">
-<b>🔥 TODAY'S TOP 3 - <span id="date2"></span></b>
-<div style="background:#0ea5e9;padding:12px;border-radius:12px;margin-top:10px"><b>1. EUR/USD - BUY</b><br>Entry 1.0850 | SL 1.0820 | TP 1.0910 | 82% <button class="copyBtn" onclick="copySignal('EUR/USD BUY Entry 1.0850 SL 1.0820 TP1 1.0880 TP2 1.0910 Lot 0.01')">📋 Copy</button></div>
-<div style="background:#f59e0b;color:black;padding:12px;border-radius:12px;margin-top:10px"><b>2. GOLD - SELL</b><br>Entry 2650 | SL 2665 | TP 2620 | 75% <button class="copyBtn" onclick="copySignal('GOLD SELL Entry 2650 SL 2665 TP1 2635 TP2 2620 Lot 0.01')">📋 Copy</button></div>
-<div style="background:#7c3aed;padding:12px;border-radius:12px;margin-top:10px"><b>3. US30 - BUY</b><br>Entry 44200 | SL 44000 | TP 44700 | 71% <button class="copyBtn" onclick="copySignal('US30 BUY Entry 44200 SL 44000 TP1 44500 TP2 44700 Lot 0.01')">📋 Copy</button></div>
-</div>
-<p style="text-align:center;padding:20px 0 30px"><small>V22 - Real Trade Worldwide: Deriv for Forex, Binance for Crypto. No fake candles. Trial 14 Days, Then 300 KES / Week to 0181628290.</small></p>
-</div>
-</div>
-<div class="bottomBar">
-<div class="bottomInfo"><span id="bottomPair">EUR/USD</span><br><b id="bottomVerdict">⏳ TAP FAST ANALYSIS</b></div>
-<button onclick="copyAll()" style="background:white;color:black">📋 COPY ALL</button>
-<button onclick="runFastAnalysis()" style="background:#22c55e;color:white">⚡ FAST</button>
-</div>
-<script src="https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js"></script>
+<div id="paywallOverlay" class="paywallOverlay"><div class="payCard"><h2>🔒 FREE TRIAL ENDED</h2><p>Pay <b style="color:#facc15;font-size:20px">300 KES / Week</b></p><div style="background:#0f172a;padding:14px;border-radius:12px;text-align:left">M-Pesa Send Money 300 KES to:<div style="background:white;color:black;padding:12px;border-radius:10px;text-align:center;font-size:22px;font-weight:bold;margin:8px 0">0181628290</div>Enter SMS Code below</div><input id="mpesaCodeInput" placeholder="e.g. QK7XAB12CD" style="text-transform:uppercase;text-align:center;font-size:18px;font-weight:bold" maxlength="12"><input id="payerPhoneInput" placeholder="0722123456" type="tel"><button onclick="submitPayment()" style="background:#22c55e;color:white;width:100%;margin-top:10px">✅ I PAID 300 - UNLOCK 7 DAYS</button><p id="payMsg" style="color:#facc15"></p><button onclick="openOwnerLogin()" style="background:#334155;color:white;width:100%">👑 Owner Login</button><div id="ownerLoginBox" style="display:none;margin-top:10px;background:#0f172a;padding:12px;border-radius:10px"><input id="ownerCodeInput" placeholder="Enter owner code" type="password"><button onclick="submitOwnerCode()" style="background:#f59e0b;color:black;width:100%;margin-top:8px">🔓 Unlock As Owner</button></div></div></div>
+<div class="app"><div class="topBar"><div><h2>🎯 FOREX FLIP PRO 🇰🇪 V25 ⚡ TRADINGVIEW CHART</h2><p><span class="liveDot"></span> <span id="syncStatus">LIVE</span> | <span id="date"></span> | <span id="nairobiTime"></span> | WR: <b id="topWR">-</b></p></div><button onclick="toggleFullscreen()" style="background:#334155;color:white;padding:8px 12px">⛶ Full</button></div>
+<div class="content"><div id="trialBanner" class="trialBanner">🎁 FREE TRIAL: Loading...</div>
+<div class="trustBox" id="trustBox"><div style="display:flex;justify-content:space-between"><b>🛡️ TRUST MODE</b><div><span id="trustLabel">ON</span> <span class="trustToggle on" id="trustToggle" onclick="toggleTrust()"></span></div></div><p class="mini">Blocks if Confidence &lt;70%, Asia, 2 losses, News in 30 mins.</p><div style="margin-top:10px"><b>Discipline: <span id="disciplineScore">100%</span></b><div class="bar"><div id="disciplineBar" class="barFill" style="width:100%"></div></div></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px;text-align:center"><div style="background:#1e293b;padding:10px;border-radius:10px"><b id="todayTrades">0</b><br><span style="font-size:11px">Trades Today</span></div><div style="background:#1e293b;padding:10px;border-radius:10px"><b id="todayLosses" style="color:#ef4444">0</b><br><span style="font-size:11px">Losses</span></div><div style="background:#1e293b;padding:10px;border-radius:10px"><b id="trustStatus">✅ ALLOWED</b><br><span style="font-size:11px">Trust</span></div><div style="background:#1e293b;padding:10px;border-radius:10px"><b id="trustUnlock">🔒 $10 Mode</b><br><span style="font-size:11px">Unlock</span></div></div><div id="trustBlockMsg" style="display:none;background:#ef4444;color:white;padding:12px;border-radius:10px;margin-top:10px;font-weight:bold;text-align:center"></div><div id="trustAllowMsg" style="background:#22c55e;color:white;padding:10px;border-radius:10px;margin-top:10px;text-align:center;font-size:13px">✅ TRUST MODE: Allowed</div></div>
+<div class="newsBox"><b>📰 LIVE NEWS - KENYA TIME</b><div style="display:flex;gap:6px;margin-top:8px"><button onclick="fetchNews(true)" style="background:#f59e0b;color:black;flex:1">🔄 Refresh News</button><button onclick="window.open('https://www.forexfactory.com/calendar','_blank')" style="background:white;color:black;flex:1">📅 ForexFactory</button></div><div id="newsWarning" style="margin-top:10px"></div><div id="newsList" style="margin-top:8px"><p class="mini">Loading news...</p></div></div>
+
+<div class="box" style="border:2px solid #22c55e"><b>🌍 REAL - <span id="tickPair">EUR/USD</span> <span style="background:#22c55e;color:white;padding:4px 8px;border-radius:20px;font-size:11px">✅ TRADINGVIEW + 3 SOURCES</span></b>
+<div class="tickBox" id="tickBox"><div><div class="mini">LIVE PRICE - TRIES 3 SOURCES EVERY 3 SEC - ONE WILL WORK</div><div id="liveTickPrice" style="font-size:32px;font-weight:bold">Loading...</div><div class="mini" id="tickChange">-</div><div class="mini">Polls: <b id="tickCount">0</b> | Working Source: <b id="workingSource" style="color:#22c55e">Checking...</b> | Last update: <b id="lastTickTime">-</b></div><div class="tickHistory" id="tickHistory"></div></div><div style="text-align:right"><div id="tickDir" style="font-size:32px">⏳</div><div class="mini" id="tickAge">-</div></div></div>
+<div class="mini" style="margin-top:6px">Status: <b id="pollStatus">Checking 3 sources...</b> | <span id="errorMsg" style="color:#facc15"></span></div>
+<div class="mini" style="margin-top:6px;color:#facc15">If chart moves but price box is slow, use CHART price to enter - Chart is TradingView real, price box is helper.</div></div>
+
+<div class="box"><b>STEP 1: PAIR</b><br><div style="margin-top:10px"><button class="tabBtn active" onclick="showCat('forex',this)">💱 FOREX</button><button class="tabBtn" onclick="showCat('metal',this)">🥇 METALS</button><button class="tabBtn" onclick="showCat('energy',this)">🛢️ OIL</button><button class="tabBtn" onclick="showCat('index',this)">📈 INDICES</button><button class="tabBtn" onclick="showCat('crypto',this)">₿ CRYPTO</button><button class="tabBtn" onclick="showCat('local',this)">🇰🇪 KENYA</button></div><div id="pairList" style="margin-top:10px"></div><label>Balance ($):</label><input id="accountBal" type="number" value="100" oninput="runFastAnalysis()"><label>Risk:</label><select id="riskPct" onchange="runFastAnalysis()"><option value="1">1% - Safe</option><option value="2" selected>2% - Standard</option><option value="3">3% - Aggressive</option></select><label>Style:</label><select id="style" onchange="runFastAnalysis()"><option value="scalp">Scalp</option><option value="day" selected>Day Trade</option><option value="swing">Swing</option></select><label>Timeframe:</label><select id="tf" onchange="changeTF()"><option value="1" selected>1m - MOVES EVERY SECOND ✅</option><option value="5">5m</option><option value="15">15m - Slow, looks frozen</option><option value="60">1H</option><option value="D">1D</option></select></div>
+
+<div class="tvBox"><b>STEP 2: TRADINGVIEW CHART - MOVES LIKE REAL - <span id="pairLabel">EUR/USD</span> <span style="color:#22c55e;font-size:12px">● LIVE - From TradingView Server</span></b><br><span class="mini" style="color:#666">This chart is NOT from GitHub. It comes directly from TradingView.com server. So it MUST move like TradingView.com. If this chart is frozen, then TradingView.com itself is frozen (weekend / market closed). Watch last candle grow.</span>
+<div id="tvWidget" style="height:420px;width:100%"></div>
+<div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap"><button onclick="runFastAnalysis()" style="background:#22c55e;color:white;flex:1">⚡ FAST ANALYSIS</button><button onclick="loadTVChart()" style="background:#2962ff;color:white;flex:1">🔄 RELOAD CHART</button><button onclick="openFullTV()" style="background:#f59e0b;color:black;flex:1">📊 Full TradingView ↗</button></div><div style="display:flex;gap:6px;margin-top:6px"><button onclick="setTFQuick('1')" style="background:#22c55e;color:white;flex:1">1m ⚡ MOVES</button><button onclick="setTFQuick('5')" style="background:#e5e7eb;color:black;flex:1">5m</button><button onclick="setTFQuick('15')" style="background:#e5e7eb;color:black;flex:1">15m</button><button onclick="setTFQuick('60')" style="background:#e5e7eb;color:black;flex:1">1H</button></div></div>
+
+<div class="box"><b>STEP 3: ANALYSIS - <span id="analysisPair">EUR/USD</span></b><div class="mini">Last: <b id="lastAnalysisTime">-</b> | Live: <b id="analysisPrice">-</b> | Session: <b id="analysisSession">-</b> | News: <b id="analysisNews">Checking...</b></div><div id="verdictBox" class="verdictWait" style="margin-top:12px">⏳ TAP ⚡ FAST ANALYSIS</div><div style="margin-top:12px"><b>Confidence: <span id="confVal">-</span></b><div class="bar"><div id="confBar" class="barFill" style="width:50%"></div></div></div><div style="margin-top:10px"><div class="checkRow"><span>📈 Trend</span><b id="cTrend">-</b></div><div class="checkRow"><span>📊 RSI</span><b id="cRsi">-</b></div><div class="checkRow"><span>📉 MACD</span><b id="cMacd">-</b></div><div class="checkRow"><span>📦 Bollinger</span><b id="cBb">-</b></div><div class="checkRow"><span>📍 Support / Resistance</span><b id="cSr">-</b></div><div class="checkRow"><span>📰 News</span><b id="cNews">-</b></div><div class="checkRow"><span>🕯️ Last Candles</span><b id="cPattern">-</b></div><div class="checkRow"><span>🕐 Session</span><b id="cSession">-</b></div><div class="checkRow"><span>🌪️ ATR</span><b id="cVol">-</b></div><div class="checkRow"><span>🛡️ Trust</span><b id="cTrust">-</b></div></div><button onclick="toggleWork()" style="background:#f59e0b;color:black;width:100%;margin-top:12px">🔍 SHOW MY WORK</button><div id="workBox" class="workBox">Tap Show My Work...</div></div>
+
+<div class="box" style="background:#0ea5e9;color:white"><b>STEP 4: COPY TO BROKER - USE CHART PRICE IF BOX IS SLOW</b><div class="bigNum">Pair: <b id="planPair">EUR/USD</b> <button class="copyBtn" onclick="copyOne('planPair','Pair')">Copy</button><br>Direction: <b id="planDir">WAIT</b> <button class="copyBtn" onclick="copyOne('planDir','Direction')">Copy</button><br>Entry (LIVE): <b id="planEntry">-</b> <button class="copyBtn" style="background:#22c55e;color:white" onclick="copyOne('planEntry','Entry')">📋 Copy Entry</button> <span style="font-size:11px;color:#666" id="entryAge"></span><br>Stop Loss: <b id="planSL">-</b> <button class="copyBtn" style="background:#ef4444;color:white" onclick="copyOne('planSL','SL')">📋 Copy SL</button><br>Take Profit 1: <b id="planTP1">-</b> <button class="copyBtn" style="background:#2962ff;color:white" onclick="copyOne('planTP1','TP1')">📋 Copy TP1</button><br>Take Profit 2: <b id="planTP2">-</b> <button class="copyBtn" style="background:#2962ff;color:white" onclick="copyOne('planTP2','TP2')">📋 Copy TP2</button><br>Lot Size: <b id="planLot">-</b> <button class="copyBtn" onclick="copyOne('planLot','Lot')">Copy</button><br>Risk: $<span id="planRisk">-</span> | RR: <b id="planRR">-</b> | Best: <b id="planTime">-</b></div><p id="copyMsg" style="color:#fef08a"></p><div style="display:flex;gap:8px"><button onclick="copyAll()" style="background:white;color:black;flex:1">📋 COPY ALL</button><button onclick="copyPlanWhatsApp()" style="background:#22c55e;color:white;flex:1">💬 WHATSAPP</button></div></div>
+<div class="box"><b>STEP 5: APPROACH</b><div id="approachBox" style="background:#0f172a;padding:12px;border-radius:10px;margin-top:10px">Tap FAST ANALYSIS...</div></div>
+<div class="box" style="border:2px solid #22c55e"><b>STEP 6: LOG TRADE</b><br><label>Result:</label><select id="tradeResult"><option value="WIN">✅ WIN</option><option value="LOSS">❌ LOSS</option><option value="BREAKEVEN">➖ BREAKEVEN</option><option value="WAITED">⏳ WAITED</option></select><label>Profit ($):</label><input id="tradeProfit" type="number" value="0"><label>Followed 100%?</label><select id="followedPlan"><option value="YES">YES - 100%</option><option value="NO">NO</option><option value="PARTIAL">PARTIAL</option></select><label>Note:</label><input id="tradeNote" placeholder="e.g. Waited"><button onclick="logRealTrade()" style="background:#22c55e;color:white;width:100%;margin-top:8px">✅ SAVE</button><p id="logMsg" style="color:#facc15"></p><b>📜 HISTORY:</b><div id="historyList"></div></div>
+<p style="text-align:center;padding:20px 0 30px"><small>V25 - TradingView chart + 3 price sources. Trial 14 Days, Then 300 KES / Week to 0181628290.</small></p></div></div>
+<div class="bottomBar"><div class="bottomInfo"><span id="bottomPair">EUR/USD</span><br><b id="bottomVerdict">⏳ TAP FAST ANALYSIS</b></div><button onclick="copyAll()" style="background:white;color:black">📋 COPY ALL</button><button onclick="runFastAnalysis()" style="background:#22c55e;color:white">⚡ FAST</button></div>
+<script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
 <script>
-let pageStart = performance.now();
-window.addEventListener('load', ()=>{ let lt=document.getElementById('loadTime'); if(lt) lt.innerText = Math.round(performance.now()-pageStart)+'ms'; });
-let deferredPrompt=null;
-window.addEventListener('beforeinstallprompt', e=>{ e.preventDefault(); deferredPrompt=e; let b=document.getElementById('installBox'); if(b) b.style.display='block'; });
-function installPWA(){ if(deferredPrompt){ deferredPrompt.prompt(); deferredPrompt.userChoice.then(c=>{ if(c.outcome==='accepted') alert('✅ Added! Check Homescreen'); deferredPrompt=null; document.getElementById('installBox').style.display='none'; }); } else { alert('Android: Chrome ⋮ → Add to Home screen\n\niPhone: Share ⬆️ → Add to Home Screen'); } }
-function hideInstallBox(){ let b=document.getElementById('installBox'); if(b) b.style.display='none'; }
-if('serviceWorker' in navigator){ window.addEventListener('load', ()=>{ navigator.serviceWorker.register('./sw.js').catch(()=>{}); }); }
-function safeVal(id, def){ let el=document.getElementById(id); return el ? el.value : def; }
-function safeText(id, txt){ let el=document.getElementById(id); if(el) el.innerText=txt; }
-const MPESA_NUMBER = "0181628290";
-const OWNER_CODE = "EEANO_OWNER_2026";
-const TRIAL_DAYS = 14;
-const WEEK_MS = 7*24*60*60*1000;
-function getPayData(){ try{ return JSON.parse(localStorage.getItem('ff_pay_v16')||'{}'); }catch(e){ return {}; } }
-function savePayData(d){ localStorage.setItem('ff_pay_v16', JSON.stringify(d)); }
-function checkAccess(){
-  let pay=getPayData(); let now=Date.now();
-  if(pay.isOwner){ updateTrialBanner('owner', pay); return {allowed:true}; }
-  if(!pay.firstSeen){ pay.firstSeen=now; savePayData(pay); }
-  let trialEnd=pay.firstSeen + TRIAL_DAYS*24*60*60*1000;
-  let daysLeft=Math.ceil((trialEnd-now)/(24*60*60*1000));
-  if(pay.paidUntil && now < pay.paidUntil){ updateTrialBanner('paid', pay, Math.ceil((pay.paidUntil-now)/(24*60*60*1000)), trialEnd); return {allowed:true}; }
-  if(now < trialEnd){ updateTrialBanner('trial', pay, daysLeft, trialEnd); return {allowed:true}; }
-  updateTrialBanner('expired', pay, 0, trialEnd); showPaywall(pay, trialEnd); return {allowed:false};
-}
-function updateTrialBanner(mode, pay, daysLeft, trialEnd){
-  let el=document.getElementById('trialBanner'); if(!el) return;
-  if(mode==='owner'){ el.className='trialBanner'; el.innerHTML='👑 OWNER MODE - FREE FOREVER'; }
-  else if(mode==='paid'){ el.className='trialBanner'; el.innerHTML='✅ PAID - Until '+new Date(pay.paidUntil).toLocaleDateString('en-KE')+' ('+daysLeft+' days) | Next: 300 KES to 0181628290'; }
-  else if(mode==='trial'){ el.className= daysLeft<=3 ? 'trialBanner warning' : 'trialBanner'; el.innerHTML='🎁 FREE TRIAL: '+daysLeft+' days left - Free until '+new Date(trialEnd).toLocaleDateString('en-KE')+' | After: 300 KES / Week to 0181628290'; }
-  else if(mode==='expired'){ el.className='trialBanner expired'; el.innerHTML='🔒 TRIAL ENDED - Pay 300 KES / Week to 0181628290'; }
-}
-function showPaywall(pay, trialEnd){ let ov=document.getElementById('paywallOverlay'); ov.style.display='block'; }
-function hidePaywall(){ document.getElementById('paywallOverlay').style.display='none'; }
-function openOwnerLogin(){ let b=document.getElementById('ownerLoginBox'); b.style.display=b.style.display==='block'?'none':'block'; }
-function submitOwnerCode(){ let code=document.getElementById('ownerCodeInput').value.trim(); if(code===OWNER_CODE){ let pay=getPayData(); pay.isOwner=true; savePayData(pay); alert('👑 Welcome Owner! Free Forever.'); hidePaywall(); checkAccess(); } else { alert('❌ Wrong code.'); } }
-function submitPayment(){
-  let code=document.getElementById('mpesaCodeInput').value.trim().toUpperCase(); let phone=document.getElementById('payerPhoneInput').value.trim(); let msg=document.getElementById('payMsg');
-  if(!code || code.length<8 || code.length>12){ msg.innerText='❌ Enter valid M-Pesa code like QK7XAB12CD'; return; }
-  let pay=getPayData(); let used=pay.usedCodes||[]; if(used.includes(code)){ msg.innerText='❌ Code already used.'; return; }
-  if(!phone || phone.length<10){ msg.innerText='❌ Enter phone.'; return; }
-  used.push(code); pay.usedCodes=used; pay.lastCode=code; pay.lastPhone=phone; pay.paidUntil=Date.now()+WEEK_MS; savePayData(pay);
-  alert('✅ Payment Accepted! Unlocked until '+new Date(pay.paidUntil).toLocaleDateString('en-KE'));
-  hidePaywall(); checkAccess(); runFastAnalysis();
-}
-function isAccessAllowed(){ let pay=getPayData(); if(pay.isOwner) return true; let now=Date.now(); if(pay.paidUntil && now<pay.paidUntil) return true; if(pay.firstSeen && now < pay.firstSeen + TRIAL_DAYS*24*60*60*1000) return true; return false; }
-let trustMode=true; let candleCache={}; let isFetching=false;
-let chart=null, candleSeries=null, volumeSeries=null, chartTheme='light';
-let wsBinance=null, wsDeriv=null, tickCountTotal=0, lastTickAt=Date.now(), derivConnected=false;
-function toggleTrust(){ trustMode=!trustMode; let t=document.getElementById('trustToggle'); if(t) t.className='trustToggle '+(trustMode?'on':''); safeText('trustLabel', trustMode?'ON':'OFF'); runFastAnalysis(); updateTrustUI(); }
-function toggleFullscreen(){ if(!document.fullscreenElement){ document.documentElement.requestFullscreen().catch(()=>{}); } else { document.exitFullscreen(); } }
-function toggleWork(){ let el=document.getElementById('workBox'); if(el) el.style.display=el.style.display==='block'?'none':'block'; }
-function toggleChartTheme(){ chartTheme = chartTheme==='light' ? 'dark' : 'light'; initChart(); reloadChart(); }
-function openFullTV(){ let map={'EUR/USD':'OANDA:EURUSD','GBP/USD':'OANDA:GBPUSD','USD/JPY':'OANDA:USDJPY','XAU/USD':'OANDA:XAUUSD','BTC/USD':'BINANCE:BTCUSDT','ETH/USD':'BINANCE:ETHUSDT'}; let sym=map[currentPair]||'OANDA:EURUSD'; window.open('https://www.tradingview.com/chart/?symbol='+encodeURIComponent(sym),'_blank'); }
-function setTFQuick(tf){ let sel=document.getElementById('tf'); if(sel) sel.value=tf; changeTF(); }
-function initChart(){
-  let container=document.getElementById('tvChart'); if(!container || !window.LightweightCharts) return;
-  if(chart){ try{ chart.remove(); }catch(e){} }
-  container.innerHTML='';
-  let isLight = chartTheme==='light';
-  chart = LightweightCharts.createChart(container, {
-    width: container.clientWidth || 360,
-    height: 420,
-    layout: { background: { color: isLight ? '#ffffff' : '#131722' }, textColor: isLight ? '#000000' : '#d1d4dc', fontSize: 12, fontFamily: 'Arial' },
-    grid: { vertLines: { color: isLight ? '#e5e7eb' : '#1e222d' }, horzLines: { color: isLight ? '#e5e7eb' : '#1e222d' } },
-    rightPriceScale: { borderColor: isLight ? '#cccccc' : '#2a2e39', visible: true },
-    timeScale: { borderColor: isLight ? '#cccccc' : '#2a2e39', timeVisible: true, secondsVisible: false, rightOffset: 2 },
-    crosshair: { mode: 1 },
-  });
-  candleSeries = chart.addCandlestickSeries({ upColor: '#26a69a', downColor: '#ef5350', borderVisible: false, wickUpColor: '#26a69a', wickDownColor: '#ef5350' });
-  volumeSeries = chart.addHistogramSeries({ priceFormat: { type: 'volume' }, priceScaleId: '' });
-  chart.timeScale().fitContent();
-  window.addEventListener('resize', ()=>{ if(chart) chart.applyOptions({ width: container.clientWidth }); });
-}
-function updateLightChart(){
-  if(!candleSeries || candleData.length===0) return;
+function safeVal(id,d){let e=document.getElementById(id);return e?e.value:d} function safeText(id,t){let e=document.getElementById(id);if(e)e.innerText=t}
+const OWNER_CODE="EEANO_OWNER_2026"; const TRIAL_DAYS=14; const WEEK_MS=7*24*60*60*1000;
+function getPayData(){try{return JSON.parse(localStorage.getItem('ff_pay_v16')||'{}')}catch(e){return{}}} function savePayData(d){localStorage.setItem('ff_pay_v16',JSON.stringify(d))}
+function checkAccess(){let pay=getPayData();let now=Date.now();if(pay.isOwner){updateTrialBanner('owner',pay);return{allowed:true}} if(!pay.firstSeen){pay.firstSeen=now;savePayData(pay)} let trialEnd=pay.firstSeen+TRIAL_DAYS*24*60*60*1000;let daysLeft=Math.ceil((trialEnd-now)/(24*60*60*1000)); if(pay.paidUntil&&now<pay.paidUntil){updateTrialBanner('paid',pay,Math.ceil((pay.paidUntil-now)/(24*60*60*1000)),trialEnd);return{allowed:true}} if(now<trialEnd){updateTrialBanner('trial',pay,daysLeft,trialEnd);return{allowed:true}} updateTrialBanner('expired',pay,0,trialEnd);document.getElementById('paywallOverlay').style.display='block';return{allowed:false}}
+function updateTrialBanner(mode,pay,daysLeft,trialEnd){let el=document.getElementById('trialBanner');if(!el)return; if(mode==='owner')el.innerHTML='👑 OWNER MODE - FREE FOREVER'; else if(mode==='paid')el.innerHTML='✅ PAID - Until '+new Date(pay.paidUntil).toLocaleDateString('en-KE')+' ('+daysLeft+' days)'; else if(mode==='trial'){el.innerHTML='🎁 FREE TRIAL: '+daysLeft+' days left | After: 300 KES / Week to 0181628290'} else{el.innerHTML='🔒 TRIAL ENDED - Pay 300 KES / Week to 0181628290'}}
+function hidePaywall(){document.getElementById('paywallOverlay').style.display='none'} function openOwnerLogin(){let b=document.getElementById('ownerLoginBox');b.style.display=b.style.display==='block'?'none':'block'}
+function submitOwnerCode(){let c=document.getElementById('ownerCodeInput').value.trim();if(c===OWNER_CODE){let p=getPayData();p.isOwner=true;savePayData(p);alert('👑 Welcome Owner!');hidePaywall();checkAccess()}else alert('❌ Wrong code.')}
+function submitPayment(){let code=document.getElementById('mpesaCodeInput').value.trim().toUpperCase();let phone=document.getElementById('payerPhoneInput').value.trim();let msg=document.getElementById('payMsg');if(!code||code.length<8){msg.innerText='❌ Enter valid M-Pesa code';return} let pay=getPayData();let used=pay.usedCodes||[];if(used.includes(code)){msg.innerText='❌ Code already used.';return} if(!phone||phone.length<10){msg.innerText='❌ Enter phone.';return} used.push(code);pay.usedCodes=used;pay.paidUntil=Date.now()+WEEK_MS;savePayData(pay);alert('✅ Unlocked until '+new Date(pay.paidUntil).toLocaleDateString('en-KE'));hidePaywall();checkAccess();runFastAnalysis()}
+function isAccessAllowed(){let pay=getPayData();if(pay.isOwner)return true;let now=Date.now();if(pay.paidUntil&&now<pay.paidUntil)return true;if(pay.firstSeen&&now<pay.firstSeen+TRIAL_DAYS*24*60*60*1000)return true;return false}
+let trustMode=true,currentConf=0,currentDir='WAIT',currentTF='1',candleData=[];
+let realPrice=1.0850,prevPrice=1.0850,tickCountTotal=0,lastTickAt=Date.now(),tickHistoryArr=[],pollTimer=null,workingSource='None';
+function toggleTrust(){trustMode=!trustMode;let t=document.getElementById('trustToggle');if(t)t.className='trustToggle '+(trustMode?'on':'');safeText('trustLabel',trustMode?'ON':'OFF');runFastAnalysis();updateTrustUI()}
+function toggleFullscreen(){if(!document.fullscreenElement){document.documentElement.requestFullscreen().catch(()=>{})}else{document.exitFullscreen()}}
+function toggleWork(){let el=document.getElementById('workBox');if(el)el.style.display=el.style.display==='block'?'none':'block'}
+function openFullTV(){let sym=MARKETS[currentPair].tv||'OANDA:EURUSD';window.open('https://www.tradingview.com/chart/?symbol='+encodeURIComponent(sym),'_blank')}
+function setTFQuick(tf){let s=document.getElementById('tf');if(s)s.value=tf;changeTF()}
+function loadTVChart(){
+  let el=document.getElementById('tvWidget'); if(!el) return; el.innerHTML='';
+  let sym=MARKETS[currentPair].tv||'OANDA:EURUSD';
   try{
-    let nowSec = Math.floor(Date.now()/1000);
-    let tfSec = currentTF==='1m'?60 : currentTF==='5m'?300 : currentTF==='15m'?900 : currentTF==='1h'?3600 : currentTF==='4h'?14400 : 86400;
-    let data = candleData.map((c,i)=>{
-      let t = nowSec - (candleData.length-1-i)*tfSec;
-      t = Math.floor(t/tfSec)*tfSec;
-      if(c.time) t=c.time;
-      return { time: t, open: c.open, high: c.high, low: c.low, close: c.close };
-    });
-    let seen={}; let clean=[]; data.forEach(d=>{ if(!seen[d.time]){ seen[d.time]=1; clean.push(d); } else { clean[clean.length-1]=d; } });
-    candleSeries.setData(clean);
-    let vol = candleData.map((c,i)=>{ let t=clean[i]?clean[i].time:nowSec; return { time: t, value: Math.abs(c.close-c.open)*100000 + 100, color: c.close>=c.open ? 'rgba(38,166,154,0.5)' : 'rgba(239,83,80,0.5)' }; });
-    volumeSeries.setData(vol);
-    safeText('candleCountReal', String(candleData.length));
-    safeText('analysisCandleCount', candleData.length+' REAL');
-  }catch(e){}
+    new TradingView.widget({"autosize":true,"symbol":sym,"interval":currentTF,"timezone":"Africa/Nairobi","theme":"light","style":"1","locale":"en","enable_publishing":false,"allow_symbol_change":false,"container_id":"tvWidget","hide_side_toolbar":false,"save_image":false,"calendar":false,"support_host":"https://www.tradingview.com"});
+    safeText('pollStatus','TradingView chart loaded - From TradingView server - Must move like TradingView.com');
+  }catch(e){ el.innerHTML='<p style="color:#000">Chart loading... Tap Reload. If still blank, open TradingView.com - TradingView may be blocked.</p>'; }
 }
-function reloadChart(){ fetchRealCandles(true).then(()=>{ updateLightChart(); runFastAnalysis(); }); }
-let newsEvents=[], newsWarningText='No High Impact news';
-async function fetchNews(force){
-  try{
-    if(!force && Date.now()-(window._lastNews||0)<300000) return; window._lastNews=Date.now();
-    let r=await fetch('https://nfs.faireconomy.media/ff_calendar_thisweek.json'); let data=await r.json(); newsEvents=data;
-    let nowKenya=new Date(new Date().toLocaleString('en-US',{timeZone:'Africa/Nairobi'})); let todays=[];
-    data.forEach(ev=>{ let parts=ev.date.split('-'); let evDate=new Date(parts[2], parts[0]-1, parts[1]); let todayKenya=new Date(nowKenya.getFullYear(), nowKenya.getMonth(), nowKenya.getDate()); if(evDate.getTime()===todayKenya.getTime()) todays.push(ev); });
-    if(todays.length===0) todays=data.slice(0,12);
-    todays.sort((a,b)=>{ let imp={High:0,Medium:1,Low:2}; return (imp[a.impact]||3)-(imp[b.impact]||3); });
-    let highToday=todays.filter(e=>e.impact==='High');
-    let nowMins=nowKenya.getHours()*60+nowKenya.getMinutes(); let upcoming=[];
-    todays.forEach(e=>{ let t=e.time.toLowerCase(); let isPM=t.includes('pm'); let hm=t.replace('am','').replace('pm','').split(':'); let h=parseInt(hm[0])||0; let m=parseInt(hm[1])||0; if(isPM && h!==12) h+=12; if(!isPM && h===12) h=0; let eatH=(h+8)%24; let eatMins=eatH*60+m; let diff=eatMins-nowMins; if(e.impact==='High' && diff>=-30 && diff<=60) upcoming.push({ev:e, diff}); });
-    if(upcoming.length>0){ newsWarningText='🔴 HIGH IMPACT IN '+upcoming[0].diff+' mins: '+upcoming[0].ev.title; let w=document.getElementById('newsWarning'); if(w) w.innerHTML='<div style="background:#ef4444;color:white;padding:12px;border-radius:10px;font-weight:bold">🚨 '+newsWarningText+'</div>'; }
-    else if(highToday.length>0){ newsWarningText='High Impact today: '+highToday.map(e=>e.title+' ('+e.currency+')').join(', '); let w=document.getElementById('newsWarning'); if(w) w.innerHTML='<div style="background:#f59e0b;color:black;padding:10px;border-radius:10px;font-size:13px">⚠️ '+newsWarningText+'</div>'; }
-    else { newsWarningText='No High Impact - Safe'; let w=document.getElementById('newsWarning'); if(w) w.innerHTML='<div style="background:#22c55e;color:white;padding:10px;border-radius:10px;font-size:13px">✅ No High Impact in 60 mins - Safe</div>'; }
-    safeText('analysisNews', newsWarningText);
-    let html=''; todays.slice(0,10).forEach(e=>{ let cls=e.impact==='High'?'newsHigh':e.impact==='Medium'?'newsMed':'newsLow'; let icon=e.impact==='High'?'🔴':e.impact==='Medium'?'🟡':'🟢'; html+='<div class="newsItem '+cls+'"><b>'+icon+' '+e.currency+' - '+e.title+'</b><br><span class="mini">Impact: '+e.impact+' | Time: '+e.time+' ET</span></div>'; });
-    let nl=document.getElementById('newsList'); if(nl) nl.innerHTML=html; updateTrustUI();
-  }catch(err){ let nl=document.getElementById('newsList'); if(nl) nl.innerHTML='<p class="mini">News unavailable - Tap ForexFactory.</p>'; }
-}
-function isNewsBlockedForPair(pair){
-  if(!newsEvents) return false; let nowKenya=new Date(new Date().toLocaleString('en-US',{timeZone:'Africa/Nairobi'})); let nowMins=nowKenya.getHours()*60+nowKenya.getMinutes();
-  for(let e of newsEvents){ if(e.impact!=='High') continue; if(!pair.includes(e.currency) && !(pair.includes('XAU') && e.currency==='USD') && !(pair.includes('US30') && e.currency==='USD')) continue; let t=e.time.toLowerCase(); let isPM=t.includes('pm'); let hm=t.replace('am','').replace('pm','').split(':'); let h=parseInt(hm[0])||0; let m=parseInt(hm[1])||0; if(isPM&&h!==12)h+=12; if(!isPM&&h===12)h=0; let eatH=(h+8)%24; let eatMins=eatH*60+m; let diff=eatMins-nowMins; if(diff>=-30 && diff<=30) return e; } return false;
-}
-function getKenyaTime(){ let now=new Date(); let parts=new Intl.DateTimeFormat('en-KE',{timeZone:'Africa/Nairobi',hour:'numeric',minute:'numeric',second:'numeric',hour12:false}).formatToParts(now); let h=parseInt(parts.find(p=>p.type==='hour').value); if(h===24) h=0; let m=parseInt(parts.find(p=>p.type==='minute').value); let s=parseInt(parts.find(p=>p.type==='second').value); return {h,m,s,totalMin:h*60+m,now}; }
-function getSessionInfo(){ let k=getKenyaTime(); let mins=k.totalMin; let isSydney=mins>=0&&mins<540; let isTokyo=mins>=180&&mins<720; let isLondon=mins>=600&&mins<1140; let isNY=mins>=900&&mins<1440; let isOverlap=mins>=900&&mins<1140; let current=''; if(isOverlap) current='🔥 OVERLAP - BEST'; else if(isLondon) current='🇬🇧 LONDON - GOOD'; else if(isNY) current='🗽 NEW YORK - GOOD'; else if(isTokyo) current='🗼 TOKYO - SLOW'; else if(isSydney) current='🌏 SYDNEY - VERY SLOW'; else current='🌙 OFF HOURS'; let day=k.now.getDay(); if(day===6) current='❌ SATURDAY - CLOSED'; if(day===0&&mins<1380) current='❌ SUNDAY - CLOSED (Opens 11pm)'; return {k,current,isOverlap,isLondon,isNY,isTokyo,isSydney,day}; }
+let newsEvents=[],newsWarningText='No High Impact news';
+async function fetchNews(force){try{if(!force&&Date.now()-(window._lastNews||0)<300000)return;window._lastNews=Date.now();let r=await fetch('https://nfs.faireconomy.media/ff_calendar_thisweek.json');let data=await r.json();newsEvents=data;let nowKenya=new Date(new Date().toLocaleString('en-US',{timeZone:'Africa/Nairobi'}));let todays=[];data.forEach(ev=>{let p=ev.date.split('-');let d=new Date(p[2],p[0]-1,p[1]);let t=new Date(nowKenya.getFullYear(),nowKenya.getMonth(),nowKenya.getDate());if(d.getTime()===t.getTime())todays.push(ev)});if(todays.length===0)todays=data.slice(0,12);todays.sort((a,b)=>{let imp={High:0,Medium:1,Low:2};return(imp[a.impact]||3)-(imp[b.impact]||3)});let highToday=todays.filter(e=>e.impact==='High');let nowMins=nowKenya.getHours()*60+nowKenya.getMinutes();let upcoming=[];todays.forEach(e=>{let t=e.time.toLowerCase();let isPM=t.includes('pm');let hm=t.replace('am','').replace('pm','').split(':');let h=parseInt(hm[0])||0;let m=parseInt(hm[1])||0;if(isPM&&h!==12)h+=12;if(!isPM&&h===12)h=0;let eatH=(h+8)%24;let eatMins=eatH*60+m;let diff=eatMins-nowMins;if(e.impact==='High'&&diff>=-30&&diff<=60)upcoming.push({ev:e,diff})});if(upcoming.length>0){newsWarningText='🔴 HIGH IMPACT IN '+upcoming[0].diff+' mins: '+upcoming[0].ev.title;let w=document.getElementById('newsWarning');if(w)w.innerHTML='<div style="background:#ef4444;color:white;padding:12px;border-radius:10px;font-weight:bold">🚨 '+newsWarningText+'</div>'}else if(highToday.length>0){newsWarningText='High Impact today: '+highToday.map(e=>e.title+' ('+e.currency+')').join(', ');let w=document.getElementById('newsWarning');if(w)w.innerHTML='<div style="background:#f59e0b;color:black;padding:10px;border-radius:10px;font-size:13px">⚠️ '+newsWarningText+'</div>'}else{newsWarningText='No High Impact - Safe';let w=document.getElementById('newsWarning');if(w)w.innerHTML='<div style="background:#22c55e;color:white;padding:10px;border-radius:10px;font-size:13px">✅ No High Impact - Safe</div>'} safeText('analysisNews',newsWarningText);let html='';todays.slice(0,10).forEach(e=>{let cls=e.impact==='High'?'newsHigh':e.impact==='Medium'?'newsMed':'newsLow';let icon=e.impact==='High'?'🔴':e.impact==='Medium'?'🟡':'🟢';html+='<div class="newsItem '+cls+'"><b>'+icon+' '+e.currency+' - '+e.title+'</b><br><span class="mini">Impact: '+e.impact+' | Time: '+e.time+' ET</span></div>'});let nl=document.getElementById('newsList');if(nl)nl.innerHTML=html;updateTrustUI()}catch(err){let nl=document.getElementById('newsList');if(nl)nl.innerHTML='<p class="mini">News unavailable - Tap ForexFactory.</p>'}}
+function isNewsBlockedForPair(pair){if(!newsEvents)return false;let nowKenya=new Date(new Date().toLocaleString('en-US',{timeZone:'Africa/Nairobi'}));let nowMins=nowKenya.getHours()*60+nowKenya.getMinutes();for(let e of newsEvents){if(e.impact!=='High')continue;if(!pair.includes(e.currency)&&!(pair.includes('XAU')&&e.currency==='USD')&&!(pair.includes('US30')&&e.currency==='USD'))continue;let t=e.time.toLowerCase();let isPM=t.includes('pm');let hm=t.replace('am','').replace('pm','').split(':');let h=parseInt(hm[0])||0;let m=parseInt(hm[1])||0;if(isPM&&h!==12)h+=12;if(!isPM&&h===12)h=0;let eatH=(h+8)%24;let eatMins=eatH*60+m;let diff=eatMins-nowMins;if(diff>=-30&&diff<=30)return e}return false}
+function getKenyaTime(){let now=new Date();let parts=new Intl.DateTimeFormat('en-KE',{timeZone:'Africa/Nairobi',hour:'numeric',minute:'numeric',second:'numeric',hour12:false}).formatToParts(now);let h=parseInt(parts.find(p=>p.type==='hour').value);if(h===24)h=0;let m=parseInt(parts.find(p=>p.type==='minute').value);let s=parseInt(parts.find(p=>p.type==='second').value);return{h,m,s,totalMin:h*60+m,now}}
+function getSessionInfo(){let k=getKenyaTime();let mins=k.totalMin;let isSydney=mins>=0&&mins<540;let isTokyo=mins>=180&&mins<720;let isLondon=mins>=600&&mins<1140;let isNY=mins>=900&&mins<1440;let isOverlap=mins>=900&&mins<1140;let current='';if(isOverlap)current='🔥 OVERLAP - BEST';else if(isLondon)current='🇬🇧 LONDON - GOOD';else if(isNY)current='🗽 NEW YORK - GOOD';else if(isTokyo)current='🗼 TOKYO - SLOW';else if(isSydney)current='🌏 SYDNEY - VERY SLOW';else current='🌙 OFF HOURS';let day=k.now.getDay();if(day===6)current='❌ SATURDAY - CLOSED';if(day===0&&mins<1380)current='❌ SUNDAY - CLOSED (Opens 11pm)';return{k,current,isOverlap,isLondon,isNY,isTokyo,isSydney,day}}
 let MARKETS={
- 'EUR/USD':{cat:'forex',price:1.0850,dec:4,vol:0.0012,sup:1.0800,res:1.0900,binance:null, deriv:'frxEURUSD'},
- 'GBP/USD':{cat:'forex',price:1.2700,dec:4,vol:0.0018,sup:1.2620,res:1.2780,binance:null, deriv:'frxGBPUSD'},
- 'USD/JPY':{cat:'forex',price:151.20,dec:2,vol:0.85,sup:150.50,res:152.00,binance:null, deriv:'frxUSDJPY'},
- 'USD/CHF':{cat:'forex',price:0.8850,dec:4,vol:0.0010,sup:0.8800,res:0.8900,binance:null, deriv:'frxUSDCHF'},
- 'AUD/USD':{cat:'forex',price:0.6500,dec:4,vol:0.0012,sup:0.6450,res:0.6550,binance:null, deriv:'frxAUDUSD'},
- 'USD/CAD':{cat:'forex',price:1.3600,dec:4,vol:0.0012,sup:1.3550,res:1.3650,binance:null, deriv:'frxUSDCAD'},
- 'EUR/GBP':{cat:'forex',price:0.8550,dec:4,vol:0.0008,sup:0.8500,res:0.8600,binance:null, deriv:'frxEURGBP'},
- 'EUR/JPY':{cat:'forex',price:164.00,dec:2,vol:1.10,sup:163.00,res:165.00,binance:null, deriv:'frxEURJPY'},
- 'XAU/USD':{cat:'metal',price:2650,dec:2,vol:8.5,sup:2620,res:2665,binance:'PAXGUSDT', deriv:null},
- 'XAG/USD':{cat:'metal',price:31.20,dec:2,vol:0.35,sup:30.50,res:32.00,binance:null, deriv:'frxXAGUSD'},
- 'WTI OIL':{cat:'energy',price:71.50,dec:2,vol:0.85,sup:70.00,res:73.00,binance:null, deriv:null},
- 'BRENT OIL':{cat:'energy',price:75.20,dec:2,vol:0.90,sup:73.50,res:77.00,binance:null, deriv:null},
- 'NAT GAS':{cat:'energy',price:2.85,dec:3,vol:0.08,sup:2.70,res:3.00,binance:null, deriv:null},
- 'US30':{cat:'index',price:44200,dec:0,vol:180,sup:44000,res:44700,binance:null, deriv:'OTC_US30'},
- 'NAS100':{cat:'index',price:21400,dec:0,vol:120,sup:21200,res:21600,binance:null, deriv:'OTC_NAS100'},
- 'SPX500':{cat:'index',price:5980,dec:0,vol:25,sup:5950,res:6020,binance:null, deriv:'OTC_SPX500'},
- 'GER40':{cat:'index',price:19250,dec:0,vol:80,sup:19100,res:19400,binance:null, deriv:null},
- 'BTC/USD':{cat:'crypto',price:97200,dec:0,vol:850,sup:96000,res:98500,binance:'BTCUSDT', deriv:'cryBTCUSD'},
- 'ETH/USD':{cat:'crypto',price:3400,dec:0,vol:95,sup:3300,res:3500,binance:'ETHUSDT', deriv:'cryETHUSD'},
- 'SOL/USD':{cat:'crypto',price:215,dec:2,vol:8,sup:205,res:225,binance:'SOLUSDT', deriv:null},
- 'USD/KES':{cat:'local',price:129.50,dec:2,vol:0.40,sup:129.00,res:130.50,binance:null, deriv:null},
- 'GBP/KES':{cat:'local',price:164.80,dec:2,vol:0.60,sup:163.50,res:166.00,binance:null, deriv:null}
+ 'EUR/USD':{cat:'forex',price:1.0850,dec:4,vol:0.0012,tv:'OANDA:EURUSD',binance:null,base:'EUR',quote:'USD'},
+ 'GBP/USD':{cat:'forex',price:1.27,dec:4,vol:0.0018,tv:'OANDA:GBPUSD',binance:null,base:'GBP',quote:'USD'},
+ 'USD/JPY':{cat:'forex',price:151.2,dec:2,vol:0.85,tv:'OANDA:USDJPY',binance:null,base:'USD',quote:'JPY'},
+ 'USD/CHF':{cat:'forex',price:0.885,dec:4,vol:0.001,tv:'OANDA:USDCHF',binance:null,base:'USD',quote:'CHF'},
+ 'AUD/USD':{cat:'forex',price:0.65,dec:4,vol:0.0012,tv:'OANDA:AUDUSD',binance:null,base:'AUD',quote:'USD'},
+ 'USD/CAD':{cat:'forex',price:1.36,dec:4,vol:0.0012,tv:'OANDA:USDCAD',binance:null,base:'USD',quote:'CAD'},
+ 'EUR/GBP':{cat:'forex',price:0.855,dec:4,vol:0.0008,tv:'OANDA:EURGBP',binance:null,base:'EUR',quote:'GBP'},
+ 'EUR/JPY':{cat:'forex',price:164,dec:2,vol:1.1,tv:'OANDA:EURJPY',binance:null,base:'EUR',quote:'JPY'},
+ 'XAU/USD':{cat:'metal',price:2650,dec:2,vol:8.5,tv:'OANDA:XAUUSD',binance:'PAXGUSDT',base:'XAU',quote:'USD'},
+ 'XAG/USD':{cat:'metal',price:31.2,dec:2,vol:0.35,tv:'OANDA:XAGUSD',binance:null,base:'XAG',quote:'USD'},
+ 'WTI OIL':{cat:'energy',price:71.5,dec:2,vol:0.85,tv:'NYMEX:CL1!',binance:null,base:'WTI',quote:'USD'},
+ 'BRENT OIL':{cat:'energy',price:75.2,dec:2,vol:0.9,tv:'ICE:BRN1!',binance:null,base:'BRENT',quote:'USD'},
+ 'US30':{cat:'index',price:44200,dec:0,vol:180,tv:'DJ:DJI',binance:null,base:'US30',quote:'USD'},
+ 'NAS100':{cat:'index',price:21400,dec:0,vol:120,tv:'NASDAQ:NDX',binance:null,base:'NAS',quote:'USD'},
+ 'SPX500':{cat:'index',price:5980,dec:0,vol:25,tv:'SP:SPX',binance:null,base:'SPX',quote:'USD'},
+ 'BTC/USD':{cat:'crypto',price:97200,dec:0,vol:850,tv:'BINANCE:BTCUSDT',binance:'BTCUSDT',base:'BTC',quote:'USD'},
+ 'ETH/USD':{cat:'crypto',price:3400,dec:0,vol:95,tv:'BINANCE:ETHUSDT',binance:'ETHUSDT',base:'ETH',quote:'USD'},
+ 'SOL/USD':{cat:'crypto',price:215,dec:2,vol:8,tv:'BINANCE:SOLUSDT',binance:'SOLUSDT',base:'SOL',quote:'USD'},
+ 'USD/KES':{cat:'local',price:129.5,dec:2,vol:0.4,tv:'FX_IDC:USDKES',binance:null,base:'USD',quote:'KES'}
 };
-let currentPair='EUR/USD', currentCat='forex', realPrice=1.0850, prevPrice=1.0850, currentConf=0, currentDir='WAIT', currentTF='15m', candleData=[], isRealData=false;
-safeText('date', new Date().toDateString()); safeText('date2', new Date().toDateString());
-function showCat(cat,btn){ currentCat=cat; document.querySelectorAll('.tabBtn').forEach(b=>b.classList.remove('active')); if(btn) btn.classList.add('active'); renderPairs(); }
-function renderPairs(){ let html=''; Object.keys(MARKETS).forEach(k=>{ if(MARKETS[k].cat!==currentCat) return; let active=k===currentPair?'active':''; html+='<button class="pairBtn '+active+'" onclick="selectPair(\''+k+'\')">'+k+'</button>'; }); let el=document.getElementById('pairList'); if(el) el.innerHTML=html; }
-function selectPair(k){ if(!isAccessAllowed()){ checkAccess(); return; } currentPair=k; safeText('pairLabel',k); safeText('analysisPair',k); safeText('bottomPair',k); safeText('tickPair',k); candleData=[]; isRealData=false; startLiveTickWorldwide(); fetchRealCandles(true).then(()=>{ updateLightChart(); runFastAnalysis(); }); renderPairs(); }
-function changeTF(){ if(!isAccessAllowed()){ checkAccess(); return; } currentTF=safeVal('tf','15m'); candleData=[]; fetchRealCandles(true).then(()=>{ updateLightChart(); runFastAnalysis(); }); }
-function getHistory(){ try{ return JSON.parse(localStorage.getItem('ff_track_v9')||'[]'); }catch(e){ return []; } }
-function saveHistory(h){ localStorage.setItem('ff_track_v9', JSON.stringify(h)); }
-function updateTrustUI(){
-  try{
-    let h=getHistory(); let todayStr=new Date().toLocaleDateString('en-KE'); let todayTrades=h.filter(t=>t.date.startsWith(todayStr)); let todayLosses=todayTrades.filter(t=>t.result==='LOSS').length; let followed=h.filter(t=>t.followed==='YES').length; let total=h.filter(t=>t.followed==='YES'||t.followed==='NO').length; let disc= total>0 ? Math.round(followed/total*100) : 100;
-    safeText('todayTrades', String(todayTrades.length)); safeText('todayLosses', String(todayLosses)); safeText('disciplineScore', disc+'%'); safeText('disciplineDetail', followed+'/'+total); let bar=document.getElementById('disciplineBar'); if(bar) bar.style.width=disc+'%';
-    let unlock='🔒 $10 Mode'; let verdict='Need 20 trades.'; if(total>=20 && disc>=90){ unlock='✅ $50 Mode'; verdict='Discipline 90%+ - Can trust $50'; } else if(total>=20 && disc>=70){ unlock='🟡 $20 Mode'; }
-    safeText('trustUnlock', unlock); safeText('disciplineVerdict', verdict);
-    let sess=getSessionInfo(); let blocked=[];
-    if(!trustMode) blocked.push('Trust OFF');
-    else { if(currentConf>0 && currentConf<70) blocked.push('Conf '+currentConf+'% <70%'); if(currentDir==='WAIT') blocked.push('No edge - WAIT'); if(sess.isSydney || sess.isTokyo) blocked.push('Session: '+sess.current); if(todayLosses>=2) blocked.push('Lost 2 today - STOP'); let nb=isNewsBlockedForPair(currentPair); if(nb) blocked.push('NEWS: '+nb.title); if(sess.day===6 || (sess.day===0 && sess.k.totalMin<1380)) blocked.push('Weekend Closed'); }
-    let blockEl=document.getElementById('trustBlockMsg'); let allowEl=document.getElementById('trustAllowMsg'); let box=document.getElementById('trustBox'); let st=document.getElementById('trustStatus');
-    if(blocked.length>0 && trustMode){ if(blockEl){ blockEl.style.display='block'; blockEl.innerHTML='🔒 BLOCKED<br><span style="font-size:13px;font-weight:normal">'+blocked.join(' | ')+'</span>'; } if(allowEl) allowEl.style.display='none'; if(box) box.className='trustBox locked'; if(st) st.innerText='🔒 BLOCKED'; safeText('cTrust','🔒 BLOCKED - '+blocked[0]); }
-    else if(trustMode){ if(blockEl) blockEl.style.display='none'; if(allowEl) allowEl.style.display='block'; if(box) box.className='trustBox'; if(st) st.innerText='✅ ALLOWED'; safeText('cTrust','✅ ALLOWED'); }
-    else { if(blockEl) blockEl.style.display='none'; if(allowEl) allowEl.style.display='none'; if(box) box.className='trustBox'; if(st) st.innerText='⚠️ OFF'; safeText('cTrust','Trust OFF'); }
-    return blocked;
-  }catch(e){ return []; }
+let currentPair='EUR/USD',currentCat='forex';
+safeText('date',new Date().toDateString());
+function showCat(cat,btn){currentCat=cat;document.querySelectorAll('.tabBtn').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');renderPairs()}
+function renderPairs(){let html='';Object.keys(MARKETS).forEach(k=>{if(MARKETS[k].cat!==currentCat)return;let a=k===currentPair?'active':'';html+='<button class="pairBtn '+a+'" onclick="selectPair(\''+k+'\')">'+k+'</button>'});let el=document.getElementById('pairList');if(el)el.innerHTML=html}
+function selectPair(k){if(!isAccessAllowed()){checkAccess();return} currentPair=k;safeText('pairLabel',k);safeText('analysisPair',k);safeText('bottomPair',k);safeText('tickPair',k);loadTVChart();runFastAnalysis();renderPairs();startPolling()}
+function changeTF(){if(!isAccessAllowed()){checkAccess();return} currentTF=safeVal('tf','1');loadTVChart();runFastAnalysis()}
+function getHistory(){try{return JSON.parse(localStorage.getItem('ff_track_v9')||'[]')}catch(e){return[]}} function saveHistory(h){localStorage.setItem('ff_track_v9',JSON.stringify(h))}
+function updateTrustUI(){try{let h=getHistory();let todayStr=new Date().toLocaleDateString('en-KE');let todayTrades=h.filter(t=>t.date.startsWith(todayStr));let todayLosses=todayTrades.filter(t=>t.result==='LOSS').length;let followed=h.filter(t=>t.followed==='YES').length;let total=h.filter(t=>t.followed==='YES'||t.followed==='NO').length;let disc=total>0?Math.round(followed/total*100):100;safeText('todayTrades',String(todayTrades.length));safeText('todayLosses',String(todayLosses));safeText('disciplineScore',disc+'%');let bar=document.getElementById('disciplineBar');if(bar)bar.style.width=disc+'%';let sess=getSessionInfo();let blocked=[];if(!trustMode)blocked.push('Trust OFF');else{if(currentConf>0&&currentConf<70)blocked.push('Conf '+currentConf+'% <70%');if(currentDir==='WAIT')blocked.push('No edge - WAIT');if(sess.isSydney||sess.isTokyo)blocked.push('Session: '+sess.current);if(todayLosses>=2)blocked.push('Lost 2 today - STOP');let nb=isNewsBlockedForPair(currentPair);if(nb)blocked.push('NEWS: '+nb.title);if(sess.day===6||(sess.day===0&&sess.k.totalMin<1380))blocked.push('Weekend Closed')} let blockEl=document.getElementById('trustBlockMsg');let allowEl=document.getElementById('trustAllowMsg');let box=document.getElementById('trustBox');let st=document.getElementById('trustStatus');if(blocked.length>0&&trustMode){if(blockEl){blockEl.style.display='block';blockEl.innerHTML='🔒 BLOCKED<br><span style="font-size:13px;font-weight:normal">'+blocked.join(' | ')+'</span>'} if(allowEl)allowEl.style.display='none';if(box)box.className='trustBox locked';if(st)st.innerText='🔒 BLOCKED';safeText('cTrust','🔒 BLOCKED - '+blocked[0])}else if(trustMode){if(blockEl)blockEl.style.display='none';if(allowEl)allowEl.style.display='block';if(box)box.className='trustBox';if(st)st.innerText='✅ ALLOWED';safeText('cTrust','✅ ALLOWED')}else{if(blockEl)blockEl.style.display='none';if(allowEl)allowEl.style.display='none';if(box)box.className='trustBox';if(st)st.innerText='⚠️ OFF';safeText('cTrust','Trust OFF')} return blocked}catch(e){return[]}}
+// ===== V25: 3 SOURCES - Try each, use first that works =====
+async function fetchPriceFromBinance(){
+  let sym=MARKETS[currentPair].binance; if(!sym) return null;
+  try{ let r=await fetch('https://api.binance.com/api/v3/ticker/price?symbol='+sym); let j=await r.json(); if(j.price) return {price:parseFloat(j.price), src:'Binance'}; }catch(e){} return null;
 }
-// ===== REAL WORLDWIDE CANDLES: Deriv for Forex, Binance for Crypto =====
-function getTFGranularity(){ if(currentTF==='1m') return 60; if(currentTF==='5m') return 300; if(currentTF==='15m') return 900; if(currentTF==='1h') return 3600; if(currentTF==='4h') return 14400; if(currentTF==='1d') return 86400; return 900; }
-function fetchDerivCandles(){
-  return new Promise((resolve)=>{
-    let derivSym = MARKETS[currentPair].deriv;
-    if(!derivSym){ resolve(null); return; }
-    let ws = new WebSocket('wss://ws.binaryws.com/websockets/v3?app_id=1089');
-    let done=false;
-    ws.onopen = ()=>{
-      ws.send(JSON.stringify({ ticks_history: derivSym, count: 100, end: 'latest', style: 'candles', granularity: getTFGranularity() }));
-    };
-    ws.onmessage = (ev)=>{
-      try{
-        let d=JSON.parse(ev.data);
-        if(d.candles){
-          let candles = d.candles.map(c=>({ time: c.epoch, open: parseFloat(c.open), high: parseFloat(c.high), low: parseFloat(c.low), close: parseFloat(c.close) }));
-          if(candles.length>0){ realPrice=candles[candles.length-1].close; }
-          if(!done){ done=true; try{ ws.close(); }catch(e){} resolve(candles); }
-        } else if(d.error){ if(!done){ done=true; try{ ws.close(); }catch(e){} resolve(null); } }
-      }catch(e){ if(!done){ done=true; resolve(null); } }
-    };
-    ws.onerror = ()=>{ if(!done){ done=true; resolve(null); } };
-    setTimeout(()=>{ if(!done){ done=true; try{ ws.close(); }catch(e){} resolve(null); } }, 8000);
-  });
+async function fetchPriceFromExchangerate(){
+  try{ let r=await fetch('https://api.exchangerate-api.com/v4/latest/USD'); let j=await r.json(); let m=MARKETS[currentPair]; if(m.base==='USD' && j.rates[m.quote]) return {price:j.rates[m.quote], src:'Exchangerate'}; if(m.quote==='USD' && j.rates[m.base]) return {price:1/j.rates[m.base], src:'Exchangerate'}; if(m.base==='EUR' && m.quote==='GBP' && j.rates.EUR && j.rates.GBP) return {price:j.rates.GBP/j.rates.EUR, src:'Exchangerate'}; }catch(e){} return null;
 }
-async function fetchRealCandles(force){
-  let key=currentPair+'_'+currentTF;
-  if(!force && candleCache[key] && (Date.now()-candleCache[key].time < 60000) && candleData.length>0){ return candleData; }
-  if(isFetching) return candleData; isFetching=true;
-  let newData=null; isRealData=false;
+async function fetchPriceFromOpenER(){
+  try{ let r=await fetch('https://open.er-api.com/v6/latest/USD'); let j=await r.json(); let m=MARKETS[currentPair]; if(m.base==='USD' && j.rates[m.quote]) return {price:j.rates[m.quote], src:'OpenER'}; if(m.quote==='USD' && j.rates[m.base]) return {price:1/j.rates[m.base], src:'OpenER'}; }catch(e){} return null;
+}
+async function fetchPriceFromCoinGecko(){
+  let map={'BTC/USD':'bitcoin','ETH/USD':'ethereum','SOL/USD':'solana','XAU/USD':'pax-gold'}; let id=map[currentPair]; if(!id) return null;
+  try{ let r=await fetch('https://api.coingecko.com/api/v3/simple/price?ids='+id+'&vs_currencies=usd'); let j=await r.json(); if(j[id] && j[id].usd) return {price:j[id].usd, src:'CoinGecko'}; }catch(e){} return null;
+}
+async function pollOnce(){
   try{
-    // 1. Try Deriv for Forex - REAL WORLDWIDE
-    if(MARKETS[currentPair].deriv && !MARKETS[currentPair].binance){
-      newData = await fetchDerivCandles();
-      if(newData && newData.length>10){ isRealData=true; safeText('dataSourceLabel','Deriv - Real Worldwide Forex'); safeText('realBadge','✅ REAL - Deriv Worldwide'); }
-    }
-    // 2. Try Binance for Crypto / Gold - REAL WORLDWIDE
-    if(!newData && MARKETS[currentPair].binance){
-      let r=await fetch('https://api.binance.com/api/v3/klines?symbol='+MARKETS[currentPair].binance+'&interval='+currentTF+'&limit=100');
-      let j=await r.json();
-      if(j && j.length>10){ newData=j.map(c=>({ time: Math.floor(c[0]/1000), open:parseFloat(c[1]), high:parseFloat(c[2]), low:parseFloat(c[3]), close:parseFloat(c[4]) })); if(newData.length>0) realPrice=newData[newData.length-1].close; isRealData=true; safeText('dataSourceLabel','Binance - Real Worldwide Crypto'); safeText('realBadge','✅ REAL - Binance Worldwide'); }
-    }
-    // 3. Fallback - Use last known + live price, but mark as NOT real
-    if(!newData){
-      if(candleData.length>0){ newData=candleData.slice(); newData[newData.length-1].close=realPrice; isRealData=false; }
-      else {
-        let base=realPrice; newData=[];
-        for(let i=99;i>=0;i--){ let drift=(Math.random()-0.5)*MARKETS[currentPair].vol*0.4; let close=base - drift*i*0.05; let open=close + (Math.random()-0.5)*MARKETS[currentPair].vol*0.2; let high=Math.max(open,close)+MARKETS[currentPair].vol*0.1; let low=Math.min(open,close)-MARKETS[currentPair].vol*0.1; newData.unshift({open,high,low,close}); }
-        if(newData.length>0) newData[newData.length-1].close=realPrice;
-        isRealData=false;
-      }
-      safeText('dataSourceLabel','Fallback - Check Internet - Not Real'); safeText('realBadge','⚠️ FALLBACK - Reload');
-      let cl=document.getElementById('candleRealLabel'); if(cl) cl.innerText='FALLBACK'; 
+    let result=null;
+    // Try in order, first that works wins
+    result = await fetchPriceFromBinance();
+    if(!result) result = await fetchPriceFromExchangerate();
+    if(!result) result = await fetchPriceFromOpenER();
+    if(!result) result = await fetchPriceFromCoinGecko();
+    if(result && result.price>0){
+      workingSource=result.src; safeText('workingSource',result.src); safeText('pollStatus','✅ Working via '+result.src+' - Last poll OK');
+      onNewTick(result.price, result.src+' - 3s');
     } else {
-      let cl=document.getElementById('candleRealLabel'); if(cl) cl.innerText='REAL';
+      safeText('pollStatus','⚠️ All 3 sources blocked - Use CHART price (TradingView) to enter. Chart is real.');
+      safeText('workingSource','Chart Only - TradingView');
     }
-    candleData=newData; candleCache[key]={data:newData, time:Date.now()};
-  }catch(e){ }
-  isFetching=false; return candleData;
+  }catch(e){ safeText('pollStatus','⚠️ Poll error - Use Chart price'); }
 }
-// ===== REAL WORLDWIDE LIVE TICK: Deriv WS for Forex, Binance WS for Crypto =====
-function startLiveTickWorldwide(){
-  if(wsBinance){ try{ wsBinance.close(); }catch(e){} wsBinance=null; }
-  if(wsDeriv){ try{ wsDeriv.close(); }catch(e){} wsDeriv=null; }
-  let binSym = MARKETS[currentPair].binance;
-  let derivSym = MARKETS[currentPair].deriv;
-  if(binSym){
-    try{
-      wsBinance = new WebSocket('wss://stream.binance.com:9443/ws/'+binSym.toLowerCase()+'@trade');
-      wsBinance.onmessage = (ev)=>{ try{ let d=JSON.parse(ev.data); let p=parseFloat(d.p); if(p && p>0) onNewTick(p, 'Binance WS - Real Worldwide 0.2s'); }catch(e){} };
-      safeText('tickSource','Source: Binance WebSocket - Real Worldwide 0.2s');
-    }catch(e){}
-  }
-  if(derivSym && !binSym){
-    try{
-      wsDeriv = new WebSocket('wss://ws.binaryws.com/websockets/v3?app_id=1089');
-      wsDeriv.onopen = ()=>{ wsDeriv.send(JSON.stringify({ ticks: derivSym, subscribe: 1 })); };
-      wsDeriv.onmessage = (ev)=>{ try{ let d=JSON.parse(ev.data); if(d.tick && d.tick.quote){ let p=parseFloat(d.tick.quote); if(p && p>0) onNewTick(p, 'Deriv WS - Real Worldwide 1s'); } }catch(e){} };
-      safeText('tickSource','Source: Deriv WebSocket - Real Worldwide 1s - Same as London / NY');
-    }catch(e){}
-  }
-  if(!binSym && !derivSym){
-    safeText('tickSource','Source: Live - Check Internet');
-  }
-}
+function startPolling(){ if(pollTimer) clearInterval(pollTimer); pollOnce(); pollTimer=setInterval(pollOnce, 3000); }
 function onNewTick(newPrice, source){
-  if(!newPrice || newPrice<=0) return;
-  prevPrice = realPrice;
-  realPrice = newPrice;
-  tickCountTotal++;
-  lastTickAt = Date.now();
-  if(candleData.length>0){
-    let last = candleData[candleData.length-1];
-    last.close = newPrice;
-    last.high = Math.max(last.high, newPrice);
-    last.low = Math.min(last.low, newPrice);
-    if(candleSeries){
-      try{
-        let tfSec = getTFGranularity();
-        let t = last.time || Math.floor(Date.now()/1000/tfSec)*tfSec;
-        // If candle time is old, keep it, else update
-        candleSeries.update({ time: t, open: last.open, high: last.high, low: last.low, close: last.close });
-      }catch(e){}
-    }
-  }
+  if(!newPrice||newPrice<=0) return; prevPrice=realPrice; realPrice=newPrice; tickCountTotal++; lastTickAt=Date.now();
+  // Build simple candles for analysis from ticks - keep last 100 prices as candles
+  // Use price history as closes
+  if(!window._priceHist) window._priceHist=[];
+  window._priceHist.push(newPrice); if(window._priceHist.length>100) window._priceHist.shift();
+  // Create candles from hist in groups of 5 for analysis
+  candleData=[]; for(let i=0;i<window._priceHist.length;i+=5){ let chunk=window._priceHist.slice(i,i+5); if(chunk.length===0) continue; candleData.push({open:chunk[0],high:Math.max(...chunk),low:Math.min(...chunk),close:chunk[chunk.length-1]}); }
+  if(candleData.length===0) candleData=[{open:newPrice,high:newPrice,low:newPrice,close:newPrice}];
+  tickHistoryArr.push(newPrice>prevPrice?1:newPrice<prevPrice?-1:0); if(tickHistoryArr.length>40) tickHistoryArr.shift();
+  let th=document.getElementById('tickHistory'); if(th){ let html=''; tickHistoryArr.forEach(v=>{ let h=v===0?6:22; let c=v===0?'#475569':v===1?'#22c55e':'#ef4444'; html+='<div class="tickBar" style="height:'+h+'px;background:'+c+'"></div>'; }); th.innerHTML=html; }
   updateTickUI(source);
-  let entryEl=document.getElementById('planEntry');
-  if(entryEl && currentDir!=='WAIT'){ entryEl.innerText = fmt(realPrice); }
+  let entryEl=document.getElementById('planEntry'); if(entryEl&&currentDir!=='WAIT'){ entryEl.innerText=fmt(realPrice); }
 }
 function updateTickUI(source){
   let el=document.getElementById('liveTickPrice'); if(el){ el.innerText=fmt(realPrice); el.style.color=realPrice>=prevPrice?'#22c55e':'#ef4444'; }
-  safeText('tickDir', realPrice>=prevPrice?'⬆️':'⬇️');
-  safeText('tickChange','Change: '+((realPrice-prevPrice)/prevPrice*100).toFixed(4)+'% | '+source);
-  safeText('lastTickTime', new Date().toLocaleTimeString('en-KE',{hour:'2-digit',minute:'2-digit',second:'2-digit'}));
-  safeText('tickCount', String(tickCountTotal));
-  safeText('analysisPrice', fmt(realPrice));
-  safeText('syncStatus','LIVE '+fmt(realPrice));
-  let k=getKenyaTime(); safeText('nairobiTime', String(k.h).padStart(2,'0')+':'+String(k.m).padStart(2,'0'));
-  let age=Math.round((Date.now()-lastTickAt)/1000); safeText('tickAge', age<2?'● LIVE - '+age+'s ago':'○ '+age+'s ago');
-  safeText('entryAge','(Real Tick - '+new Date().toLocaleTimeString('en-KE',{hour:'2-digit',minute:'2-digit',second:'2-digit'})+')');
+  safeText('tickDir',realPrice>=prevPrice?'⬆️':'⬇️'); safeText('tickChange','Change: '+((realPrice-prevPrice)/prevPrice*100).toFixed(4)+'% | '+source);
+  safeText('lastTickTime',new Date().toLocaleTimeString('en-KE',{hour:'2-digit',minute:'2-digit',second:'2-digit'})); safeText('tickCount',String(tickCountTotal));
+  safeText('analysisPrice',fmt(realPrice)); safeText('syncStatus','LIVE '+fmt(realPrice));
+  let k=getKenyaTime(); safeText('nairobiTime',String(k.h).padStart(2,'0')+':'+String(k.m).padStart(2,'0'));
+  let age=Math.round((Date.now()-lastTickAt)/1000); safeText('tickAge',age<4?'● LIVE - '+age+'s ago':'○ '+age+'s ago');
+  safeText('entryAge','(Live - '+new Date().toLocaleTimeString('en-KE',{hour:'2-digit',minute:'2-digit',second:'2-digit'})+')');
+  let tb=document.getElementById('tickBox'); if(tb){ tb.classList.remove('flashGreen','flashRed'); void tb.offsetWidth; tb.classList.add(realPrice>=prevPrice?'flashGreen':'flashRed'); }
 }
-function fmt(v){ if(v===null||v===undefined||isNaN(v)) return '-'; return v.toLocaleString(undefined,{minimumFractionDigits:MARKETS[currentPair].dec, maximumFractionDigits:MARKETS[currentPair].dec}); }
-function ema(prices, period){ if(prices.length<period) return prices[prices.length-1]||0; let k=2/(period+1); let emaVal=prices.slice(0,period).reduce((a,b)=>a+b,0)/period; for(let i=period;i<prices.length;i++){ emaVal=prices[i]*k + emaVal*(1-k); } return emaVal; }
-function calcRSI(closes){ if(closes.length<15) return 50; let g=0,l=0; for(let i=closes.length-14;i<closes.length;i++){ let d=closes[i]-closes[i-1]; if(d>0) g+=d; else l+=Math.abs(d); } let ag=g/14, al=l/14; if(al===0) return 100; let rs=ag/al; return Math.round(100-(100/(1+rs))); }
-function calcMACD(closes){ if(closes.length<26) return {macd:0,signal:0}; let e12=ema(closes,12), e26=ema(closes,26); return {macd:e12-e26, signal:(e12-e26)*0.5}; }
-function calcBollinger(closes){ if(closes.length<20) return {mid:closes[closes.length-1], upper:closes[closes.length-1], lower:closes[closes.length-1]}; let slice=closes.slice(-20); let mid=slice.reduce((a,b)=>a+b,0)/20; let variance=slice.reduce((s,v)=>s+Math.pow(v-mid,2),0)/20; let std=Math.sqrt(variance); return {mid, upper:mid+2*std, lower:mid-2*std}; }
-function calcATR(candles){ if(candles.length<15) return MARKETS[currentPair].vol; let sum=0; for(let i=Math.max(1,candles.length-14);i<candles.length;i++){ let tr=Math.max(candles[i].high-candles[i].low, Math.abs(candles[i].high-candles[i-1].close), Math.abs(candles[i].low-candles[i-1].close)); sum+=tr; } return sum/14; }
-function runFastAnalysis(){ try{ runFullAnalysis(false); }catch(e){ safeText('errorMsg','Error: '+e.message); } }
-async function runFullAnalysis(force){
-  let start=performance.now();
+function fmt(v){if(v===null||v===undefined||isNaN(v))return '-';return v.toLocaleString(undefined,{minimumFractionDigits:MARKETS[currentPair].dec,maximumFractionDigits:MARKETS[currentPair].dec})}
+function ema(prices,period){if(prices.length<period)return prices[prices.length-1]||0;let k=2/(period+1);let e=prices.slice(0,period).reduce((a,b)=>a+b,0)/period;for(let i=period;i<prices.length;i++){e=prices[i]*k+e*(1-k)}return e}
+function calcRSI(closes){if(closes.length<15)return 50;let g=0,l=0;for(let i=closes.length-14;i<closes.length;i++){let d=closes[i]-closes[i-1];if(d>0)g+=d;else l+=Math.abs(d)}let ag=g/14,al=l/14;if(al===0)return 100;let rs=ag/al;return Math.round(100-(100/(1+rs)))}
+function calcMACD(closes){if(closes.length<26)return{macd:0,signal:0};let e12=ema(closes,12),e26=ema(closes,26);return{macd:e12-e26,signal:(e12-e26)*0.5}}
+function calcBollinger(closes){if(closes.length<20)return{mid:closes[closes.length-1],upper:closes[closes.length-1],lower:closes[closes.length-1]};let s=closes.slice(-20);let mid=s.reduce((a,b)=>a+b,0)/20;let v=s.reduce((sum,val)=>sum+Math.pow(val-mid,2),0)/20;let std=Math.sqrt(v);return{mid,upper:mid+2*std,lower:mid-2*std}}
+function calcATR(candles){if(candles.length<15)return MARKETS[currentPair].vol;let sum=0;for(let i=Math.max(1,candles.length-14);i<candles.length;i++){let tr=Math.max(candles[i].high-candles[i].low,Math.abs(candles[i].high-candles[i-1].close),Math.abs(candles[i].low-candles[i-1].close));sum+=tr}return sum/14}
+function runFastAnalysis(){try{runFullAnalysis()}catch(e){safeText('errorMsg','Error: '+e.message)}}
+async function runFullAnalysis(){
   try{
-    if(!isAccessAllowed()){ checkAccess(); return; }
-    if(force) await fetchRealCandles(true); else if(candleData.length===0) await fetchRealCandles(true);
-    let m=MARKETS[currentPair]; let bal=parseFloat(safeVal('accountBal','100'))||100; let riskPct=parseFloat(safeVal('riskPct','2'))||2; let style=safeVal('style','day');
-    let sess=getSessionInfo();
-    let closes=candleData.map(c=>c.close); if(closes.length===0) closes=[realPrice];
-    let rsi=calcRSI(closes); let ema20=ema(closes,20), ema50=ema(closes,50); let macdObj=calcMACD(closes); let macdBull=macdObj.macd>macdObj.signal; let bb=calcBollinger(closes); let atr=calcATR(candleData.length>0?candleData:[{high:realPrice,low:realPrice,close:realPrice}]);
-    let sup=candleData.length>0?Math.min(...candleData.map(c=>c.low)):m.sup; let res=candleData.length>0?Math.max(...candleData.map(c=>c.high)):m.res;
-    let dist=(realPrice-sup)/(res-sup||1);
-    let trendBull=ema20>ema50;
-    let isOverlap=sess.isOverlap, isLondonOrNY=(sess.isLondon||sess.isNY);
-    let newsBlock=isNewsBlockedForPair(currentPair);
-    let bull=0, bear=0;
-    if(trendBull) bull++; else bear++;
-    if(rsi<35) bull+=1.5; else if(rsi>65) bear+=1.5;
-    if(macdBull) bull++; else bear++;
-    if(dist<0.15) bull+=1.5; else if(dist>0.85) bear+=1.5;
-    if(isOverlap){ bull+=0.7; bear+=0.7; } else if(isLondonOrNY){ bull+=0.5; bear+=0.5; } else if(sess.isTokyo){ bull-=0.5; bear-=0.5; } else if(sess.isSydney){ bull-=1; bear-=1; }
-    if(newsBlock){ bull=0; bear=0; }
-    let direction='WAIT', conf=0;
-    if(newsBlock){ direction='WAIT'; conf=10; }
-    else if(sess.day===6 || (sess.day===0 && sess.k.totalMin<1380)){ direction='WAIT'; conf=20; }
-    else if(bull>=3 && dist<0.35){ direction='BUY'; conf=Math.min(92, 60+bull*6+(isOverlap?5:0)); }
-    else if(bear>=3 && dist>0.65){ direction='SELL'; conf=Math.min(92, 60+bear*6+(isOverlap?5:0)); }
-    else if(bull>=2.5 && dist<0.5){ direction='BUY'; conf=68; }
-    else if(bear>=2.5 && dist>0.5){ direction='SELL'; conf=68; }
-    else { direction='WAIT'; conf=Math.round(45+dist*10); }
-    if(sess.isSydney || sess.isTokyo) conf=Math.max(20, conf-10);
-    if(trustMode && direction!=='WAIT' && conf<70) direction='WAIT';
-    let riskAmt=bal*riskPct/100; let slDist, tp1Dist, tp2Dist;
-    if(style==='scalp'){ slDist=atr*1; tp1Dist=atr*1.5; tp2Dist=atr*2.5; } else if(style==='swing'){ slDist=atr*2.5; tp1Dist=atr*4; tp2Dist=atr*6; } else { slDist=atr*1.5; tp1Dist=atr*2.5; tp2Dist=atr*4; }
-    let entry=realPrice, sl, tp1, tp2;
-    if(direction==='BUY'){ sl=entry-slDist; tp1=entry+tp1Dist; tp2=entry+tp2Dist; } else if(direction==='SELL'){ sl=entry+slDist; tp1=entry-tp1Dist; tp2=entry-tp2Dist; } else { sl=entry-slDist; tp1=entry+tp1Dist; tp2=entry+tp2Dist; }
-    let pipSize = currentPair.includes('JPY')? 0.01 : currentPair.includes('XAU')||currentPair.includes('BTC')||currentPair.includes('US30')||currentPair.includes('NAS')||currentPair.includes('SPX')||currentPair.includes('GER')? 1 : 0.0001;
-    let lot=0.01; if(bal>=500) lot=0.05; if(bal>=1000) lot=0.10; if(bal>=5000) lot=0.20; if(style==='scalp') lot=lot*0.5; if(direction==='WAIT') lot=0;
-    currentDir=direction; currentConf=conf;
-    let work='V22 REAL TRADE WORLDWIDE - '+currentPair+' - '+new Date().toLocaleTimeString('en-KE')+'\nSource: '+(isRealData?'✅ REAL - '+(MARKETS[currentPair].binance?'Binance Worldwide':'Deriv Worldwide'):'⚠️ FALLBACK')+'\nCandles: '+candleData.length+' REAL | TF: '+currentTF+' | Ticks: '+tickCountTotal+'\nLive: '+fmt(realPrice)+' | EMA20='+fmt(ema20)+' EMA50='+fmt(ema50)+' | RSI='+rsi+' | MACD='+macdObj.macd.toFixed(6)+'\nBB Mid='+fmt(bb.mid)+' Upper='+fmt(bb.upper)+' Lower='+fmt(bb.lower)+'\nSup='+fmt(sup)+' Res='+fmt(res)+' Dist='+dist.toFixed(2)+' | ATR='+fmt(atr)+'\nBUY '+bull.toFixed(1)+' | SELL '+bear.toFixed(1)+' | Conf '+conf+'% | Dir '+direction+'\nNews: '+newsWarningText;
-    let wb=document.getElementById('workBox'); if(wb) wb.innerText=work;
-    let vb=document.getElementById('verdictBox');
-    if(direction==='BUY'){ vb.className='verdictBuy'; vb.innerHTML='✅ BUY '+currentPair+' ⬆️<br><span style="font-size:13px;font-weight:normal">'+bull.toFixed(1)+' - RSI '+rsi+' - Sup '+fmt(sup)+' - Live '+fmt(realPrice)+' - '+(isRealData?'REAL':'FALLBACK')+'</span>'; safeText('bottomVerdict','✅ BUY '+currentPair+' '+conf+'%'); }
-    else if(direction==='SELL'){ vb.className='verdictSell'; vb.innerHTML='🔴 SELL '+currentPair+' ⬇️<br><span style="font-size:13px;font-weight:normal">'+bear.toFixed(1)+' - RSI '+rsi+' - Res '+fmt(res)+' - Live '+fmt(realPrice)+' - '+(isRealData?'REAL':'FALLBACK')+'</span>'; safeText('bottomVerdict','🔴 SELL '+currentPair+' '+conf+'%'); }
-    else { vb.className='verdictWait'; vb.innerHTML='⏳ WAIT - TRUST BLOCKED<br><span style="font-size:13px;font-weight:normal">'+(newsBlock?'NEWS: '+newsBlock.title:conf<70?'Conf '+conf+'% <70%':'No edge '+fmt(sup)+' to '+fmt(res))+' - '+(isRealData?'REAL':'FALLBACK')+'</span>'; safeText('bottomVerdict','⏳ WAIT '+currentPair); }
-    safeText('confVal', conf+'%'); let cb=document.getElementById('confBar'); if(cb) cb.style.width=conf+'%';
-    safeText('cTrend', trendBull?'Uptrend 🟢 '+fmt(ema20)+' > '+fmt(ema50):'Downtrend 🔴');
-    safeText('cRsi', rsi+' - '+(rsi<30?'Oversold':rsi>70?'Overbought':'Neutral'));
-    safeText('cMacd', macdBull?'Bullish 🟢':'Bearish 🔴');
-    safeText('cBb', realPrice>bb.upper?'Above Upper':realPrice<bb.lower?'Below Lower':'Inside - Mid '+fmt(bb.mid));
-    safeText('cSr', dist<0.15?'AT SUPPORT '+fmt(sup):dist>0.85?'AT RESISTANCE '+fmt(res):'Middle Sup '+fmt(sup)+' Res '+fmt(res));
-    safeText('cNews', newsBlock?'🔴 BLOCKED - '+newsBlock.title:newsWarningText.slice(0,60));
-    safeText('cPattern', candleData.length>0 ? (candleData[candleData.length-1].close>=candleData[candleData.length-1].open?'Last Green':'Last Red') : '-');
-    safeText('cSession', sess.current);
-    safeText('cVol','ATR '+fmt(atr));
-    safeText('analysisSession', sess.current);
-    safeText('planPair', currentPair); safeText('planDir', direction==='WAIT'?'WAIT - DO NOT ENTER':direction+' '+currentPair); safeText('planEntry', fmt(entry)); safeText('planSL', fmt(sl)); safeText('planTP1', fmt(tp1)); safeText('planTP2', fmt(tp2)); safeText('planLot', direction==='WAIT'?'0 - No trade':lot.toFixed(2)); safeText('planRisk', riskAmt.toFixed(2)); safeText('planRR','1 : '+(tp2Dist/slDist).toFixed(1)); safeText('planTime', isOverlap?'NOW - Overlap BEST':isLondonOrNY?'Now - Good':'Wait 10am');
-    let ab=document.getElementById('approachBox'); if(ab) ab.innerHTML=direction==='BUY'?'<b>✅ BUY '+fmt(entry)+':</b><br>BUY <b>'+fmt(entry)+'</b> SL <b>'+fmt(sl)+'</b> TP1 <b>'+fmt(tp1)+'</b> TP2 <b>'+fmt(tp2)+'</b> Lot <b>'+lot.toFixed(2)+'</b> - REAL WORLDWIDE':direction==='SELL'?'<b>🔴 SELL '+fmt(entry)+':</b><br>SELL <b>'+fmt(entry)+'</b> SL <b>'+fmt(sl)+'</b> TP1 <b>'+fmt(tp1)+'</b> TP2 <b>'+fmt(tp2)+'</b> Lot <b>'+lot.toFixed(2)+'</b> - REAL WORLDWIDE':'<b>⏳ WAIT:</b><br>'+(newsBlock?'NEWS: '+newsBlock.title:conf<70?'Conf '+conf+'% <70%':'Price '+fmt(realPrice)+' middle '+fmt(sup)+' to '+fmt(res));
-    let elapsed=Math.round(performance.now()-start); safeText('analysisTime', elapsed+'ms'); safeText('analysisTime2', elapsed+'ms'); safeText('speedBadge','🌍 REAL '+(elapsed/1000).toFixed(2)+'s');
-    safeText('lastAnalysisTime', new Date().toLocaleTimeString('en-KE',{hour:'2-digit',minute:'2-digit',second:'2-digit'}));
-    safeText('errorMsg','');
-    updateTrustUI();
-    updateLightChart();
-  }catch(e){
-    safeText('errorMsg','Error: '+e.message+' - Tap FAST again');
-    let vb=document.getElementById('verdictBox'); if(vb){ vb.className='verdictWait'; vb.innerHTML='⚠️ ERROR - Tap FAST again<br><span style="font-size:12px">'+e.message+'</span>'; }
-  }
-}
-function copyOne(id,label){ if(!isAccessAllowed()){ checkAccess(); return; } let val=document.getElementById(id)?.innerText||''; let clean=val; if(['planEntry','planSL','planTP1','planTP2','planLot'].includes(id)) clean=val.replace(/[^0-9.\-]/g,''); if(trustMode && currentDir==='WAIT'){ alert('🔒 TRUST BLOCKED - App says WAIT, do NOT copy.'); return; } navigator.clipboard.writeText(clean).then(()=>{ safeText('copyMsg','✅ '+label+' copied: '+clean); }); }
-function copyAll(){ if(!isAccessAllowed()){ checkAccess(); return; } if(trustMode && currentDir==='WAIT'){ alert('🔒 TRUST BLOCKED - App says WAIT.'); return; } let txt='TRUST PASSED - REAL WORLDWIDE\nPair: '+document.getElementById('planPair')?.innerText+'\nDir: '+document.getElementById('planDir')?.innerText+'\nEntry: '+document.getElementById('planEntry')?.innerText+'\nSL: '+document.getElementById('planSL')?.innerText+'\nTP1: '+document.getElementById('planTP1')?.innerText+'\nTP2: '+document.getElementById('planTP2')?.innerText+'\nLot: '+document.getElementById('planLot')?.innerText; navigator.clipboard.writeText(txt); alert('Copied!\n\n'+txt); }
-function copySignal(t){ if(!isAccessAllowed()){ checkAccess(); return; } navigator.clipboard.writeText(t); alert('Copied: '+t); }
-function copyPlanWhatsApp(){ if(!isAccessAllowed()){ checkAccess(); return; } if(trustMode && currentDir==='WAIT'){ alert('🔒 Trust Blocked'); return; } let txt='🎯 TRUST - REAL WORLDWIDE%0A'+document.getElementById('planPair')?.innerText+' '+document.getElementById('planDir')?.innerText+'%0AEntry: '+document.getElementById('planEntry')?.innerText+'%0ASL: '+document.getElementById('planSL')?.innerText+'%0ATP1: '+document.getElementById('planTP1')?.innerText; window.open('https://wa.me/?text='+txt,'_blank'); }
-function logRealTrade(){ if(!isAccessAllowed()){ checkAccess(); return; } let result=safeVal('tradeResult','WIN'); let profit=parseFloat(safeVal('tradeProfit','0'))||0; let followed=safeVal('followedPlan','YES'); let note=safeVal('tradeNote',''); let trade={date:new Date().toLocaleDateString('en-KE')+' '+new Date().toLocaleTimeString('en-KE',{hour:'2-digit',minute:'2-digit'}), pair:currentPair, dir:currentDir, conf:currentConf, result, profit, followed, note}; let h=getHistory(); h.unshift(trade); h=h.slice(0,50); saveHistory(h); safeText('logMsg','✅ Saved!'); let tn=document.getElementById('tradeNote'); if(tn) tn.value=''; updateTrackRecord(); updateTrustUI(); alert('Logged!'); }
-function updateTrackRecord(){ let h=getHistory(); let wins=h.filter(t=>t.result==='WIN').length; let losses=h.filter(t=>t.result==='LOSS').length; let total=wins+losses; let wr=total>0?Math.round(wins/total*100):0; let profit=h.reduce((s,t)=>s+(t.profit||0),0); safeText('stWins', String(wins)); safeText('stLosses', String(losses)); safeText('stWR', wr+'%'); safeText('topWR', wr+'% ('+total+')'); safeText('stProfit',(profit>=0?'+$':'-$')+Math.abs(profit).toFixed(2)); safeText('stVerdict', total<5?'Log 20 trades':wr>=60?'✅ PROFITABLE':wr>=55?'✅ Good edge':wr>=50?'🟡 BREAKEVEN':'🔴 NOT PROFITABLE YET'); let html=''; if(h.length===0) html='<p class="mini">No trades yet.</p>'; else h.slice(0,10).forEach(t=>{ html+='<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #334155;font-size:13px"><span><b>'+t.pair+' '+t.dir+' '+t.conf+'%</b><br><small>'+t.date+' | '+t.followed+'</small></span><b>'+t.result+' $'+t.profit+'</b></div>'; }); let hl=document.getElementById('historyList'); if(hl) hl.innerHTML=html; }
-let access=checkAccess();
-renderPairs(); updateTrackRecord(); updateTrustUI();
-if(access.allowed){
-  fetchNews(true);
-  initChart();
-  fetchRealCandles(true).then(()=>{ updateLightChart(); runFastAnalysis(); });
-  startLiveTickWorldwide();
-  setTimeout(()=>{ let isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone; if(!isStandalone){ let b=document.getElementById('installBox'); if(b) b.style.display='block'; } }, 3000);
-}
-setInterval(()=>{ fetchNews(false); }, 300000);
-</script>
-</body>
-  </html>
+    if(!isAccessAllowed()){checkAccess();return}
+    let m=MARKETS[currentPair];let bal=parseFloat(safeVal('accountBal','100'))||100;let riskPct=parseFloat(safeVal('riskPct','2'))||2;let style=safeVal('style','day');let sess=getSessionInfo();
+    // If no price history yet, use live price as base
+    if(candleData.length===0){ candleData=[{open:realPrice,high:realPrice,low:realPrice,close:realPrice}]; }
+    let closes=candleData.map(c=>c.close);if(closes.length===0)closes=[realPrice];
+    let rsi=calcRSI(closes);let ema20=ema(closes,20),ema50=ema(closes,50);let macdObj=calcMACD(closes);let macdBull=macdObj.macd>macdObj.signal;let bb=calcBollinger(closes);let atr=calcATR(candleData);let sup=Math.min(...candleData.map(c=>c.low));let res=Math.max(...candleData.map(c=>c.high));if(res-sup<0.00001){ sup=realPrice-m.vol; res=realPrice+m.vol; }
+    let dist=(realPrice-sup)/(res-sup||1);let trendBull=ema20>ema50;let isOverlap=sess.isOverlap,isLondonOrNY=(sess.isLondon||sess.isNY);let newsBlock=isNewsBlockedForPair(currentPair);let bull=0,bear=0;if(trendBull)bull++;else bear++;if(rsi<35)bull+=1.5;else if(rsi>65)bear+=1.5;if(macdBull)bull++;else bear++;if(dist<0.15)bull+=1.5;else if(dist>0.85)bear+=1.5;if(isOverlap){bull+=0.7;bear+=0.7}else if(isLondonOrNY){bull+=0.5;bear+=0.5}else if(sess.isTokyo){bull-=0.5;bear-=0.5}else if(sess.isSydney){bull-=1;bear-=1} if(newsBlock){bull=0;bear=0}
+    let direction='WAIT',conf=0;if(newsBlock){direction='WAIT';conf=10}else if(sess.day===6||(sess.day===0&&sess.k.totalMin<1380)){direction='WAIT';conf=20}else if(bull>=3&&dist<0.35){direction='BUY';conf=Math.min(92
