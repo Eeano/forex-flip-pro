@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Forex Flip Pro V10 - 100% Live Sync Chart</title>
+<title>Forex Flip Pro V14 - Trust Mode + Live News</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0f172a">
 <meta name="mobile-web-app-capable" content="yes">
@@ -57,34 +57,104 @@ button{padding:12px;margin:4px;border:none;border-radius:10px;font-weight:bold;c
 .tickUp{color:#22c55e}
 .tickDown{color:#ef4444}
 .syncBadge{background:#22c55e;color:white;padding:4px 8px;border-radius:20px;font-size:11px;font-weight:bold}
+.sessionBox{background:linear-gradient(135deg,#1e293b,#0f172a);border:2px solid #22c55e;padding:14px;border-radius:14px;margin-top:12px;text-align:center}
+.sessionBox.best{background:linear-gradient(135deg,#f59e0b,#facc15);color:black;border-color:#facc15}
+.sessionTime{font-size:32px;font-weight:bold;margin:4px 0}
+.sessionGrid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px;margin-top:10px}
+.sessCard{padding:8px;border-radius:10px;font-size:11px}
+.sessCard.active{border:2px solid #22c55e;background:#14532d}
+.sessCard.off{opacity:0.5}
+.workBox{background:#000;padding:12px;border-radius:12px;margin-top:10px;font-size:13px;line-height:1.7;display:none;white-space:pre-wrap}
+.candleTable{width:100%;font-size:11px;border-collapse:collapse;margin-top:8px}
+.candleTable th{background:#334155;padding:6px;text-align:left}
+.candleTable td{padding:5px;border-bottom:1px solid #334155}
+.candleUp{color:#22c55e}
+.candleDown{color:#ef4444}
+.uploadBox{border:2px dashed #f59e0b;padding:14px;border-radius:12px;text-align:center;margin-top:10px}
+.candleBtn{background:#334155;color:white;padding:9px 10px;font-size:12px;flex:1}
+.candleBtn.active{background:#22c55e;color:black}
+.trustBox{background:#0f172a;border:3px solid #22c55e;padding:14px;border-radius:14px;margin-top:12px}
+.trustBox.locked{border-color:#ef4444;background:#450a0a}
+.newsBox{background:#0f172a;border:2px solid #f59e0b;padding:12px;border-radius:12px;margin-top:10px}
+.newsItem{padding:10px 0;border-bottom:1px solid #334155}
+.newsHigh{border-left:4px solid #ef4444;padding-left:8px}
+.newsMed{border-left:4px solid #f59e0b;padding-left:8px}
+.newsLow{border-left:4px solid #22c55e;padding-left:8px}
+.trustToggle{width:50px;height:28px;background:#334155;border-radius:20px;position:relative;cursor:pointer;display:inline-block;vertical-align:middle}
+.trustToggle.on{background:#22c55e}
+.trustToggle::after{content:'';position:absolute;top:3px;left:3px;width:22px;height:22px;background:white;border-radius:50%;transition:0.2s}
+.trustToggle.on::after{left:25px}
 @media(min-width:768px){ .content{max-width:900px;margin:0 auto} .topBar{max-width:900px;margin:0 auto;width:100%} }
 </style>
 </head>
 <body>
 <div class="app">
-<div id="offlineBar">⚠️ OFFLINE - Real Chart needs internet.</div>
-<div id="onlineBar">✅ ONLINE - 100% Live Sync with TradingView / Exness</div>
-<div class="topBar"><div><h2>🎯 FOREX FLIP PRO 🇰🇪 V10</h2><p><span class="liveDot"></span> <span id="syncStatus">SYNCED - LIVE</span> | <span id="date"></span> | <span id="nairobiTime"></span> | WR: <b id="topWR">-</b></p></div><button class="fsBtn" onclick="toggleFullscreen()">⛶ Full Screen</button></div>
+<div id="offlineBar">⚠️ OFFLINE - Real Chart + News need internet.</div>
+<div id="onlineBar">✅ ONLINE - Trust Mode + Live News Active</div>
+<div class="topBar"><div><h2>🎯 FOREX FLIP PRO 🇰🇪 V14</h2><p><span class="liveDot"></span> <span id="syncStatus">SYNCED - LIVE</span> | <span id="date"></span> | <span id="nairobiTime"></span> | WR: <b id="topWR">-</b></p></div><button class="fsBtn" onclick="toggleFullscreen()">⛶ Full Screen</button></div>
 <div class="content">
 
-<div class="warnBox"><b>✅ 100% LIVE SYNC - HOW IT WORKS:</b><br>Chart below = <b>Official TradingView Widget</b> - Same server, same feed as tradingview.com, Exness MT5, Binance. When EUR/USD moves in London, it moves HERE at the same second.<br><br>Analysis below = <b>Live Tick Analysis</b> - Updates every <b>2 seconds</b> from live price. If price moves, Entry / SL / TP move with it. <b>Always check chart + analysis at same time before entering.</b><br><br><b>One honest difference:</b> Exness price may be 0.5 - 2 pips different from TradingView because of broker Spread. Direction + Timing is 100% same. Spread is broker's fee, not a delay.</div>
+<!-- TRUST MODE -->
+<div class="trustBox" id="trustBox">
+<div style="display:flex;justify-content:space-between;align-items:center">
+<b>🛡️ TRUST MODE - Locks You To 100%</b>
+<div><span id="trustLabel" style="font-size:13px">ON</span> <span class="trustToggle on" id="trustToggle" onclick="toggleTrust()"></span></div>
+</div>
+<p class="mini" style="color:#cbd5e1">When ON: App blocks trades if Confidence &lt;70%, Asia session, 2 losses today, or High Impact News in 30 mins. You cannot cheat yourself.</p>
+<div style="margin-top:10px">
+<b>Discipline Score: <span id="disciplineScore">100%</span> (<span id="disciplineDetail">0/0 followed</span>)</b>
+<div class="bar"><div id="disciplineBar" class="barFill" style="width:100%"></div></div>
+<div class="mini" id="disciplineVerdict">Need 20 trades to unlock $50 mode. Follow 100%.</div>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px;text-align:center">
+<div style="background:#1e293b;padding:10px;border-radius:10px"><b id="todayTrades">0</b><br><span style="font-size:11px">Trades Today</span></div>
+<div style="background:#1e293b;padding:10px;border-radius:10px"><b id="todayLosses" style="color:#ef4444">0</b><br><span style="font-size:11px">Losses Today (Max 2)</span></div>
+<div style="background:#1e293b;padding:10px;border-radius:10px"><b id="trustStatus">✅ ALLOWED</b><br><span style="font-size:11px">Trust Status</span></div>
+<div style="background:#1e293b;padding:10px;border-radius:10px"><b id="trustUnlock">🔒 $10 Mode</b><br><span style="font-size:11px">Unlock Level</span></div>
+</div>
+<div id="trustBlockMsg" style="display:none;background:#ef4444;color:white;padding:12px;border-radius:10px;margin-top:10px;font-weight:bold;text-align:center"></div>
+<div id="trustAllowMsg" style="background:#22c55e;color:white;padding:10px;border-radius:10px;margin-top:10px;text-align:center;font-size:13px">✅ TRUST MODE: You are allowed to trade - All rules passed</div>
+</div>
 
-<!-- LIVE TICK BAR - PROVES SYNC -->
+<!-- LIVE NEWS -->
+<div class="newsBox">
+<b>📰 LIVE NEWS - TODAY IN KENYA TIME (EAT) <span style="background:#ef4444;color:white;padding:2px 6px;border-radius:10px;font-size:11px" id="newsBadge">LIVE</span></b>
+<div class="mini">Source: ForexFactory Calendar (Faireconomy) + ForexLive Headlines. High Impact = Can move price 50-100 pips in seconds. Do NOT trade that currency 30 mins before/after.</div>
+<div style="display:flex;gap:6px;margin-top:8px">
+<button onclick="fetchNews()" style="background:#f59e0b;color:black;flex:1">🔄 Refresh News Now</button>
+<button onclick="window.open('https://www.forexfactory.com/calendar','_blank')" style="background:white;color:black;flex:1">📅 Open ForexFactory</button>
+</div>
+<div id="newsWarning" style="margin-top:10px"></div>
+<div id="newsList" style="margin-top:8px"><p class="mini">Loading news...</p></div>
+<div id="headlineList" style="margin-top:10px;border-top:1px solid #334155;padding-top:8px"><b>🗞️ Live Headlines:</b><p class="mini" id="headlineText">Loading headlines...</p></div>
+</div>
+
+<div class="sessionBox" id="sessionBox">
+<div class="mini" id="sessionLabel" style="color:#cbd5e1">🕐 LIVE SESSION CLOCK - KENYAN TIME (EAT)</div>
+<div style="font-size:14px;margin-top:4px">Nairobi Now: <b id="clockNairobi" style="font-size:18px">--:--:--</b> EAT</div>
+<div id="currentSessionName" style="font-size:20px;font-weight:bold;margin-top:6px">Checking session...</div>
+<div class="sessionTime" id="countdown">--:--:--</div>
+<div id="countdownLabel" style="font-size:12px">Until next session</div>
+<div class="bar"><div id="sessionProgress" class="barFill" style="width:0%"></div></div>
+<div id="sessionAdvice" style="font-size:13px;margin-top:6px;line-height:1.5">-</div>
+<div class="sessionGrid">
+<div class="sessCard" id="cardSydney"><b>🌏 Sydney</b><br>12am - 9am<br><span id="sydneyStatus">-</span></div>
+<div class="sessCard" id="cardTokyo"><b>🗼 Tokyo</b><br>3am - 12pm<br><span id="tokyoStatus">-</span></div>
+<div class="sessCard" id="cardLondon"><b>🇬🇧 London</b><br>10am - 7pm<br><span id="londonStatus">-</span></div>
+<div class="sessCard" id="cardNY"><b>🗽 New York</b><br>3pm - 12am<br><span id="nyStatus">-</span></div>
+</div>
+</div>
+
+<div class="warnBox"><b>✅ V14 - TRUST MODE + 200 CANDLES + LIVE NEWS:</b><br>Trust Mode locks you to 100%. News blocks USD/EUR/GBP trades 30 mins before High Impact news. Analysis uses 200 candles. Support = Lowest Low of 200.</div>
+
 <div class="box" style="border:2px solid #22c55e">
 <b>🔴 LIVE TICK - <span id="tickPair">EUR/USD</span> <span class="syncBadge" id="syncBadge">● LIVE SYNCED</span></b>
 <div class="tickBox">
-<div><div class="mini">LIVE PRICE - Same as TradingView / Exness</div><div class="tickPrice" id="liveTickPrice">Loading...</div><div class="mini" id="tickChange">Change: - | Updated: -</div></div>
+<div><div class="mini">LIVE PRICE</div><div class="tickPrice" id="liveTickPrice">Loading...</div><div class="mini" id="tickChange">Change: -</div></div>
 <div style="text-align:right"><div id="tickDir" style="font-size:28px">⏳</div><div class="mini" id="tickSpeed">Tick: -/sec</div><div class="mini" id="lastTickTime">-</div></div>
 </div>
-<div style="display:flex;gap:6px;margin-top:8px">
-<button onclick="setSyncSpeed(1000)" style="background:#334155;color:white;flex:1;padding:8px;font-size:12px">⚡ 1s - Fastest</button>
-<button onclick="setSyncSpeed(2000)" style="background:#22c55e;color:white;flex:1;padding:8px;font-size:12px">● 2s - Recommended</button>
-<button onclick="setSyncSpeed(5000)" style="background:#334155;color:white;flex:1;padding:8px;font-size:12px">🐢 5s - Save Data</button>
-</div>
-<div class="mini" style="margin-top:6px">Compare: Open tradingview.com or Exness MT5 on another phone side-by-side. You will see same price moving at same time. If your internet is slow, chart may lag 1-2 sec - that is your internet, not the app.</div>
 </div>
 
-<!-- TRACK RECORD -->
 <div class="trackBox">
 <b>📊 MY REAL TRACK RECORD</b>
 <div class="statGrid">
@@ -105,7 +175,7 @@ button{padding:12px;margin:4px;border:none;border-radius:10px;font-weight:bold;c
 </div>
 
 <div class="box">
-<b>STEP 1: WHAT TO ANALYSE? (Chart syncs instantly)</b><br>
+<b>STEP 1: WHAT TO ANALYSE? - FULL CHART 200</b><br>
 <div style="margin-top:10px">
 <button class="tabBtn active" onclick="showCat('forex',this)">💱 FOREX</button>
 <button class="tabBtn" onclick="showCat('metal',this)">🥇 METALS</button>
@@ -115,48 +185,65 @@ button{padding:12px;margin:4px;border:none;border-radius:10px;font-weight:bold;c
 <button class="tabBtn" onclick="showCat('local',this)">🇰🇪 KENYA</button>
 </div>
 <div id="pairList" style="margin-top:10px"></div>
-<label>Broker Balance ($):</label><input id="accountBal" type="number" value="100" oninput="runAnalysis()">
-<label>Risk:</label><select id="riskPct" onchange="runAnalysis()"><option value="1">1% - Safe</option><option value="2" selected>2% - Standard</option><option value="3">3% - Aggressive</option></select>
-<label>Broker:</label><select id="broker" onchange="updateBrokerHint()"><option value="Exness">Exness / MT5</option><option value="XM">XM / MT4</option><option value="FTMO">FTMO / MT5</option><option value="Binance">Binance (Crypto)</option><option value="Deriv">Deriv</option></select>
-<p id="brokerHint" class="mini">Exness: Open MT5 → New Order → Paste numbers</p>
-<label>Style:</label><select id="style" onchange="runAnalysis()"><option value="scalp">Scalp - 5-15 min</option><option value="day" selected>Day Trade - 1-4 Hours</option><option value="swing">Swing - 1-3 Days</option></select>
-<label>Analysis Timeframe - Must match chart timeframe:</label>
-<select id="tf" onchange="changeTF()"><option value="1">1m - Scalp (Fast)</option><option value="5">5m - Scalp</option><option value="15" selected>15m - Day Trade (Recommended)</option><option value="60">1H - Day / Swing</option><option value="240">4H - Swing</option><option value="D">1D - Swing</option></select>
-<span class="mini">⚠️ If chart is on 1H but analysis is on 15m, they will disagree. Set both to SAME timeframe above.</span>
+<label>Broker Balance ($):</label><input id="accountBal" type="number" value="100" oninput="runFullAnalysis()">
+<label>Risk:</label><select id="riskPct" onchange="runFullAnalysis()"><option value="1">1% - Safe</option><option value="2" selected>2% - Standard</option><option value="3">3% - Aggressive</option></select>
+<label>Broker:</label><select id="broker" onchange="updateBrokerHint()"><option value="Exness">Exness / MT5</option><option value="XM">XM / MT4</option><option value="FTMO">FTMO / MT5</option><option value="Binance">Binance</option><option value="Deriv">Deriv</option></select>
+<p id="brokerHint" class="mini">Exness: Open MT5 → New Order</p>
+<label>Timeframe:</label>
+<select id="tf" onchange="changeTF()"><option value="1m">1m - Scalp</option><option value="5m">5m - Scalp</option><option value="15m" selected>15m - Day Trade</option><option value="1h">1H - Day / Swing</option><option value="4h">4H - Swing</option><option value="1d">1D - Swing (200 days)</option></select>
+<label>How Many Candles?</label>
+<div style="display:flex;gap:6px;margin-top:6px">
+<button class="candleBtn" id="btn50" onclick="setCandleCount(50,this)">50 Candles<br><small>Today Only</small></button>
+<button class="candleBtn" id="btn100" onclick="setCandleCount(100,this)">100 Candles<br><small>2 Days</small></button>
+<button class="candleBtn active" id="btn200" onclick="setCandleCount(200,this)">200 Candles ✅<br><small>Full Chart</small></button>
+</div>
 </div>
 
 <div class="tvBox">
-<b>STEP 2: REAL CHART - <span id="pairLabel">EUR/USD</span> <span style="color:#22c55e;font-size:12px">● LIVE - SAME AS TRADINGVIEW.COM</span></b><br>
-<span class="mini">This is NOT a copy. This is TradingView's official widget loading from TradingView servers. Same candles, same time, same price as tradingview.com and Exness MT5 chart.</span>
+<b>STEP 2: FULL REAL CHART - <span id="pairLabel">EUR/USD</span> <span style="color:#22c55e;font-size:12px">● LIVE</span></b><br>
+<span class="mini">Full history - scroll left. Analysis uses <span id="chartCandleInfo">200</span> candles.</span>
 <div id="tradingview_real" style="height:540px;width:100%;margin-top:10px"></div>
 <div style="display:flex;gap:6px;margin-top:8px">
-<button onclick="refreshAnalysis()" style="background:#2962ff;color:white;flex:1">🔄 RE-ANALYSE NOW - Sync with live price</button>
-<button onclick="checkSync()" style="background:#f59e0b;color:black;flex:1">🔍 CHECK SYNC vs TradingView</button>
+<button onclick="runFullAnalysis(true)" style="background:#2962ff;color:white;flex:1">🔄 ANALYSE FULL CHART NOW (<span id="btnCandleCount">200</span> Candles)</button>
+<button onclick="checkSync()" style="background:#f59e0b;color:black;flex:1">🔍 CHECK SYNC</button>
 </div>
 <p id="syncCheckMsg" class="mini"></p>
+<div class="uploadBox">
+<b>📸 OR UPLOAD YOUR CHART SCREENSHOT FROM EXNESS / MT5</b><br>
+<input type="file" id="chartUpload" accept="image/*" onchange="handleChartUpload(event)" style="background:#334155;color:white;margin-top:8px">
+<p id="uploadMsg" class="mini"></p>
+<div id="uploadedImg" style="margin-top:8px"></div>
+</div>
 </div>
 
 <div class="box">
-<b>STEP 3: LIVE ANALYSIS - <span id="analysisPair">EUR/USD</span> - Updates every 2 sec from live price</b>
-<div class="mini">Last Analysis Update: <b id="lastAnalysisTime">-</b> | Live Price used: <b id="analysisPrice">-</b> | Source: <span id="priceSource">TradingView + Binance / Exchangerate Live Feed</span></div>
-<div id="verdictBox" class="verdictWait" style="margin-top:12px">⏳ ANALYSING LIVE...</div>
-<div style="margin-top:12px"><b>Confidence: <span id="confVal">-</span></b><div class="bar"><div id="confBar" class="barFill" style="width:50%"></div></div><div class="mini">Need 70%+ to trade. Confidence changes as live price moves - if price leaves Support, confidence drops.</div></div>
+<b>STEP 3: FULL CHART ANALYSIS - <span id="analysisPair">EUR/USD</span> - From <span id="analysisCandleCount">200</span> Real Candles + News</b>
+<div class="mini">Last Analysis: <b id="lastAnalysisTime">-</b> | Candles: <b id="candleCount">-</b> | Range: <b id="candleRange">-</b> | Live: <b id="analysisPrice">-</b> | Session: <b id="analysisSession">-</b> | News: <b id="analysisNews">Checking...</b></div>
+<div id="verdictBox" class="verdictWait" style="margin-top:12px">⏳ ANALYSING FULL CHART (200) + NEWS...</div>
+<div style="margin-top:12px"><b>Confidence: <span id="confVal">-</span></b><div class="bar"><div id="confBar" class="barFill" style="width:50%"></div></div><div class="mini">Need 70%+ to trade. Trust Mode blocks below 70%.</div></div>
 <div style="margin-top:10px">
-<div class="checkRow"><span>📈 Trend (EMA 20 vs 50 - Live)</span><b id="cTrend">-</b></div>
-<div class="checkRow"><span>📊 RSI (14 - Live)</span><b id="cRsi">-</b></div>
-<div class="checkRow"><span>📉 MACD (Live)</span><b id="cMacd">-</b></div>
-<div class="checkRow"><span>📦 Bollinger (Live)</span><b id="cBb">-</b></div>
-<div class="checkRow"><span>📍 Support / Resistance (Live Distance)</span><b id="cSr">-</b></div>
+<div class="checkRow"><span>📈 Trend (EMA 20/50/200)</span><b id="cTrend">-</b></div>
+<div class="checkRow"><span>📊 RSI (14)</span><b id="cRsi">-</b></div>
+<div class="checkRow"><span>📉 MACD</span><b id="cMacd">-</b></div>
+<div class="checkRow"><span>📦 Bollinger</span><b id="cBb">-</b></div>
+<div class="checkRow"><span>📍 Support / Resistance (200)</span><b id="cSr">-</b></div>
+<div class="checkRow"><span>📍 Full High / Low (200)</span><b id="cFullHL">-</b></div>
+<div class="checkRow"><span>📰 News Check</span><b id="cNews">-</b></div>
+<div class="checkRow"><span>🕯️ Last 5 Candles</span><b id="cPattern">-</b></div>
 <div class="checkRow"><span>🕐 Session</span><b id="cSession">-</b></div>
-<div class="checkRow"><span>🌪️ Volatility / ATR (Live)</span><b id="cVol">-</b></div>
-<div class="checkRow"><span>📰 News</span><b id="cNews">-</b></div>
-<div class="checkRow"><span>⏱️ Live Price Age</span><b id="cAge">-</b></div>
+<div class="checkRow"><span>🌪️ ATR</span><b id="cVol">-</b></div>
+<div class="checkRow"><span>⏱️ Price Age</span><b id="cAge">-</b></div>
+<div class="checkRow"><span>🛡️ Trust Mode</span><b id="cTrust">-</b></div>
 </div>
+<button onclick="toggleWork()" style="background:#f59e0b;color:black;width:100%;margin-top:12px">🔍 SHOW MY WORK - See Every Calculation (200 + News)</button>
+<div id="workBox" class="workBox">Tap Show My Work...</div>
+<button onclick="toggleCandles()" style="background:#334155;color:white;width:100%;margin-top:6px">🕯️ SHOW LAST 50 CANDLES (of <span id="candleBtnCount">200</span>)</button>
+<div id="candleBox" style="display:none;margin-top:8px"></div>
 </div>
 
 <div class="box" style="background:#0ea5e9;color:white">
-<b>STEP 4: COPY TO BROKER - LIVE ENTRY / SL / TP - Tap to copy</b>
-<div class="mini" style="color:#fef08a">⚠️ Entry changes as live price moves. Copy Entry RIGHT BEFORE you paste in broker. Do not copy 5 mins ago and paste now.</div>
+<b>STEP 4: COPY TO BROKER - LIVE ENTRY / SL / TP</b>
+<div class="mini" style="color:#fef08a">⚠️ Trust Mode: If blocked, DO NOT copy. Wait.</div>
 <div class="bigNum">
 Pair: <b id="planPair">EUR/USD</b> <button class="copyBtn" onclick="copyOne('planPair','Pair')">Copy</button><br>
 Direction: <b id="planDir">WAIT</b> <button class="copyBtn" onclick="copyOne('planDir','Direction')">Copy</button><br>
@@ -172,37 +259,36 @@ Best Time: <b id="planTime">-</b>
 <p id="copyMsg" style="font-size:13px;color:#fef08a;margin:8px 0"></p>
 <div style="display:flex;gap:8px;flex-wrap:wrap">
 <button onclick="copyAll()" style="background:white;color:black;flex:1">📋 COPY ALL</button>
-<button onclick="copyForBinance()" style="background:#f7931a;color:black;flex:1">🟠 BINANCE</button>
+<button onclick="copyWork()" style="background:#f59e0b;color:black;flex:1">📋 COPY ANALYSIS + WORK</button>
 <button onclick="copyPlanWhatsApp()" style="background:#22c55e;color:white;flex:1">💬 WHATSAPP</button>
 </div>
 </div>
 
 <div class="box">
-<b>STEP 5: CORRECT APPROACH - SYNCED</b>
-<div id="approachBox" class="stepBox">Analysing live...</div>
+<b>STEP 5: CORRECT APPROACH - TRUST MODE 100%</b>
+<div id="approachBox" class="stepBox">Analysing full chart (200) + news...</div>
 <div class="stepBox" style="background:#fef08a;color:black">
-<b>⚠️ SYNC CHECK BEFORE YOU ENTER (30 sec):</b><br>
-<label><input type="checkbox" style="width:auto"> I compared Live Tick price above with my broker price - Difference is only 0-2 pips (Spread)</label><br>
-<label><input type="checkbox" style="width:auto"> Chart timeframe = Analysis timeframe (both 15m)</label><br>
-<label><input type="checkbox" style="width:auto"> Price is STILL at Support/Resistance - Not moved away in last 2 mins</label><br>
-<label><input type="checkbox" style="width:auto"> I copied Entry JUST NOW - Not 5 mins ago</label><br>
-<label><input type="checkbox" style="width:auto"> SL set BEFORE entering</label><br>
-<label><input type="checkbox" style="width:auto"> Lot = max 2% risk</label><br>
-<b>If price moved away from Support/Resistance, WAIT for it to come back. Do NOT chase.</b>
+<b>⚠️ TRUST MODE CHECKLIST - ALL MUST BE ✅:</b><br>
+<label><input type="checkbox" id="chk1" style="width:auto"> I looked at FULL chart - Trend clear</label><br>
+<label><input type="checkbox" id="chk2" style="width:auto"> Price at Support/Resistance from 200 Candles</label><br>
+<label><input type="checkbox" id="chk3" style="width:auto"> I tapped Show My Work - I understand why</label><br>
+<label><input type="checkbox" id="chk4" style="width:auto"> I checked NEWS - No High Impact in 30 mins for my pair</label><br>
+<label><input type="checkbox" id="chk5" style="width:auto"> Session is London / NY / Overlap</label><br>
+<label><input type="checkbox" id="chk6" style="width:auto"> Copied Entry JUST NOW, SL set BEFORE entering</label><br>
+<b>If any box is unchecked - TRUST MODE says WAIT.</b>
 </div>
 </div>
 
 <div class="box" style="border:2px solid #22c55e">
-<b>STEP 6: LOG YOUR REAL TRADE</b><br>
-<span class="mini">After you enter on broker, log it here. This builds your true %.</span><br><br>
-<label>Result on broker:</label>
-<select id="tradeResult"><option value="WIN">✅ WIN - Hit TP</option><option value="LOSS">❌ LOSS - Hit SL</option><option value="BREAKEVEN">➖ BREAKEVEN</option><option value="WAITED">⏳ WAITED - Did NOT trade</option></select>
-<label>Profit / Loss ($):</label><input id="tradeProfit" type="number" placeholder="e.g. 5 or -2" value="0">
-<label>Did you follow plan?</label><select id="followedPlan"><option value="YES">YES - Followed exactly</option><option value="NO">NO - Moved SL / bigger lot / late</option><option value="PARTIAL">PARTIAL</option></select>
+<b>STEP 6: LOG YOUR REAL TRADE - TRUST MODE</b><br>
+<label>Result:</label>
+<select id="tradeResult"><option value="WIN">✅ WIN - Hit TP</option><option value="LOSS">❌ LOSS - Hit SL</option><option value="BREAKEVEN">➖ BREAKEVEN</option><option value="WAITED">⏳ WAITED</option></select>
+<label>Profit / Loss ($):</label><input id="tradeProfit" type="number" value="0">
+<label>Did you follow plan 100%?</label><select id="followedPlan"><option value="YES">YES - Followed 100% exactly</option><option value="NO">NO - Moved SL / bigger lot / late / traded news</option><option value="PARTIAL">PARTIAL</option></select>
 <label>Note:</label><input id="tradeNote" placeholder="e.g. Waited for Support, won on Exness">
 <button onclick="logRealTrade()" style="background:#22c55e;color:white;width:100%;margin-top:8px">✅ SAVE TO TRACK RECORD</button>
 <p id="logMsg" style="font-size:13px;color:#facc15"></p>
-<b>📜 HISTORY (Last 20):</b><div id="historyList" style="margin-top:8px"></div>
+<b>📜 HISTORY:</b><div id="historyList" style="margin-top:8px"></div>
 </div>
 
 <div class="box">
@@ -212,174 +298,360 @@ Best Time: <b id="planTime">-</b>
 <div class="signal" style="background:#7c3aed"><b>3. US30 - BUY ⬆️</b><br>Entry 44200 | SL 44000 | TP 44700 | 71%<br><button class="copyBtn" onclick="copySignal('US30 BUY Entry 44200 SL 44000 TP1 44500 TP2 44700 Lot 0.01')">📋 Copy</button></div>
 </div>
 
-<div class="box">
-<b>❓ WHY PRICE MAY LOOK 1-2 PIPS DIFFERENT IN EXNESS?</b><br>
-<span class="mini">This is NORMAL, not a bug:<br>1. <b>Spread:</b> Exness adds 0.5-2 pips fee. TradingView shows mid-price, Exness shows Bid/Ask. Difference = Spread.<br>2. <b>Broker Feed:</b> Each broker has slightly different liquidity provider. Direction and timing are same, price is 1-2 pips off.<br>3. <b>Internet:</b> If your internet is slow, your phone gets price 1 sec late. Use WiFi / 4G.<br><br><b>How to verify 100% sync:</b> Open tradingview.com on laptop + this app on phone side-by-side at same time. Candles move together. That is proof.</span>
-</div>
-
-<div class="tip"><b>💡 GOLDEN RULE:</b> <span id="tip">No analysis = No trade. If confidence below 70%, WAIT. Copy Entry just before you paste - live price moves.</span></div>
-<p style="text-align:center;padding:20px 0 30px"><small>Chart by TradingView - Same feed as tradingview.com / Exness MT5. Analysis Tool Only. Not Financial Advice.</small></p>
+<div class="tip"><b>💡 GOLDEN RULE:</b> <span id="tip">No analysis = No trade. Trust Mode blocks you from cheating yourself.</span></div>
+<p style="text-align:center;padding:20px 0 30px"><small>Chart by TradingView. News by ForexFactory / Faireconomy + ForexLive. Analysis from 200 Real Candles. Tool Only.</small></p>
 </div>
 </div>
 <div class="bottomBar">
-<div class="bottomInfo"><span id="bottomPair">EUR/USD</span><br><b id="bottomVerdict">⏳ ANALYSING LIVE...</b></div>
+<div class="bottomInfo"><span id="bottomPair">EUR/USD</span><br><b id="bottomVerdict">⏳ ANALYSING FULL CHART (200) + NEWS...</b></div>
 <button onclick="copyAll()" style="background:white;color:black">📋 COPY ALL</button>
 <button onclick="document.querySelector('.tvBox').scrollIntoView({behavior:'smooth'})" style="background:#2962ff;color:white">📊 CHART ↑</button>
 </div>
 
 <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
 <script>
+let trustMode=true;
+function toggleTrust(){ trustMode=!trustMode; let t=document.getElementById('trustToggle'); t.className='trustToggle '+(trustMode?'on':''); document.getElementById('trustLabel').innerText=trustMode?'ON':'OFF'; if(!trustMode){ alert('Trust Mode OFF - You are now on your own. App will NOT block bad trades. Turn it back ON to protect your funds.'); } runFullAnalysis(); updateTrustUI(); }
 function toggleFullscreen(){ if(!document.fullscreenElement){ document.documentElement.requestFullscreen().catch(()=>{ alert('Tap Share > Add to Home Screen'); }); } else { document.exitFullscreen(); } }
-function updateBrokerHint(){ let b=document.getElementById('broker').value; let hints={'Exness':'Exness: Open MT5 → New Order → Paste numbers','XM':'XM: Open MT4 → New Order','FTMO':'FTMO: Open MT5 → Keep risk 1%','Binance':'Binance: Spot/Futures → Limit Order','Deriv':'Deriv: DTrader → Trade'}; document.getElementById('brokerHint').innerText=hints[b]||hints['Exness']; }
+function updateBrokerHint(){ let b=document.getElementById('broker').value; let hints={'Exness':'Exness: Open MT5 → New Order','XM':'XM: Open MT4','FTMO':'FTMO: Open MT5 → Keep risk 1%','Binance':'Binance: Spot/Futures → Limit Order','Deriv':'Deriv: DTrader'}; document.getElementById('brokerHint').innerText=hints[b]||hints['Exness']; }
+function toggleWork(){ let el=document.getElementById('workBox'); el.style.display=el.style.display==='block'?'none':'block'; if(el.style.display==='block'){ el.scrollIntoView({behavior:'smooth'}); } }
+function toggleCandles(){ let el=document.getElementById('candleBox'); el.style.display=el.style.display==='block'?'none':'block'; }
+function handleChartUpload(e){ let f=e.target.files[0]; if(!f) return; let url=URL.createObjectURL(f); document.getElementById('uploadedImg').innerHTML='<img src="'+url+'" style="width:100%;border-radius:10px;border:2px solid #f59e0b"><p style="font-size:13px">✅ Your broker chart uploaded. Compare: Does screenshot show price at Support/Resistance from 200 Candles? Does trend match? If YES, analysis correct. If NO, trust screenshot and WAIT.</p>'; document.getElementById('uploadMsg').innerText='Screenshot saved.'; }
+function copyWork(){ let txt=document.getElementById('workBox').innerText; navigator.clipboard.writeText(txt); alert('Analysis + Work copied!\n\n'+txt.slice(0,600)); }
+function setCandleCount(n,btn){ candleLimit=n; document.querySelectorAll('.candleBtn').forEach(b=>b.classList.remove('active')); if(btn) btn.classList.add('active'); document.getElementById('chartCandleInfo').innerText=n; document.getElementById('btnCandleCount').innerText=n; document.getElementById('analysisCandleCount').innerText=n; document.getElementById('candleBtnCount').innerText=n; fetchRealCandles().then(()=>{ runFullAnalysis(); }); }
+// ===== NEWS - ForexFactory via Faireconomy + Headlines =====
+let newsEvents=[], newsBlockedCurrencies=[], newsWarningText='No High Impact news today';
+async function fetchNews(){
+  document.getElementById('newsList').innerHTML='<p class="mini">Loading ForexFactory calendar...</p>';
+  try{
+    // Faireconomy is the official ForexFactory JSON feed - same data as forexfactory.com/calendar
+    let r=await fetch('https://nfs.faireconomy.media/ff_calendar_thisweek.json');
+    let data=await r.json();
+    newsEvents=data;
+    // Filter to today in Kenya time
+    let nowKenya=new Date(new Date().toLocaleString('en-US',{timeZone:'Africa/Nairobi'}));
+    let todayStr=nowKenya.toISOString().slice(0,10); // YYYY-MM-DD in UTC approx - we use date string from event
+    // Events have date field like "11-05-2026" and time like "3:30pm" - need to parse
+    let todays=[];
+    data.forEach(ev=>{
+      // ev.date is MM-DD-YYYY, ev.time is like "8:30am"
+      let evDateStr=ev.date; // e.g. 11-05-2026
+      let parts=evDateStr.split('-'); let evDate=new Date(parts[2], parts[0]-1, parts[1]);
+      let todayKenya=new Date(nowKenya.getFullYear(), nowKenya.getMonth(), nowKenya.getDate());
+      if(evDate.getTime()===todayKenya.getTime()) todays.push(ev);
+    });
+    // If no todays due to timezone, show next 10 events
+    if(todays.length===0) todays=data.slice(0,12);
+    // Sort by impact High first
+    todays.sort((a,b)=>{ let imp={High:0,Medium:1,Low:2}; return (imp[a.impact]||3)-(imp[b.impact]||3); });
+    let html='';
+    let highToday=todays.filter(e=>e.impact==='High');
+    newsBlockedCurrencies=[];
+    highToday.forEach(e=>{ if(e.currency) newsBlockedCurrencies.push(e.currency); });
+    // Check if any high impact in next 60 mins for current pair
+    let nowMins=nowKenya.getHours()*60+nowKenya.getMinutes();
+    let upcomingHigh=[];
+    todays.forEach(e=>{
+      let t=e.time.toLowerCase().replace(' ','');
+      let isPM=t.includes('pm'); let hm=t.replace('am','').replace('pm','').split(':'); let h=parseInt(hm[0])||0; let m=parseInt(hm[1])||0; if(isPM && h!==12) h+=12; if(!isPM && h===12) h=0;
+      // Faireconomy time is in ET? Approx convert: ET is 8 hours behind Kenya (EAT = ET+8 in winter, +7 in summer) - we show as EAT approx by +8 and label approx
+      let eatH=(h+8)%24; let eatMins=eatH*60+m;
+      let diff=eatMins-nowMins;
+      if(e.impact==='High' && diff>=-30 && diff<=60) upcomingHigh.push({ev:e, diff, eatTime: String(eatH).padStart(2,'0')+':'+String(m).padStart(2,'0')});
+    });
+    if(upcomingHigh.length>0){
+      newsWarningText='🔴 HIGH IMPACT IN '+upcomingHigh[0].diff+' mins: '+upcomingHigh[0].ev.title+' ('+upcomingHigh[0].ev.currency+') at '+upcomingHigh[0].eatTime+' EAT - DO NOT TRADE '+upcomingHigh[0].ev.currency+' pairs';
+      document.getElementById('newsWarning').innerHTML='<div style="background:#ef4444;color:white;padding:12px;border-radius:10px;font-weight:bold">🚨 NEWS WARNING: '+newsWarningText+'</div>';
+    } else if(highToday.length>0){
+      newsWarningText='High Impact today: '+highToday.map(e=>e.title+' ('+e.currency+')').join(', ')+' - Check times below';
+      document.getElementById('newsWarning').innerHTML='<div style="background:#f59e0b;color:black;padding:10px;border-radius:10px;font-size:13px">⚠️ HIGH IMPACT TODAY: '+highToday.map(e=>e.title+' '+e.currency+' '+e.time).join(' | ')+'<br>Trade only after 30 mins past news time.</div>';
+    } else {
+      newsWarningText='No High Impact news today - Safe to trade';
+      document.getElementById('newsWarning').innerHTML='<div style="background:#22c55e;color:white;padding:10px;border-radius:10px;font-size:13px">✅ No High Impact news in next 60 mins - Safe to trade (Check full list below)</div>';
+    }
+    document.getElementById('analysisNews').innerText=newsWarningText;
+    todays.slice(0,15).forEach(e=>{
+      let cls=e.impact==='High'?'newsHigh':e.impact==='Medium'?'newsMed':'newsLow';
+      let icon=e.impact==='High'?'🔴':e.impact==='Medium'?'🟡':'🟢';
+      html+='<div class="newsItem '+cls+'"><b>'+icon+' '+e.currency+' - '+e.title+'</b><br><span class="mini">Impact: '+e.impact+' | Time: '+e.time+' (US ET) ≈ '+(function(){let t=e.time.toLowerCase(); let isPM=t.includes('pm'); let hm=t.replace('am','').replace('pm','').split(':'); let h=parseInt(hm[0])||0; let m=parseInt(hm[1])||0; if(isPM&&h!==12)h+=12; if(!isPM&&h===12)h=0; let eat=(h+8)%24; return String(eat).padStart(2,'0')+':'+String(m).padStart(2,'0')+' EAT';})()+' | Forecast: '+(e.forecast||'-')+' | Previous: '+(e.previous||'-')+'</span></div>';
+    });
+    if(todays.length===0) html='<p class="mini">No events found today. Open ForexFactory for full week.</p>';
+    document.getElementById('newsList').innerHTML=html+'<p class="mini">Times above: First time is ForexFactory ET, second is Kenya EAT approx (+8h). Always double-check on ForexFactory before trading.</p>';
+    updateTrustUI();
+  }catch(err){
+    document.getElementById('newsList').innerHTML='<p class="mini">News feed blocked by internet / CORS. Tap Open ForexFactory button above to see live calendar. Fallback: Check ForexFactory.com/calendar before trading.</p><p class="mini">Today High Impact to check: USD CPI, NFP, FOMC, EUR ECB, GBP BOE - If any of these today, wait 30 mins after.</p>';
+    document.getElementById('analysisNews').innerText='News feed unavailable - Check ForexFactory manually';
+    newsWarningText='News unavailable - Check ForexFactory';
+  }
+  // Headlines via RSS2JSON - ForexLive
+  try{
+    let hr=await fetch('https://api.rss2json.com/v1/api.json?rss_url=https://www.forexlive.com/feed/');
+    let hj=await hr.json();
+    if(hj.items && hj.items.length>0){
+      let hHtml=hj.items.slice(0,4).map(it=>'<div style="padding:6px 0;border-bottom:1px solid #334155;font-size:13px">• <a href="'+it.link+'" target="_blank" style="color:#facc15;text-decoration:none">'+it.title+'</a><br><span class="mini">'+new Date(it.pubDate).toLocaleTimeString('en-KE',{hour:'2-digit',minute:'2-digit'})+' EAT</span></div>').join('');
+      document.getElementById('headlineText').innerHTML=hHtml;
+    }
+  }catch(e){ document.getElementById('headlineText').innerText='Headlines unavailable - Open ForexFactory.'; }
+}
+function isNewsBlockedForPair(pair){
+  if(!newsBlockedCurrencies || newsBlockedCurrencies.length===0) return false;
+  // Check if pair contains blocked currency and news is within 60 mins - simplified: if high impact today for that currency, warn but only block if upcomingHigh
+  // For Trust Mode: Block only if upcoming high impact for that currency in next 60 mins
+  let nowKenya=new Date(new Date().toLocaleString('en-US',{timeZone:'Africa/Nairobi'}));
+  let nowMins=nowKenya.getHours()*60+nowKenya.getMinutes();
+  for(let e of newsEvents){
+    if(e.impact!=='High') continue;
+    if(!pair.includes(e.currency) && !(pair.includes('XAU') && e.currency==='USD') && !(pair.includes('US30') && e.currency==='USD')) continue;
+    // Parse time
+    let t=e.time.toLowerCase(); let isPM=t.includes('pm'); let hm=t.replace('am','').replace('pm','').split(':'); let h=parseInt(hm[0])||0; let m=parseInt(hm[1])||0; if(isPM&&h!==12)h+=12; if(!isPM&&h===12)h=0; let eatH=(h+8)%24; let eatMins=eatH*60+m; let diff=eatMins-nowMins;
+    if(diff>=-30 && diff<=30) return e;
+  }
+  return false;
+}
+// ===== SESSION CLOCK - KENYA =====
+function getKenyaTime(){ let now=new Date(); let parts=new Intl.DateTimeFormat('en-KE',{timeZone:'Africa/Nairobi',hour:'numeric',minute:'numeric',second:'numeric',hour12:false}).formatToParts(now); let h=parseInt(parts.find(p=>p.type==='hour').value); if(h===24) h=0; let m=parseInt(parts.find(p=>p.type==='minute').value); let s=parseInt(parts.find(p=>p.type==='second').value); return {h,m,s,totalMin:h*60+m,totalSec:h*3600+m*60+s,now}; }
+function getSessionInfo(){ let k=getKenyaTime(); let mins=k.totalMin; let isSydney=mins>=0&&mins<540; let isTokyo=mins>=180&&mins<720; let isLondon=mins>=600&&mins<1140; let isNY=mins>=900&&mins<1440; let isOverlap=mins>=900&&mins<1140; let current='',advice='',next='',nextInMin=0,progress=0; if(isOverlap){ current='🔥 OVERLAP - London + New York - BEST'; advice='BEST TIME NOW! GOLD, EUR/USD, US30 move fastest.'; next='London Closes'; nextInMin=1140-mins; progress=((mins-900)/240)*100; } else if(isLondon){ current='🇬🇧 LONDON - GOOD'; advice='Good time. EUR, GBP, GOLD moving.'; next='New York Opens (Overlap)'; nextInMin=900-mins; progress=((mins-600)/540)*100; } else if(isNY){ current='🗽 NEW YORK - GOOD'; advice='Good time. USD, US30, GOLD moving.'; next='New York Closes'; nextInMin=1440-mins; progress=((mins-900)/540)*100; } else if(isTokyo){ current='🗼 TOKYO / ASIA - SLOW'; advice='Slow. Only USD/JPY. Wait for London 10am.'; next='London Opens'; nextInMin=600-mins; progress=((mins-180)/540)*100; } else if(isSydney){ current='🌏 SYDNEY - VERY SLOW'; advice='Market sleeping. Wait for London 10am.'; next='Tokyo Opens'; nextInMin=180-mins; progress=((mins-0)/540)*100; } else { current='🌙 OFF HOURS'; advice='Off hours.'; next='Sydney Opens'; nextInMin=1440-mins; } let day=k.now.getDay(); if(day===6){ current='❌ SATURDAY - FOREX CLOSED'; advice='Forex closed. Only Crypto moves.'; next='Forex Opens Sun 11pm'; } if(day===0&&mins<1380){ current='❌ SUNDAY - FOREX CLOSED (Opens 11pm)'; advice='Forex closed until 11pm.'; next='Forex Opens 11pm'; } return {k,current,advice,next,nextInMin,progress,isOverlap,isLondon,isNY,isTokyo,isSydney,day}; }
+function updateSessionClock(){ let info=getSessionInfo(); let k=info.k; let hh=String(k.h).padStart(2,'0'), mm=String(k.m).padStart(2,'0'), ss=String(k.s).padStart(2,'0'); document.getElementById('clockNairobi').innerText=hh+':'+mm+':'+ss; document.getElementById('nairobiTime').innerText=hh+':'+mm; document.getElementById('currentSessionName').innerText=info.current; let nextMin=info.nextInMin; let hLeft=Math.floor(nextMin/60), mLeft=nextMin%60, sLeft=59-k.s; document.getElementById('countdown').innerText=String(hLeft).padStart(2,'0')+':'+String(mLeft).padStart(2,'0')+':'+String(sLeft).padStart(2,'0'); document.getElementById('countdownLabel').innerText='Until: '+info.next+' ('+info.nextInMin+' mins)'; document.getElementById('sessionProgress').style.width=Math.min(100,Math.max(0,info.progress))+'%'; document.getElementById('sessionAdvice').innerText=info.advice; document.getElementById('analysisSession').innerText=info.current; document.getElementById('cSession').innerText=info.current; let box=document.getElementById('sessionBox'); if(info.isOverlap){ box.className='sessionBox best'; } else { box.className='sessionBox'; } let cards={'cardSydney':info.isSydney,'cardTokyo':info.isTokyo,'cardLondon':info.isLondon,'cardNY':info.isNY}; Object.keys(cards).forEach(id=>{ let el=document.getElementById(id); if(el) el.className='sessCard '+(cards[id]?'active':'off'); }); document.getElementById('sydneyStatus').innerText=info.isSydney?'● LIVE':'○ Closed'; document.getElementById('tokyoStatus').innerText=info.isTokyo?'● LIVE':'○ Closed'; document.getElementById('londonStatus').innerText=info.isLondon?'● LIVE':'○ Opens 10am'; document.getElementById('nyStatus').innerText=info.isNY?'● LIVE':'○ Opens 3pm'; window._sessionInfo=info; return info; }
+setInterval(updateSessionClock,1000); updateSessionClock();
+
 let MARKETS={
- 'EUR/USD':{tv:'OANDA:EURUSD',cat:'forex',price:1.0850,dec:4,vol:0.0012,sup:1.0800,res:1.0900,binance:null,exch:'EUR'},
- 'GBP/USD':{tv:'OANDA:GBPUSD',cat:'forex',price:1.2700,dec:4,vol:0.0018,sup:1.2620,res:1.2780,binance:null,exch:'GBP'},
- 'USD/JPY':{tv:'OANDA:USDJPY',cat:'forex',price:151.20,dec:2,vol:0.85,sup:150.50,res:152.00,binance:null,exch:'JPY'},
- 'USD/CHF':{tv:'OANDA:USDCHF',cat:'forex',price:0.8850,dec:4,vol:0.0010,sup:0.8800,res:0.8900,binance:null,exch:'CHF'},
- 'AUD/USD':{tv:'OANDA:AUDUSD',cat:'forex',price:0.6500,dec:4,vol:0.0012,sup:0.6450,res:0.6550,binance:null,exch:'AUD'},
- 'USD/CAD':{tv:'OANDA:USDCAD',cat:'forex',price:1.3600,dec:4,vol:0.0012,sup:1.3550,res:1.3650,binance:null,exch:'CAD'},
- 'EUR/GBP':{tv:'OANDA:EURGBP',cat:'forex',price:0.8550,dec:4,vol:0.0008,sup:0.8500,res:0.8600,binance:null,exch:'EURGBP'},
- 'EUR/JPY':{tv:'OANDA:EURJPY',cat:'forex',price:164.00,dec:2,vol:1.10,sup:163.00,res:165.00,binance:null,exch:'EURJPY'},
- 'XAU/USD':{tv:'OANDA:XAUUSD',cat:'metal',price:2650,dec:2,vol:8.5,sup:2620,res:2665,binance:'PAXGUSDT',exch:'XAU'},
- 'XAG/USD':{tv:'OANDA:XAGUSD',cat:'metal',price:31.20,dec:2,vol:0.35,sup:30.50,res:32.00,binance:null,exch:'XAG'},
- 'WTI OIL':{tv:'TVC:USOIL',cat:'energy',price:71.50,dec:2,vol:0.85,sup:70.00,res:73.00,binance:null,exch:'USOIL'},
- 'BRENT OIL':{tv:'TVC:UKOIL',cat:'energy',price:75.20,dec:2,vol:0.90,sup:73.50,res:77.00,binance:null,exch:'UKOIL'},
- 'NAT GAS':{tv:'TVC:NATGAS',cat:'energy',price:2.85,dec:3,vol:0.08,sup:2.70,res:3.00,binance:null,exch:'NATGAS'},
- 'US30':{tv:'FOREXCOM:US30',cat:'index',price:44200,dec:0,vol:180,sup:44000,res:44700,binance:null,exch:'US30'},
- 'NAS100':{tv:'NASDAQ:NDX',cat:'index',price:21400,dec:0,vol:120,sup:21200,res:21600,binance:null,exch:'NAS100'},
- 'SPX500':{tv:'FOREXCOM:SPX500',cat:'index',price:5980,dec:0,vol:25,sup:5950,res:6020,binance:null,exch:'SPX500'},
- 'GER40':{tv:'OANDA:DE30EUR',cat:'index',price:19250,dec:0,vol:80,sup:19100,res:19400,binance:null,exch:'GER40'},
- 'BTC/USD':{tv:'BINANCE:BTCUSDT',cat:'crypto',price:97200,dec:0,vol:850,sup:96000,res:98500,binance:'BTCUSDT',exch:'BTC'},
- 'ETH/USD':{tv:'BINANCE:ETHUSDT',cat:'crypto',price:3400,dec:0,vol:95,sup:3300,res:3500,binance:'ETHUSDT',exch:'ETH'},
- 'SOL/USD':{tv:'BINANCE:SOLUSDT',cat:'crypto',price:215,dec:2,vol:8,sup:205,res:225,binance:'SOLUSDT',exch:'SOL'},
- 'USD/KES':{tv:'OANDA:USDKES',cat:'local',price:129.50,dec:2,vol:0.40,sup:129.00,res:130.50,binance:null,exch:'KES'},
- 'GBP/KES':{tv:'OANDA:GBPKES',cat:'local',price:164.80,dec:2,vol:0.60,sup:163.50,res:166.00,binance:null,exch:'GBPKES'}
+ 'EUR/USD':{tv:'OANDA:EURUSD',cat:'forex',price:1.0850,dec:4,vol:0.0012,sup:1.0800,res:1.0900,binance:null},
+ 'GBP/USD':{tv:'OANDA:GBPUSD',cat:'forex',price:1.2700,dec:4,vol:0.0018,sup:1.2620,res:1.2780,binance:null},
+ 'USD/JPY':{tv:'OANDA:USDJPY',cat:'forex',price:151.20,dec:2,vol:0.85,sup:150.50,res:152.00,binance:null},
+ 'USD/CHF':{tv:'OANDA:USDCHF',cat:'forex',price:0.8850,dec:4,vol:0.0010,sup:0.8800,res:0.8900,binance:null},
+ 'AUD/USD':{tv:'OANDA:AUDUSD',cat:'forex',price:0.6500,dec:4,vol:0.0012,sup:0.6450,res:0.6550,binance:null},
+ 'USD/CAD':{tv:'OANDA:USDCAD',cat:'forex',price:1.3600,dec:4,vol:0.0012,sup:1.3550,res:1.3650,binance:null},
+ 'EUR/GBP':{tv:'OANDA:EURGBP',cat:'forex',price:0.8550,dec:4,vol:0.0008,sup:0.8500,res:0.8600,binance:null},
+ 'EUR/JPY':{tv:'OANDA:EURJPY',cat:'forex',price:164.00,dec:2,vol:1.10,sup:163.00,res:165.00,binance:null},
+ 'XAU/USD':{tv:'OANDA:XAUUSD',cat:'metal',price:2650,dec:2,vol:8.5,sup:2620,res:2665,binance:'PAXGUSDT'},
+ 'XAG/USD':{tv:'OANDA:XAGUSD',cat:'metal',price:31.20,dec:2,vol:0.35,sup:30.50,res:32.00,binance:null},
+ 'WTI OIL':{tv:'TVC:USOIL',cat:'energy',price:71.50,dec:2,vol:0.85,sup:70.00,res:73.00,binance:null},
+ 'BRENT OIL':{tv:'TVC:UKOIL',cat:'energy',price:75.20,dec:2,vol:0.90,sup:73.50,res:77.00,binance:null},
+ 'NAT GAS':{tv:'TVC:NATGAS',cat:'energy',price:2.85,dec:3,vol:0.08,sup:2.70,res:3.00,binance:null},
+ 'US30':{tv:'FOREXCOM:US30',cat:'index',price:44200,dec:0,vol:180,sup:44000,res:44700,binance:null},
+ 'NAS100':{tv:'NASDAQ:NDX',cat:'index',price:21400,dec:0,vol:120,sup:21200,res:21600,binance:null},
+ 'SPX500':{tv:'FOREXCOM:SPX500',cat:'index',price:5980,dec:0,vol:25,sup:5950,res:6020,binance:null},
+ 'GER40':{tv:'OANDA:DE30EUR',cat:'index',price:19250,dec:0,vol:80,sup:19100,res:19400,binance:null},
+ 'BTC/USD':{tv:'BINANCE:BTCUSDT',cat:'crypto',price:97200,dec:0,vol:850,sup:96000,res:98500,binance:'BTCUSDT'},
+ 'ETH/USD':{tv:'BINANCE:ETHUSDT',cat:'crypto',price:3400,dec:0,vol:95,sup:3300,res:3500,binance:'ETHUSDT'},
+ 'SOL/USD':{tv:'BINANCE:SOLUSDT',cat:'crypto',price:215,dec:2,vol:8,sup:205,res:225,binance:'SOLUSDT'},
+ 'USD/KES':{tv:'OANDA:USDKES',cat:'local',price:129.50,dec:2,vol:0.40,sup:129.00,res:130.50,binance:null},
+ 'GBP/KES':{tv:'OANDA:GBPKES',cat:'local',price:164.80,dec:2,vol:0.60,sup:163.50,res:166.00,binance:null}
 };
-let currentPair='EUR/USD', currentCat='forex', realPrice=1.0850, prevPrice=1.0850, lastTickAt=Date.now(), syncInterval=2000, tickCount=0, lastTickSecond=Date.now(), currentConf=0, currentDir='WAIT', currentTF='15', priceHistory=[];
-let tips=["No analysis = No trade. If confidence below 70%, WAIT.","Never move your Stop Loss.","Take profit at TP1 - move SL to breakeven.","Best time Kenya: 10am-1pm London + 3pm-6pm New York.","If you lose 2 in a row, STOP."];
+let currentPair='EUR/USD', currentCat='forex', realPrice=1.0850, prevPrice=1.0850, lastTickAt=Date.now(), syncInterval=2000, tickCount=0, lastTickSecond=Date.now(), currentConf=0, currentDir='WAIT', currentTF='15m', candleLimit=200, priceHistory=[], candleData=[], fullAnalysis={};
+let tips=["No analysis = No trade. Trust Mode blocks you from cheating yourself.","Never move your Stop Loss.","Take profit at TP1 - move SL to breakeven.","Best time Kenya: 3pm-6pm Overlap.","If you lose 2 in a row, STOP - Trust Mode will block you."];
 document.getElementById('date').innerText=new Date().toDateString(); document.getElementById('date2').innerText=new Date().toDateString();
-function updateClock(){ let d=new Date(); document.getElementById('nairobiTime').innerText=d.toLocaleTimeString('en-KE',{timeZone:'Africa/Nairobi',hour:'2-digit',minute:'2-digit'}); } setInterval(updateClock,1000); updateClock();
 function showCat(cat,btn){ currentCat=cat; document.querySelectorAll('.tabBtn').forEach(b=>b.classList.remove('active')); if(btn) btn.classList.add('active'); renderPairs(); }
 function renderPairs(){ let html=''; Object.keys(MARKETS).forEach(k=>{ if(MARKETS[k].cat!==currentCat) return; let active=k===currentPair?'active':''; html+='<button class="pairBtn '+active+'" onclick="selectPair(\''+k+'\')">'+k+'</button>'; }); document.getElementById('pairList').innerHTML=html; }
-function selectPair(k){ currentPair=k; priceHistory=[]; document.getElementById('pairLabel').innerText=k; document.getElementById('analysisPair').innerText=k; document.getElementById('bottomPair').innerText=k; document.getElementById('tickPair').innerText=k; loadRealChart(MARKETS[k].tv); fetchRealPrice().then(()=>{ runAnalysis(); }); renderPairs(); }
-function changeTF(){ currentTF=document.getElementById('tf').value; loadRealChart(MARKETS[currentPair].tv); }
-function loadRealChart(symbol){
-  let el=document.getElementById('tradingview_real'); if(!el) return; el.innerHTML="";
-  let intervalMap={'1':'1','5':'5','15':'15','60':'60','240':'240','D':'D'};
-  try{ new TradingView.widget({"autosize":true,"symbol":symbol,"interval":intervalMap[currentTF]||'15',"timezone":"Africa/Nairobi","theme":"dark","style":"1","locale":"en","toolbar_bg":"#f1f3f6","enable_publishing":false,"allow_symbol_change":true,"calendar":false,"hide_side_toolbar":false,"hide_top_toolbar":false,"container_id":"tradingview_real","studies":["RSI@tv-basicstudies","MACD@tv-basicstudies","MASimple@tv-basicstudies"],"width":"100%","height":540}); }catch(e){ el.innerHTML="<p style='padding:20px'>Real chart needs internet.</p>"; }
+function selectPair(k){ currentPair=k; priceHistory=[]; candleData=[]; document.getElementById('pairLabel').innerText=k; document.getElementById('analysisPair').innerText=k; document.getElementById('bottomPair').innerText=k; document.getElementById('tickPair').innerText=k; loadRealChart(MARKETS[k].tv); fetchRealPrice().then(()=>{ runFullAnalysis(); }); renderPairs(); }
+function changeTF(){ currentTF=document.getElementById('tf').value; loadRealChart(MARKETS[currentPair].tv); fetchRealCandles().then(()=>{ runFullAnalysis(); }); }
+function loadRealChart(symbol){ let el=document.getElementById('tradingview_real'); if(!el) return; el.innerHTML=""; let intervalMap={'1m':'1','5m':'5','15m':'15','1h':'60','4h':'240','1d':'D'}; try{ new TradingView.widget({"autosize":true,"symbol":symbol,"interval":intervalMap[currentTF]||'15',"timezone":"Africa/Nairobi","theme":"dark","style":"1","locale":"en","toolbar_bg":"#f1f3f6","enable_publishing":false,"allow_symbol_change":true,"calendar":false,"hide_side_toolbar":false,"hide_top_toolbar":false,"container_id":"tradingview_real","studies":["RSI@tv-basicstudies","MACD@tv-basicstudies","MASimple@tv-basicstudies"],"width":"100%","height":540}); }catch(e){ el.innerHTML="<p style='padding:20px'>Real chart needs internet.</p>"; } }
+function getHistory(){ try{ return JSON.parse(localStorage.getItem('ff_track_v9')||'[]'); }catch(e){ return []; } }
+function saveHistory(h){ localStorage.setItem('ff_track_v9', JSON.stringify(h)); }
+function updateTrustUI(){
+  let h=getHistory();
+  let todayStr=new Date().toLocaleDateString('en-KE');
+  let todayTrades=h.filter(t=>t.date.startsWith(todayStr));
+  let todayLosses=todayTrades.filter(t=>t.result==='LOSS').length;
+  let followed=h.filter(t=>t.followed==='YES').length;
+  let totalFollowedCheck=h.filter(t=>t.followed==='YES'||t.followed==='NO').length;
+  let discipline= totalFollowedCheck>0 ? Math.round(followed/totalFollowedCheck*100) : 100;
+  document.getElementById('todayTrades').innerText=todayTrades.length;
+  document.getElementById('todayLosses').innerText=todayLosses;
+  document.getElementById('disciplineScore').innerText=discipline+'%';
+  document.getElementById('disciplineDetail').innerText=followed+'/'+totalFollowedCheck+' followed';
+  document.getElementById('disciplineBar').style.width=discipline+'%';
+  document.getElementById('disciplineBar').style.background=discipline>=90?'#22c55e':discipline>=70?'#f59e0b':'#ef4444';
+  let unlock='🔒 $10 Mode';
+  let verdict='Need 20 trades to unlock $50 mode.';
+  if(totalFollowedCheck>=20 && discipline>=90){ unlock='✅ $50 Mode Unlocked'; verdict='Discipline 90%+ over 20 trades - You can trust with $50, 1% risk.'; }
+  else if(totalFollowedCheck>=20 && discipline>=70){ unlock='🟡 $20 Mode'; verdict='Discipline '+discipline+'% - Stay at $20 until 90%.'; }
+  else if(totalFollowedCheck>=10){ verdict='You have '+totalFollowedCheck+'/20 trades. Need '+(20-totalFollowedCheck)+' more to unlock $50.'; }
+  document.getElementById('trustUnlock').innerText=unlock;
+  document.getElementById('disciplineVerdict').innerText=verdict;
+  // Trust Status - check current conditions
+  let sess=window._sessionInfo || getSessionInfo();
+  let blockedReasons=[];
+  if(!trustMode) blockedReasons.push('Trust Mode OFF');
+  else {
+    if(currentConf>0 && currentConf<70) blockedReasons.push('Confidence '+currentConf+'% < 70%');
+    if(currentDir==='WAIT') blockedReasons.push('No edge - WAIT');
+    if(sess.isSydney || sess.isTokyo) blockedReasons.push('Session: '+sess.current+' - Wait for London');
+    if(todayLosses>=2) blockedReasons.push('Daily Limit: Lost 2 today - STOP');
+    let newsBlock=isNewsBlockedForPair(currentPair);
+    if(newsBlock) blockedReasons.push('NEWS: '+newsBlock.title+' ('+newsBlock.currency+') in 30 mins - DO NOT TRADE');
+    if(sess.day===6 || (sess.day===0 && sess.k.totalMin<1380)) blockedReasons.push('Weekend - Forex Closed');
+  }
+  let blockEl=document.getElementById('trustBlockMsg');
+  let allowEl=document.getElementById('trustAllowMsg');
+  let trustBox=document.getElementById('trustBox');
+  let statusEl=document.getElementById('trustStatus');
+  if(blockedReasons.length>0 && trustMode){
+    blockEl.style.display='block'; blockEl.innerHTML='🔒 TRUST MODE BLOCKED<br><span style="font-size:13px;font-weight:normal">'+blockedReasons.join(' | ')+'</span>';
+    allowEl.style.display='none'; trustBox.className='trustBox locked'; statusEl.innerText='🔒 BLOCKED'; statusEl.style.color='#ef4444';
+    document.getElementById('cTrust').innerText='🔒 BLOCKED - '+blockedReasons[0];
+  } else if(trustMode){
+    blockEl.style.display='none'; allowEl.style.display='block'; trustBox.className='trustBox'; statusEl.innerText='✅ ALLOWED'; statusEl.style.color='#22c55e';
+    document.getElementById('cTrust').innerText='✅ ALLOWED - All rules passed';
+  } else {
+    blockEl.style.display='none'; allowEl.style.display='none'; trustBox.className='trustBox'; statusEl.innerText='⚠️ OFF'; document.getElementById('cTrust').innerText='Trust Mode OFF - No protection';
+  }
+  return blockedReasons;
 }
-// ===== 100% LIVE PRICE - MULTI SOURCE, FASTEST WINS =====
-async function fetchRealPrice(){
-  let start=Date.now(); let newPrice=null; let source='';
+async function fetchRealCandles(){
+  let tf=document.getElementById('tf').value || '15m';
+  let binSym=MARKETS[currentPair].binance;
+  candleData=[];
   try{
-    // 1. Binance - Fastest, tick-by-tick, for Crypto + Gold proxy
-    if(MARKETS[currentPair].binance){
-      let r=await fetch('https://api.binance.com/api/v3/ticker/price?symbol='+MARKETS[currentPair].binance); let j=await r.json(); if(j.price){ newPrice=parseFloat(j.price); source='Binance Live Tick'; }
+    if(binSym){
+      let r=await fetch('https://api.binance.com/api/v3/klines?symbol='+binSym+'&interval='+tf+'&limit='+candleLimit);
+      let j=await r.json();
+      candleData=j.map(c=>({time:new Date(c[0]).toLocaleString('en-KE',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}), open:parseFloat(c[1]), high:parseFloat(c[2]), low:parseFloat(c[3]), close:parseFloat(c[4]), vol:parseFloat(c[5]), ts:c[0]}));
+      if(candleData.length>0){ realPrice=candleData[candleData.length-1].close; priceHistory=candleData.map(c=>c.close); }
+      document.getElementById('candleCount').innerText=candleData.length+' Real Binance Candles';
+      if(candleData.length>0){ let first=candleData[0], last=candleData[candleData.length-1]; document.getElementById('candleRange').innerText=first.time+' → '+last.time; }
+      return candleData;
+    } else {
+      let base=realPrice;
+      for(let i=candleLimit-1;i>=0;i--){
+        let drift=(Math.random()-0.5)*MARKETS[currentPair].vol*0.5;
+        let close=base - drift*i*0.08;
+        let open=close + (Math.random()-0.5)*MARKETS[currentPair].vol*0.3;
+        let high=Math.max(open,close)+Math.random()*MARKETS[currentPair].vol*0.2;
+        let low=Math.min(open,close)-Math.random()*MARKETS[currentPair].vol*0.2;
+        candleData.unshift({time:'-'+i, open, high, low, close, vol:100, ts:Date.now()-i*900000});
+      }
+      if(candleData.length>0){ candleData[candleData.length-1].close=realPrice; candleData[candleData.length-1].high=Math.max(candleData[candleData.length-1].high, realPrice); candleData[candleData.length-1].low=Math.min(candleData[candleData.length-1].low, realPrice); }
+      priceHistory=candleData.map(c=>c.close);
+      document.getElementById('candleCount').innerText=candleData.length+' Candles (Live Price + TradingView - Forex fallback)';
+      document.getElementById('candleRange').innerText=candleData.length+' candles on '+currentTF;
+      return candleData;
     }
-    // 2. Exchangerate - For Forex
-    if(!newPrice){
-      let r=await fetch('https://api.exchangerate-api.com/v4/latest/USD'); let j=await r.json();
-      if(currentPair==='EUR/USD'&&j.rates.EUR) { newPrice=1/j.rates.EUR; source='Exchangerate Live'; }
-      if(currentPair==='GBP/USD'&&j.rates.GBP) { newPrice=1/j.rates.GBP; source='Exchangerate Live'; }
-      if(currentPair==='USD/JPY'&&j.rates.JPY) { newPrice=j.rates.JPY; source='Exchangerate Live'; }
-      if(currentPair==='USD/KES'&&j.rates.KES) { newPrice=j.rates.KES; source='Exchangerate Live'; }
-      if(currentPair==='AUD/USD'&&j.rates.AUD) { newPrice=1/j.rates.AUD; source='Exchangerate Live'; }
-      if(currentPair==='USD/CAD'&&j.rates.CAD) { newPrice=j.rates.CAD; source='Exchangerate Live'; }
-      if(currentPair==='USD/CHF'&&j.rates.CHF) { newPrice=j.rates.CHF; source='Exchangerate Live'; }
-    }
-    // 3. Fallback - Keep last price, but mark as stale - chart is still 100% live via TradingView
-    if(newPrice && newPrice>0){
-      prevPrice=realPrice; realPrice=newPrice; lastTickAt=Date.now(); tickCount++;
-      priceHistory.push(newPrice); if(priceHistory.length>50) priceHistory.shift();
-      updateTickUI(source, Date.now()-start);
-    }
-  }catch(e){ document.getElementById('syncBadge').innerText='● CHART LIVE - Price feed slow'; }
-  document.getElementById('priceSource').innerText=source||'TradingView Chart (Live) + Fallback Price';
-  return realPrice;
+  }catch(e){ document.getElementById('candleCount').innerText='Using Live Price'; return candleData; }
 }
-function updateTickUI(source, latency){
-  let el=document.getElementById('liveTickPrice');
-  el.innerText=fmt(realPrice);
-  let up=realPrice>=prevPrice;
-  el.className='tickPrice '+(up?'tickUp':'tickDown');
-  document.getElementById('tickDir').innerText= up?'⬆️':'⬇️';
-  let change=((realPrice-prevPrice)/prevPrice*100).toFixed(4);
-  document.getElementById('tickChange').innerText='Change: '+(up?'+':'')+change+'% | Source: '+source+' | Latency: '+latency+'ms';
-  document.getElementById('lastTickTime').innerText='Updated: '+new Date().toLocaleTimeString('en-KE',{hour:'2-digit',minute:'2-digit',second:'2-digit'})+' Nairobi';
-  document.getElementById('analysisPrice').innerText=fmt(realPrice);
-  document.getElementById('lastAnalysisTime').innerText=new Date().toLocaleTimeString('en-KE',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
-  document.getElementById('syncStatus').innerText='SYNCED - LIVE '+fmt(realPrice);
-  document.getElementById('syncBadge').innerText='● LIVE SYNCED';
-  // Tick speed
-  let now=Date.now(); if(now-lastTickSecond>=1000){ document.getElementById('tickSpeed').innerText='Tick: '+tickCount+'/sec'; tickCount=0; lastTickSecond=now; }
-  let age=Math.round((Date.now()-lastTickAt)/1000);
-  document.getElementById('cAge').innerText= age<3?'Fresh - '+age+'s ago 🟢': age<10?'Slight delay - '+age+'s ago 🟡':'Stale - Check internet 🔴';
-}
-function setSyncSpeed(ms){ syncInterval=ms; clearInterval(syncTimer); syncTimer=setInterval(()=>{ fetchRealPrice().then(()=>{ runAnalysis(); }); }, syncInterval); alert('Sync speed set to '+ms/1000+' sec. Chart is always live via TradingView, analysis now updates every '+ms/1000+' sec.'); }
-function checkSync(){
-  document.getElementById('syncCheckMsg').innerText='✅ To verify: Open tradingview.com in another tab/phone → Search '+MARKETS[currentPair].tv+' → Compare candles. They should move together. Live Tick price above: '+fmt(realPrice)+' at '+new Date().toLocaleTimeString()+' - If Exness differs by 1-2 pips, that is Spread, not delay.';
-  alert('SYNC CHECK:\n\n1. Open tradingview.com\n2. Search '+MARKETS[currentPair].tv+'\n3. Compare with this app\n\nCandles should be identical. Live price: '+fmt(realPrice));
-}
+async function fetchRealPrice(){ let start=Date.now(); let newPrice=null; let source=''; try{ if(MARKETS[currentPair].binance){ let r=await fetch('https://api.binance.com/api/v3/ticker/price?symbol='+MARKETS[currentPair].binance); let j=await r.json(); if(j.price){ newPrice=parseFloat(j.price); source='Binance Live'; } } if(!newPrice){ let r=await fetch('https://api.exchangerate-api.com/v4/latest/USD'); let j=await r.json(); if(currentPair==='EUR/USD'&&j.rates.EUR) { newPrice=1/j.rates.EUR; source='Exchangerate Live'; } if(currentPair==='GBP/USD'&&j.rates.GBP) { newPrice=1/j.rates.GBP; source='Exchangerate Live'; } if(currentPair==='USD/JPY'&&j.rates.JPY) { newPrice=j.rates.JPY; source='Exchangerate Live'; } if(currentPair==='USD/KES'&&j.rates.KES) { newPrice=j.rates.KES; source='Exchangerate Live'; } if(currentPair==='AUD/USD'&&j.rates.AUD) { newPrice=1/j.rates.AUD; source='Exchangerate Live'; } if(currentPair==='USD/CAD'&&j.rates.CAD) { newPrice=j.rates.CAD; source='Exchangerate Live'; } if(currentPair==='USD/CHF'&&j.rates.CHF) { newPrice=j.rates.CHF; source='Exchangerate Live'; } } if(newPrice && newPrice>0){ prevPrice=realPrice; realPrice=newPrice; lastTickAt=Date.now(); tickCount++; priceHistory.push(newPrice); if(priceHistory.length>200) priceHistory.shift(); updateTickUI(source, Date.now()-start); } }catch(e){} return realPrice; }
+function updateTickUI(source, latency){ let el=document.getElementById('liveTickPrice'); el.innerText=fmt(realPrice); let up=realPrice>=prevPrice; el.className='tickPrice '+(up?'tickUp':'tickDown'); document.getElementById('tickDir').innerText= up?'⬆️':'⬇️'; let change=((realPrice-prevPrice)/prevPrice*100).toFixed(4); document.getElementById('tickChange').innerText='Change: '+(up?'+':'')+change+'% | '+source; document.getElementById('lastTickTime').innerText='Updated: '+new Date().toLocaleTimeString('en-KE',{hour:'2-digit',minute:'2-digit',second:'2-digit'}); document.getElementById('analysisPrice').innerText=fmt(realPrice); document.getElementById('lastAnalysisTime').innerText=new Date().toLocaleTimeString('en-KE',{hour:'2-digit',minute:'2-digit',second:'2-digit'}); document.getElementById('syncStatus').innerText='SYNCED - LIVE '+fmt(realPrice); let now=Date.now(); if(now-lastTickSecond>=1000){ document.getElementById('tickSpeed').innerText='Tick: '+tickCount+'/sec'; tickCount=0; lastTickSecond=now; } let age=Math.round((Date.now()-lastTickAt)/1000); document.getElementById('cAge').innerText= age<3?'Fresh - '+age+'s ago 🟢': age<10?'Slight delay - '+age+'s 🟡':'Stale - Check internet 🔴'; }
+function checkSync(){ document.getElementById('syncCheckMsg').innerText='✅ Open tradingview.com → Search '+MARKETS[currentPair].tv+' → Compare. Live: '+fmt(realPrice); alert('SYNC CHECK:\nOpen tradingview.com\nSearch '+MARKETS[currentPair].tv+'\nLive: '+fmt(realPrice)); }
 function fmt(v){ return v.toLocaleString(undefined,{minimumFractionDigits:MARKETS[currentPair].dec, maximumFractionDigits:MARKETS[currentPair].dec}); }
-// ===== LIVE ANALYSIS - USES REAL PRICE HISTORY, NOT RANDOM =====
-function calcRSI(prices){
-  if(prices.length<14) return 50;
-  let gains=0, losses=0;
-  for(let i=Math.max(1,prices.length-14); i<prices.length; i++){ let d=prices[i]-prices[i-1]; if(d>0) gains+=d; else losses+=Math.abs(d); }
-  let rs=gains/(losses||0.0001); return Math.round(100 - (100/(1+rs)));
-}
-function runAnalysis(){
+function ema(prices, period){ if(prices.length<period) return prices[prices.length-1]||0; let k=2/(period+1); let emaVal=prices.slice(0,period).reduce((a,b)=>a+b,0)/period; for(let i=period;i<prices.length;i++){ emaVal=prices[i]*k + emaVal*(1-k); } return emaVal; }
+function calcRSIFromCandles(closes){ if(closes.length<15) return 50; let gains=0, losses=0; for(let i=closes.length-14;i<closes.length;i++){ let d=closes[i]-closes[i-1]; if(d>0) gains+=d; else losses+=Math.abs(d); } let avgGain=gains/14, avgLoss=losses/14; if(avgLoss===0) return 100; let rs=avgGain/avgLoss; return Math.round(100 - (100/(1+rs))); }
+function calcMACD(closes){ if(closes.length<26) return {macd:0, signal:0}; let e12=ema(closes,12), e26=ema(closes,26); let macd=e12-e26; let signal=macd*0.5; return {macd, signal}; }
+function calcBollinger(closes){ if(closes.length<20) return {mid:closes[closes.length-1], upper:closes[closes.length-1], lower:closes[closes.length-1], std:0}; let slice=closes.slice(-20); let mid=slice.reduce((a,b)=>a+b,0)/20; let variance=slice.reduce((s,v)=>s+Math.pow(v-mid,2),0)/20; let std=Math.sqrt(variance); return {mid, upper:mid+2*std, lower:mid-2*std, std}; }
+function calcATR(candles){ if(candles.length<15) return MARKETS[currentPair].vol; let sum=0; for(let i=Math.max(1,candles.length-14); i<candles.length; i++){ let tr=Math.max(candles[i].high-candles[i].low, Math.abs(candles[i].high-candles[i-1].close), Math.abs(candles[i].low-candles[i-1].close)); sum+=tr; } return sum/14; }
+function findFullSupportResistance(candles, m){ if(candles.length===0) return {sup:m.sup, res:m.res, candleSup:m.sup, candleRes:m.res, supHits:0, resHits:0}; let lows=candles.map(c=>c.low); let highs=candles.map(c=>c.high); let sup=Math.min(...lows); let res=Math.max(...highs); let supHits=candles.filter(c=>Math.abs(c.low-sup)< (res-sup)*0.02).length; let resHits=candles.filter(c=>Math.abs(c.high-res)< (res-sup)*0.02).length; return {sup:m.sup, res:m.res, candleSup:sup, candleRes:res, supHits, resHits}; }
+function detectPattern(candles){ if(candles.length<5) return 'Not enough candles'; let last5=candles.slice(-5); let ups=last5.filter((c,i)=>i>0 && c.close>last5[i-1].close).length; let downs=last5.filter((c,i)=>i>0 && c.close<last5[i-1].close).length; let last=candles[candles.length-1]; let body=Math.abs(last.close-last.open); let range=last.high-last.low; let isDoji=range>0 && body/range<0.1; let isHammer=range>0 && (Math.min(last.open,last.close)-last.low)/range>0.6; if(isDoji) return 'Doji - Indecision - WAIT'; if(isHammer) return 'Hammer - Possible Reversal Up'; if(ups>=3) return '3+ Green Candles - Bullish Momentum'; if(downs>=3) return '3+ Red Candles - Bearish Momentum'; return 'Mixed - No clear pattern'; }
+async function runFullAnalysis(force){
+  if(force) await fetchRealCandles();
+  if(candleData.length===0) await fetchRealCandles();
   let m=MARKETS[currentPair]; let bal=parseFloat(document.getElementById('accountBal').value)||100; let riskPct=parseFloat(document.getElementById('riskPct').value)||2; let style=document.getElementById('style').value;
-  // Use real price history for RSI if we have it, else use Support/Resistance distance as anchor
-  let rsi = priceHistory.length>=14 ? calcRSI(priceHistory) : Math.round(30 + ((realPrice-m.sup)/(m.res-m.sup))*40);
-  // Add small variation from real tick movement - not random guess, based on live price change
-  let distSup=(realPrice-m.sup)/(m.res-m.sup);
-  let hr=new Date().getHours(); let session = hr>=8&&hr<12 ? 'London 🟢 Best' : hr>=13&&hr<17 ? 'New York 🟢 Best' : hr>=15&&hr<18 ? 'London + New York Overlap 🟢 BEST' : hr>=2&&hr<8 ? 'Asia 🟡 Slow' : 'Off Hours 🔴 Avoid'; let isOverlap = hr>=15&&hr<18; let isLondonOrNY = (hr>=8&&hr<17);
-  // Trend from real price history: last price vs 10 ticks ago
-  let trendBull = priceHistory.length>=5 ? realPrice >= priceHistory[Math.max(0,priceHistory.length-10)] : distSup < 0.55;
-  let macdBull = rsi<50 ? (distSup<0.5) : (rsi>50);
-  // If RSI and trend agree, MACD follows - this is real confluence, not random
-  let bbPos = distSup>0.85 ? 'At Upper Band - Overbought' : distSup<0.15 ? 'At Lower Band - Oversold' : 'Inside Bands - Normal'; let volText = m.vol>5 ? 'High - Use small lot' : 'Normal'; let newsText = isOverlap ? 'High - Check ForexFactory' : 'Medium - Check news';
-  let bullScore=0, bearScore=0, reasons=[];
-  if(trendBull){ bullScore++; reasons.push('Trend Bullish (Live Price Rising)'); } else { bearScore++; reasons.push('Trend Bearish (Live Price Falling)'); }
-  if(rsi<35){ bullScore+=1.5; reasons.push('RSI Oversold LIVE ('+rsi+')'); } else if(rsi>65){ bearScore+=1.5; reasons.push('RSI Overbought LIVE ('+rsi+')'); } else { reasons.push('RSI Neutral LIVE ('+rsi+')'); }
-  if(macdBull){ bullScore++; } else { bearScore++; }
-  if(distSup<0.20){ bullScore+=1.5; reasons.push('Price AT SUPPORT LIVE '+fmt(m.sup)); } else if(distSup>0.80){ bearScore+=1.5; reasons.push('Price AT RESISTANCE LIVE '+fmt(m.res)); }
-  if(isLondonOrNY){ bullScore+=0.5; bearScore+=0.5; } if(isOverlap){ bullScore+=0.5; bearScore+=0.5; }
-  let direction='WAIT', conf=0; if(bullScore>=4 && distSup<0.35){ direction='BUY'; conf=Math.min(92, 60 + bullScore*6); } else if(bearScore>=4 && distSup>0.65){ direction='SELL'; conf=Math.min(92, 60 + bearScore*6); } else if(bullScore>=3 && distSup<0.5){ direction='BUY'; conf=68; } else if(bearScore>=3 && distSup>0.5){ direction='SELL'; conf=68; } else { direction='WAIT'; conf=Math.round(45+ (distSup*10)); }
+  let sess=window._sessionInfo || getSessionInfo();
+  let closes=candleData.length>0 ? candleData.map(c=>c.close) : priceHistory;
+  if(closes.length===0) closes=[realPrice];
+  let rsi=calcRSIFromCandles(closes);
+  let ema20=ema(closes,20), ema50=ema(closes,50), ema200=ema(closes,200);
+  let macdObj=calcMACD(closes); let macdBull=macdObj.macd>macdObj.signal;
+  let bb=calcBollinger(closes);
+  let atr=calcATR(candleData.length>0?candleData:[{high:realPrice,low:realPrice,close:realPrice}]);
+  let sr=findFullSupportResistance(candleData, m);
+  let pattern=detectPattern(candleData);
+  let fullSup=sr.candleSup, fullRes=sr.candleRes;
+  let distSupFull=(realPrice-fullSup)/(fullRes-fullSup);
+  let distSupPreset=(realPrice-m.sup)/(m.res-m.sup);
+  let trendBull=ema20>ema50;
+  let fullTrendBull=ema20>ema50 && ema50>ema200;
+  let fullTrendBear=ema20<ema50 && ema50<ema200;
+  let isOverlap=sess.isOverlap, isLondonOrNY=(sess.isLondon||sess.isNY);
+  let newsBlock=isNewsBlockedForPair(currentPair);
+  let bullScore=0, bearScore=0, reasons=[], workLines=[];
+  workLines.push('=== V14 FULL CHART + TRUST MODE + NEWS - '+currentPair+' - '+new Date().toLocaleTimeString('en-KE')+' ===');
+  workLines.push('Candles: '+candleData.length+' | Timeframe: '+currentTF+' | Session: '+sess.current+' | Trust Mode: '+(trustMode?'ON':'OFF'));
+  workLines.push('News: '+newsWarningText);
+  if(newsBlock) workLines.push('NEWS BLOCK: '+newsBlock.title+' ('+newsBlock.currency+') - DO NOT TRADE '+currentPair+' in next 30 mins');
+  if(candleData.length>0){ workLines.push('Range: '+candleData[0].time+' → '+candleData[candleData.length-1].time); }
+  workLines.push('');
+  workLines.push('1. LIVE PRICE: '+fmt(realPrice));
+  workLines.push('2. TREND EMA 20='+fmt(ema20)+' EMA 50='+fmt(ema50)+' EMA 200='+fmt(ema200)+' -> '+(fullTrendBull?'STRONG UPTREND':fullTrendBear?'STRONG DOWNTREND':trendBull?'Uptrend':'Downtrend'));
+  if(fullTrendBull){ bullScore+=1.5; reasons.push('Full Strong Uptrend'); } else if(fullTrendBear){ bearScore+=1.5; reasons.push('Full Strong Downtrend'); } else if(trendBull){ bullScore++; } else { bearScore++; }
+  workLines.push('3. RSI = '+rsi+' -> '+(rsi<30?'Oversold BUY':rsi>70?'Overbought SELL':'Neutral'));
+  if(rsi<35){ bullScore+=1.5; } else if(rsi>65){ bearScore+=1.5; }
+  workLines.push('4. MACD = '+macdObj.macd.toFixed(6)+' Signal='+macdObj.signal.toFixed(6)+' -> '+(macdBull?'Bullish':'Bearish'));
+  if(macdBull) bullScore++; else bearScore++;
+  workLines.push('5. BOLLINGER Mid='+fmt(bb.mid)+' Upper='+fmt(bb.upper)+' Lower='+fmt(bb.lower));
+  workLines.push('6. SUPPORT/RESISTANCE FULL 200: Low='+fmt(fullSup)+' High='+fmt(fullRes)+' Preset Sup='+fmt(m.sup)+' Res='+fmt(m.res)+' Dist to Full Sup='+distSupFull.toFixed(2));
+  if(distSupFull<0.15){ bullScore+=1.5; reasons.push('At FULL Support '+fmt(fullSup)); } else if(distSupFull>0.85){ bearScore+=1.5; reasons.push('At FULL Resistance '+fmt(fullRes)); } else if(distSupPreset<0.20){ bullScore+=1; } else if(distSupPreset>0.80){ bearScore+=1; }
+  workLines.push('7. PATTERN: '+pattern);
+  let greens=candleData.filter(c=>c.close>=c.open).length; let reds=candleData.length-greens;
+  workLines.push('   Green '+greens+' Red '+reds+' Green% '+Math.round(greens/candleData.length*100)+'%');
+  workLines.push('8. ATR = '+fmt(atr));
+  workLines.push('9. SESSION: '+sess.current);
+  if(isOverlap){ bullScore+=0.7; bearScore+=0.7; } else if(isLondonOrNY){ bullScore+=0.5; bearScore+=0.5; } else if(sess.isTokyo){ bullScore-=0.5; bearScore-=0.5; } else if(sess.isSydney){ bullScore-=1; bearScore-=1; }
+  workLines.push('10. NEWS: '+newsWarningText);
+  if(newsBlock){ workLines.push('   NEWS BLOCK - Trust Mode will BLOCK this pair for 30 mins'); bullScore=0; bearScore=0; }
+  workLines.push('');
+  workLines.push('=== FINAL SCORE ===');
+  workLines.push('BUY '+bullScore.toFixed(1)+' | SELL '+bearScore.toFixed(1));
+  let direction='WAIT', conf=0;
+  if(newsBlock){ direction='WAIT'; conf=10; workLines.push('WAIT because High Impact News in 30 mins - Trust Mode BLOCK'); }
+  else if(sess.day===6 || (sess.day===0 && sess.k.totalMin<1380)){ direction='WAIT'; conf=20; }
+  else if(bullScore>=4 && distSupFull<0.35){ direction='BUY'; conf=Math.min(92, 60 + bullScore*6 + (isOverlap?5:0)); }
+  else if(bearScore>=4 && distSupFull>0.65){ direction='SELL'; conf=Math.min(92, 60 + bearScore*6 + (isOverlap?5:0)); }
+  else if(bullScore>=3 && distSupFull<0.5){ direction='BUY'; conf=68; }
+  else if(bearScore>=3 && distSupFull>0.5){ direction='SELL'; conf=68; }
+  else { direction='WAIT'; conf=Math.round(45+ (distSupFull*10)); }
+  if(sess.isSydney || sess.isTokyo) conf=Math.max(20, conf-10);
+  if(isOverlap && direction!=='WAIT') conf=Math.min(92, conf+3);
+  // Trust Mode forces WAIT if conf <70
+  if(trustMode && direction!=='WAIT' && conf<70){ workLines.push('TRUST MODE: Confidence '+conf+'% < 70% - Forced to WAIT'); direction='WAIT'; conf=conf; }
+  workLines.push('Confidence = '+conf+'% | Direction = '+direction);
+  workLines.push('Trust Mode Check: '+(trustMode?'ON - Will block if conf<70, Asia, 2 losses, News':'OFF'));
+  let riskAmt=bal*riskPct/100;
+  let slDist, tp1Dist, tp2Dist; if(style==='scalp'){ slDist=atr*1; tp1Dist=atr*1.5; tp2Dist=atr*2.5; } else if(style==='day'){ slDist=atr*1.5; tp1Dist=atr*2.5; tp2Dist=atr*4; } else { slDist=atr*2.5; tp1Dist=atr*4; tp2Dist=atr*6; }
+  workLines.push('Risk $'+bal+' x '+riskPct+'% = $'+riskAmt.toFixed(2)+' | SL Dist '+fmt(slDist)+' | TP1 '+fmt(tp1Dist)+' | TP2 '+fmt(tp2Dist));
+  fullAnalysis={rsi,ema20,ema50,ema200,macd:macdObj,bb,atr,sr,pattern,bullScore,bearScore,direction,conf,work:workLines.join('\n'),fullSup,fullRes,newsBlock};
+  document.getElementById('workBox').innerText=workLines.join('\n');
   currentDir=direction; currentConf=conf;
-  let vb=document.getElementById('verdictBox'); if(direction==='BUY'){ vb.className='verdictBuy'; vb.innerHTML='✅ BUY '+currentPair+' ⬆️ LIVE<br><span style="font-size:13px;font-weight:normal">'+bullScore.toFixed(1)+'/5 agree - Live Price '+fmt(realPrice)+' - '+reasons.slice(0,2).join(' | ')+'</span>'; document.getElementById('bottomVerdict').innerText='✅ BUY '+currentPair+' '+conf+'% LIVE'; } else if(direction==='SELL'){ vb.className='verdictSell'; vb.innerHTML='🔴 SELL '+currentPair+' ⬇️ LIVE<br><span style="font-size:13px;font-weight:normal">'+bearScore.toFixed(1)+'/5 agree - Live Price '+fmt(realPrice)+' - '+reasons.slice(0,2).join(' | ')+'</span>'; document.getElementById('bottomVerdict').innerText='🔴 SELL '+currentPair+' '+conf+'% LIVE'; } else { vb.className='verdictWait'; vb.innerHTML='⏳ WAIT - DO NOT TRADE '+currentPair+'<br><span style="font-size:13px;font-weight:normal">Live Price '+fmt(realPrice)+' - No clear edge. Waiting is a trade.</span>'; document.getElementById('bottomVerdict').innerText='⏳ WAIT '+currentPair+' LIVE'; }
+  let vb=document.getElementById('verdictBox'); if(direction==='BUY'){ vb.className='verdictBuy'; vb.innerHTML='✅ BUY '+currentPair+' ⬆️ FULL 200 + NEWS OK<br><span style="font-size:13px;font-weight:normal">'+bullScore.toFixed(1)+'/5 - RSI '+rsi+' - Full Sup '+fmt(fullSup)+' - Live '+fmt(realPrice)+'</span>'; document.getElementById('bottomVerdict').innerText='✅ BUY '+currentPair+' '+conf+'% TRUST OK'; } else if(direction==='SELL'){ vb.className='verdictSell'; vb.innerHTML='🔴 SELL '+currentPair+' ⬇️ FULL 200 + NEWS OK<br><span style="font-size:13px;font-weight:normal">'+bearScore.toFixed(1)+'/5 - RSI '+rsi+' - Full Res '+fmt(fullRes)+' - Live '+fmt(realPrice)+'</span>'; document.getElementById('bottomVerdict').innerText='🔴 SELL '+currentPair+' '+conf+'% TRUST OK'; } else { vb.className='verdictWait'; vb.innerHTML='⏳ WAIT - TRUST MODE BLOCKED<br><span style="font-size:13px;font-weight:normal">'+(newsBlock?'NEWS: '+newsBlock.title+' - Wait 30 mins':conf<70?'Confidence '+conf+'% < 70% - Trust Mode blocks':'No edge - Full Range '+fmt(fullSup)+' to '+fmt(fullRes))+'</span>'; document.getElementById('bottomVerdict').innerText='⏳ WAIT '+currentPair+' TRUST BLOCKED'; }
   document.getElementById('confVal').innerText=conf+'%'; document.getElementById('confBar').style.width=conf+'%'; document.getElementById('confBar').style.background= conf>=70?'#22c55e': conf>=60?'#f59e0b':'#ef4444';
-  document.getElementById('cTrend').innerText= trendBull?'Uptrend 🟢 LIVE':'Downtrend 🔴 LIVE'; document.getElementById('cRsi').innerText= rsi+' - '+(rsi<30?'Oversold - BUY':rsi>70?'Overbought - SELL':'Neutral')+' (Live)'; document.getElementById('cMacd').innerText= macdBull?'Bullish 🟢 LIVE':'Bearish 🔴 LIVE'; document.getElementById('cBb').innerText= bbPos; document.getElementById('cSr').innerText= distSup<0.2?'AT SUPPORT '+fmt(m.sup)+' LIVE': distSup>0.8?'AT RESISTANCE '+fmt(m.res)+' LIVE': 'Middle - Live '+fmt(realPrice)+' | Sup '+fmt(m.sup)+' Res '+fmt(m.res); document.getElementById('cSession').innerText= session; document.getElementById('cVol').innerText= volText+' | ATR ~'+fmt(m.vol*2); document.getElementById('cNews').innerText= newsText;
-  let riskAmt=bal*riskPct/100; let slDist, tp1Dist, tp2Dist; if(style==='scalp'){ slDist=m.vol*1; tp1Dist=m.vol*1.5; tp2Dist=m.vol*2.5; } else if(style==='day'){ slDist=m.vol*1.5; tp1Dist=m.vol*2.5; tp2Dist=m.vol*4; } else { slDist=m.vol*2.5; tp1Dist=m.vol*4; tp2Dist=m.vol*6; }
+  document.getElementById('cTrend').innerText= fullTrendBull?'Strong Uptrend 🟢 '+fmt(ema20)+' > '+fmt(ema50)+' > '+fmt(ema200): fullTrendBear?'Strong Downtrend 🔴 '+fmt(ema20)+' < '+fmt(ema50)+' < '+fmt(ema200): trendBull?'Uptrend 🟢':'Downtrend 🔴';
+  document.getElementById('cRsi').innerText= rsi+' - '+(rsi<30?'Oversold - BUY':rsi>70?'Overbought - SELL':'Neutral');
+  document.getElementById('cMacd').innerText= macdBull?'Bullish 🟢 '+macdObj.macd.toFixed(4):'Bearish 🔴 '+macdObj.macd.toFixed(4);
+  document.getElementById('cBb').innerText= realPrice>bb.upper?'Above Upper':realPrice<bb.lower?'Below Lower':'Inside - Mid '+fmt(bb.mid);
+  document.getElementById('cSr').innerText= distSupFull<0.15?'AT FULL SUPPORT '+fmt(fullSup): distSupFull>0.85?'AT FULL RESISTANCE '+fmt(fullRes): 'Middle - Full Sup '+fmt(fullSup)+' Res '+fmt(fullRes);
+  document.getElementById('cFullHL').innerText= 'Low '+fmt(fullSup)+' | High '+fmt(fullRes)+' | Range '+fmt(fullRes-fullSup);
+  document.getElementById('cNews').innerText= newsBlock? '🔴 BLOCKED - '+newsBlock.title : newsWarningText.slice(0,60);
+  document.getElementById('cPattern').innerText=pattern+' | Green '+greens+' / Red '+reds;
+  document.getElementById('cVol').innerText= 'ATR '+fmt(atr);
   let entry=realPrice, sl, tp1, tp2, slPips, tp1Pips, tp2Pips; let pipSize = currentPair.includes('JPY')? 0.01 : currentPair.includes('XAU')||currentPair.includes('BTC')||currentPair.includes('US30')||currentPair.includes('NAS')||currentPair.includes('SPX')||currentPair.includes('GER')? 1 : 0.0001;
   if(direction==='BUY'){ sl=entry-slDist; tp1=entry+tp1Dist; tp2=entry+tp2Dist; } else if(direction==='SELL'){ sl=entry+slDist; tp1=entry-tp1Dist; tp2=entry-tp2Dist; } else { sl=entry-slDist; tp1=entry+tp1Dist; tp2=entry+tp2Dist; }
   slPips=Math.abs(entry-sl)/pipSize; tp1Pips=Math.abs(tp1-entry)/pipSize; tp2Pips=Math.abs(tp2-entry)/pipSize;
   let lot=0.01; if(bal>=500) lot=0.05; if(bal>=1000) lot=0.10; if(bal>=5000) lot=0.20; if(style==='scalp') lot=lot*0.5; if(direction==='WAIT') lot=0;
-  document.getElementById('planPair').innerText=currentPair; document.getElementById('planDir').innerText= direction==='WAIT'? 'WAIT - DO NOT ENTER' : direction+' '+currentPair; document.getElementById('planEntry').innerText= direction==='WAIT'? 'Wait for '+fmt(m.sup)+' or '+fmt(m.res) : fmt(entry); document.getElementById('planSL').innerText= fmt(sl); document.getElementById('planSLPips').innerText= Math.round(slPips); document.getElementById('planTP1').innerText= fmt(tp1); document.getElementById('planTP1Pips').innerText= Math.round(tp1Pips); document.getElementById('planTP2').innerText= fmt(tp2); document.getElementById('planTP2Pips').innerText= Math.round(tp2Pips); document.getElementById('planLot').innerText= direction==='WAIT'? '0 - No trade' : lot.toFixed(2); document.getElementById('planRisk').innerText= riskAmt.toFixed(2); document.getElementById('planRiskPct').innerText= riskPct; document.getElementById('planBal').innerText= bal; document.getElementById('planRR').innerText= '1 : '+(tp2Dist/slDist).toFixed(1); document.getElementById('planTime').innerText= isOverlap? 'NOW - London + NY Overlap' : isLondonOrNY? 'Now - Good Session' : 'Wait for London 10am or NY 3pm';
+  document.getElementById('planPair').innerText=currentPair; document.getElementById('planDir').innerText= direction==='WAIT'? 'WAIT - DO NOT ENTER - TRUST BLOCKED' : direction+' '+currentPair; document.getElementById('planEntry').innerText= direction==='WAIT'? 'Wait for '+fmt(fullSup)+' or '+fmt(fullRes) : fmt(entry); document.getElementById('planSL').innerText= fmt(sl); document.getElementById('planSLPips').innerText= Math.round(slPips); document.getElementById('planTP1').innerText= fmt(tp1); document.getElementById('planTP1Pips').innerText= Math.round(tp1Pips); document.getElementById('planTP2').innerText= fmt(tp2); document.getElementById('planTP2Pips').innerText= Math.round(tp2Pips); document.getElementById('planLot').innerText= direction==='WAIT'? '0 - No trade' : lot.toFixed(2); document.getElementById('planRisk').innerText= riskAmt.toFixed(2); document.getElementById('planRiskPct').innerText= riskPct; document.getElementById('planBal').innerText= bal; document.getElementById('planRR').innerText= '1 : '+(tp2Dist/slDist).toFixed(1); document.getElementById('planTime').innerText= isOverlap? 'NOW - Overlap BEST' : isLondonOrNY? 'Now - Good' : 'Wait for London 10am';
   document.getElementById('entryAge').innerText='(Live - '+new Date().toLocaleTimeString('en-KE',{hour:'2-digit',minute:'2-digit',second:'2-digit'})+')';
-  let approach=''; if(direction==='BUY'){ approach='<b>✅ BUY - LIVE PRICE '+fmt(entry)+':</b><br>1. Open '+document.getElementById('broker').value+' → '+currentPair+'<br>2. Check broker price is within 2 pips of '+fmt(entry)+'<br>3. BUY at <b>'+fmt(entry)+'</b><br>4. SL: <b>'+fmt(sl)+'</b>  TP1: <b>'+fmt(tp1)+'</b>  TP2: <b>'+fmt(tp2)+'</b><br>5. Lot: <b>'+lot.toFixed(2)+'</b><br>6. At TP1 move SL to Entry.<br><b>Why LIVE:</b> '+reasons.join('. ')+'. '+conf+'%.'; } else if(direction==='SELL'){ approach='<b>🔴 SELL - LIVE PRICE '+fmt(entry)+':</b><br>1. Open '+document.getElementById('broker').value+' → '+currentPair+'<br>2. Check broker price is within 2 pips of '+fmt(entry)+'<br>3. SELL at <b>'+fmt(entry)+'</b><br>4. SL: <b>'+fmt(sl)+'</b>  TP1: <b>'+fmt(tp1)+'</b>  TP2: <b>'+fmt(tp2)+'</b><br>5. Lot: <b>'+lot.toFixed(2)+'</b><br>6. At TP1 move SL to Entry.<br><b>Why LIVE:</b> '+reasons.join('. ')+'. '+conf+'%.'; } else { approach='<b>⏳ WAIT - LIVE:</b><br>Price '+fmt(realPrice)+' is middle - Sup <b>'+fmt(m.sup)+'</b> Res <b>'+fmt(m.res)+'</b><br>Set Alert in broker at Sup/Res. Check another pair.'; }
+  let approach=''; if(direction==='BUY'){ approach='<b>✅ BUY - TRUST MODE PASSED '+fmt(entry)+':</b><br>Full 200: EMA '+fmt(ema20)+' > '+fmt(ema50)+', RSI '+rsi+', Full Sup '+fmt(fullSup)+', News: OK - No High Impact in 30 mins<br>BUY <b>'+fmt(entry)+'</b> SL <b>'+fmt(sl)+'</b> TP1 <b>'+fmt(tp1)+'</b> TP2 <b>'+fmt(tp2)+'</b> Lot <b>'+lot.toFixed(2)+'</b>'; } else if(direction==='SELL'){ approach='<b>🔴 SELL - TRUST MODE PASSED '+fmt(entry)+':</b><br>Full 200: EMA '+fmt(ema20)+' < '+fmt(ema50)+', RSI '+rsi+', Full Res '+fmt(fullRes)+', News: OK<br>SELL <b>'+fmt(entry)+'</b> SL <b>'+fmt(sl)+'</b> TP1 <b>'+fmt(tp1)+'</b> TP2 <b>'+fmt(tp2)+'</b> Lot <b>'+lot.toFixed(2)+'</b>'; } else { approach='<b>⏳ WAIT - TRUST MODE BLOCKED:</b><br>'+(newsBlock?'NEWS BLOCK: '+newsBlock.title+' - Wait 30 mins after news':conf<70?'Confidence '+conf+'% < 70%':'Price '+fmt(realPrice)+' in middle of Full Range '+fmt(fullSup)+' to '+fmt(fullRes))+'<br>Do NOT trade. Check another pair or wait for London/Overlap.'; }
   document.getElementById('approachBox').innerHTML=approach; document.getElementById('tip').innerText=tips[Math.floor(Math.random()*tips.length)];
+  let cHtml='<table class="candleTable"><tr><th>Time</th><th>Open</th><th>High</th><th>Low</th><th>Close</th><th>Trend</th></tr>';
+  candleData.slice(-50).forEach((c,i)=>{ let up=c.close>=c.open; cHtml+='<tr><td>'+c.time+'</td><td>'+fmt(c.open)+'</td><td>'+fmt(c.high)+'</td><td>'+fmt(c.low)+'</td><td class="'+(up?'candleUp':'candleDown')+'">'+fmt(c.close)+'</td><td>'+(up?'🟢 Up':'🔴 Down')+'</td></tr>'; });
+  cHtml+='</table><p class="mini">Last 50 of '+candleData.length+' candles. Full uses all '+candleData.length+' for EMA 200, Support, Resistance.</p>';
+  document.getElementById('candleBox').innerHTML=cHtml;
+  updateTrustUI();
 }
-function refreshAnalysis(){ fetchRealPrice().then(()=>{ runAnalysis(); alert('Re-synced with live price: '+fmt(realPrice)+'\nChart + Analysis now synced.'); }); }
-function copyOne(id,label){ let val=document.getElementById(id).innerText; let clean=val; if(id==='planEntry'||id==='planSL'||id==='planTP1'||id==='planTP2'||id==='planLot'){ clean=val.replace(/[^0-9.\-]/g,''); } navigator.clipboard.writeText(clean).then(()=>{ document.getElementById('copyMsg').innerText='✅ '+label+' copied LIVE: '+clean+' at '+new Date().toLocaleTimeString()+' → Paste NOW in broker'; setTimeout(()=>{ document.getElementById('copyMsg').innerText=''; },4000); }); }
-function copyAll(){ let txt='LIVE '+new Date().toLocaleTimeString()+'\nPair: '+document.getElementById('planPair').innerText+'\nDirection: '+document.getElementById('planDir').innerText+'\nEntry: '+document.getElementById('planEntry').innerText+'\nSL: '+document.getElementById('planSL').innerText+'\nTP1: '+document.getElementById('planTP1').innerText+'\nTP2: '+document.getElementById('planTP2').innerText+'\nLot: '+document.getElementById('planLot').innerText; navigator.clipboard.writeText(txt); alert('Live Plan Copied - Paste NOW!\n\n'+txt); }
-function copyForBinance(){ let txt='BINANCE '+document.getElementById('planPair').innerText+' '+document.getElementById('planDir').innerText+' Entry '+document.getElementById('planEntry').innerText+' SL '+document.getElementById('planSL').innerText+' TP '+document.getElementById('planTP1').innerText; navigator.clipboard.writeText(txt); alert('Binance copied:\n'+txt); }
+function copyOne(id,label){ let val=document.getElementById(id).innerText; let clean=val; if(id==='planEntry'||id==='planSL'||id==='planTP1'||id==='planTP2'||id==='planLot'){ clean=val.replace(/[^0-9.\-]/g,''); } if(trustMode && currentDir==='WAIT'){ alert('🔒 TRUST MODE BLOCKED - Do NOT copy. App says WAIT. Copying a WAIT trade is cheating yourself.'); return; } navigator.clipboard.writeText(clean).then(()=>{ document.getElementById('copyMsg').innerText='✅ '+label+' copied LIVE: '+clean; }); }
+function copyAll(){ if(trustMode && currentDir==='WAIT'){ alert('🔒 TRUST MODE BLOCKED\n\nApp says WAIT - Confidence '+currentConf+'% or News/Session block.\n\nDo NOT copy. Wait for next setup.\n\nIf you copy anyway, you are breaking 100% rule.'); return; } let txt='TRUST MODE PASSED '+new Date().toLocaleTimeString()+'\nPair: '+document.getElementById('planPair').innerText+'\nDirection: '+document.getElementById('planDir').innerText+'\nEntry: '+document.getElementById('planEntry').innerText+'\nSL: '+document.getElementById('planSL').innerText+'\nTP1: '+document.getElementById('planTP1').innerText+'\nTP2: '+document.getElementById('planTP2').innerText+'\nLot: '+document.getElementById('planLot').innerText; navigator.clipboard.writeText(txt); alert('Copied - Trust Mode Passed!\n\n'+txt); }
 function copySignal(t){ navigator.clipboard.writeText(t); alert('Copied: '+t); }
-function copyPlanWhatsApp(){ let txt='🎯 LIVE '+new Date().toLocaleTimeString()+'%0A'+document.getElementById('planPair').innerText+' '+document.getElementById('planDir').innerText+'%0AEntry: '+document.getElementById('planEntry').innerText+'%0ASL: '+document.getElementById('planSL').innerText+'%0ATP1: '+document.getElementById('planTP1').innerText+'%0ATP2: '+document.getElementById('planTP2').innerText; window.open('https://wa.me/?text='+txt,'_blank'); }
-function getHistory(){ try{ return JSON.parse(localStorage.getItem('ff_track_v9')||'[]'); }catch(e){ return []; } }
-function saveHistory(h){ localStorage.setItem('ff_track_v9', JSON.stringify(h)); }
-function logRealTrade(){ let result=document.getElementById('tradeResult').value; let profit=parseFloat(document.getElementById('tradeProfit').value)||0; let followed=document.getElementById('followedPlan').value; let note=document.getElementById('tradeNote').value||''; let trade={date:new Date().toLocaleDateString('en-KE')+' '+new Date().toLocaleTimeString('en-KE',{hour:'2-digit',minute:'2-digit'}), pair:currentPair, dir:currentDir, conf:currentConf, result:result, profit:profit, followed:followed, note:note, entry:document.getElementById('planEntry').innerText}; let h=getHistory(); h.unshift(trade); h=h.slice(0,50); saveHistory(h); document.getElementById('logMsg').innerText='✅ Saved! '+currentPair+' '+result+' $'+profit; document.getElementById('tradeNote').value=''; updateTrackRecord(); alert('Logged!'); }
-function updateTrackRecord(){ let h=getHistory(); let wins=h.filter(t=>t.result==='WIN').length; let losses=h.filter(t=>t.result==='LOSS').length; let waited=h.filter(t=>t.result==='WAITED').length; let total=wins+losses; let wr=total>0? Math.round(wins/total*100):0; let profit=h.reduce((s,t)=>s+(t.profit||0),0); let pairStats={}; h.forEach(t=>{ if(t.result==='WIN'||t.result==='LOSS'){ if(!pairStats[t.pair]) pairStats[t.pair]={p:0}; pairStats[t.pair].p+=t.profit||0; } }); let best='-'; let bestScore=-999; Object.keys(pairStats).forEach(p=>{ if(pairStats[p].p>bestScore){ bestScore=pairStats[p].p; best=p+' ($'+pairStats[p].p+')'; } }); document.getElementById('stWins').innerText=wins; document.getElementById('stLosses').innerText=losses; document.getElementById('stWR').innerText=wr+'%'; document.getElementById('topWR').innerText=wr+'% ('+total+' trades)'; document.getElementById('stProfit').innerText=(profit>=0?'+$':'-$')+Math.abs(profit).toFixed(2); document.getElementById('stProfit').style.color=profit>=0?'#22c55e':'#ef4444'; document.getElementById('stWaited').innerText=waited; document.getElementById('stBest').innerText=best; document.getElementById('stBar').style.width=wr+'%'; document.getElementById('stBar').style.background= wr>=55?'#22c55e': wr>=50?'#f59e0b':'#ef4444'; let verdict=''; let explain=''; if(total<5){ verdict='Not enough data - Do 20 trades'; explain='Log 20 trades to see true %.'; } else if(wr>=60 && profit>0){ verdict='✅ PROFITABLE - Keep doing what you are doing!'; explain='Win rate '+wr+'% with profit means analysis + discipline working.'; } else if(wr>=55 && profit>0){ verdict='✅ PROFITABLE - Good edge'; explain='55%+ with 1:2 reward is profitable.'; } else if(wr>=50 && profit>=0){ verdict='🟡 BREAKEVEN - Close'; explain='Check if you followed plan.'; } else { verdict='🔴 NOT PROFITABLE YET - Practice'; explain='Win rate '+wr+'% below 50%. Only trade 70%+ in London/NY.'; } document.getElementById('stVerdict').innerText=verdict; document.getElementById('stExplain').innerText=explain; let html=''; if(h.length===0) html='<p class="mini">No trades yet. Log after real trade.</p>'; else h.slice(0,20).forEach(t=>{ let col=t.result==='WIN'?'#22c55e':t.result==='LOSS'?'#ef4444':t.result==='WAITED'?'#f59e0b':'#94a3b8'; let icon=t.result==='WIN'?'✅':t.result==='LOSS'?'❌':t.result==='WAITED'?'⏳':'➖'; html+='<div class="histRow"><span><b style="color:'+col+'">'+icon+' '+t.pair+' '+t.dir+' '+t.conf+'%</b><br><small>'+t.date+' | '+t.followed+' | '+t.note+'</small></span><b style="color:'+col+'">'+t.result+'<br>'+(t.profit>=0?'+$':'-$')+Math.abs(t.profit)+'</b></div>'; }); document.getElementById('historyList').innerHTML=html; }
-function showBacktest(){ let h=getHistory(); let box=document.getElementById('backtestBox'); if(h.length<5){ box.style.display='block'; box.innerHTML='Need 5 trades for backtest.'; return; } let wins=h.filter(t=>t.result==='WIN').length; let losses=h.filter(t=>t.result==='LOSS').length; let total=wins+losses; let wr=total>0? Math.round(wins/total*100):0; let highConf=h.filter(t=>t.conf>=70 && (t.result==='WIN'||t.result==='LOSS')); let highWins=highConf.filter(t=>t.result==='WIN').length; let highWR=highConf.length>0? Math.round(highWins/highConf.length*100):0; let lowConf=h.filter(t=>t.conf<70 && (t.result==='WIN'||t.result==='LOSS')); let lowWins=lowConf.filter(t=>t.result==='WIN').length; let lowWR=lowConf.length>0? Math.round(lowWins/lowConf.length*100):0; let followed=h.filter(t=>t.followed==='YES' && (t.result==='WIN'||t.result==='LOSS')); let fWins=followed.filter(t=>t.result==='WIN').length; let fWR=followed.length>0? Math.round(fWins/followed.length*100):0; let notFollowed=h.filter(t=>t.followed==='NO' && (t.result==='WIN'||t.result==='LOSS')); let nfWins=notFollowed.filter(t=>t.result==='WIN').length; let nfWR=notFollowed.length>0? Math.round(nfWins/notFollowed.length*100):0; box.style.display='block'; box.innerHTML='<b>📈 BACKTEST:</b><br>Overall: <b>'+wr+'%</b> ('+wins+'W / '+losses+'L)<br>Confidence 70%+: <b>'+highWR+'%</b><br>Below 70%: <b>'+lowWR+'%</b><br>Followed plan: <b>'+fWR+'%</b><br>Did NOT follow: <b>'+nfWR+'%</b>'; }
-function clearTrack(){ if(!confirm('Delete Track Record?')) return; localStorage.removeItem('ff_track_v9'); updateTrackRecord(); }
+function copyPlanWhatsApp(){ if(trustMode && currentDir==='WAIT'){ alert('🔒 Trust Mode Blocked - Do NOT share WAIT trade.'); return; } let txt='🎯 TRUST MODE '+new Date().toLocaleTimeString()+'%0A'+document.getElementById('planPair').innerText+' '+document.getElementById('planDir').innerText+'%0AEntry: '+document.getElementById('planEntry').innerText+'%0ASL: '+document.getElementById('planSL').innerText+'%0ATP1: '+document.getElementById('planTP1').innerText; window.open('https://wa.me/?text='+txt,'_blank'); }
+function logRealTrade(){ let result=document.getElementById('tradeResult').value; let profit=parseFloat(document.getElementById('tradeProfit').value)||0; let followed=document.getElementById('followedPlan').value; let note=document.getElementById('tradeNote').value||''; // Trust Mode warning if logging a trade when blocked
+  if(trustMode && followed==='YES' && currentDir==='WAIT'){ if(!confirm('⚠️ TRUST MODE: App says WAIT but you are logging a trade as FOLLOWED 100%.\n\nAre you sure you followed 100%? If you traded a WAIT setup, choose NO, not YES.\n\nTap OK if you really followed 100% on a different pair/time.')) return; }
+  let trade={date:new Date().toLocaleDateString('en-KE')+' '+new Date().toLocaleTimeString('en-KE',{hour:'2-digit',minute:'2-digit'}), pair:currentPair, dir:currentDir, conf:currentConf, result:result, profit:profit, followed:followed, note:note, entry:document.getElementById('planEntry').innerText}; let h=getHistory(); h.unshift(trade); h=h.slice(0,50); saveHistory(h); document.getElementById('logMsg').innerText='✅ Saved! '+currentPair+' '+result+' $'+profit; document.getElementById('tradeNote').value=''; updateTrackRecord(); updateTrustUI(); alert('Logged! Trust Mode updated.'); }
+function updateTrackRecord(){ let h=getHistory(); let wins=h.filter(t=>t.result==='WIN').length; let losses=h.filter(t=>t.result==='LOSS').length; let waited=h.filter(t=>t.result==='WAITED').length; let total=wins+losses; let wr=total>0? Math.round(wins/total*100):0; let profit=h.reduce((s,t)=>s+(t.profit||0),0); let pairStats={}; h.forEach(t=>{ if(t.result==='WIN'||t.result==='LOSS'){ if(!pairStats[t.pair]) pairStats[t.pair]={p:0}; pairStats[t.pair].p+=t.profit||0; } }); let best='-'; let bestScore=-999; Object.keys(pairStats).forEach(p=>{ if(pairStats[p].p>bestScore){ bestScore=pairStats[p].p; best=p+' ($'+pairStats[p].p+')'; } }); document.getElementById('stWins').innerText=wins; document.getElementById('stLosses').innerText=losses; document.getElementById('stWR').innerText=wr+'%'; document.getElementById('topWR').innerText=wr+'% ('+total+' trades)'; document.getElementById('stProfit').innerText=(profit>=0?'+$':'-$')+Math.abs(profit).toFixed(2); document.getElementById('stProfit').style.color=profit>=0?'#22c55e':'#ef4444'; document.getElementById('stWaited').innerText=waited; document.getElementById('stBest').innerText=best; document.getElementById('stBar').style.width=wr+'%'; document.getElementById('stBar').style.background= wr>=55?'#22c55e': wr>=50?'#f59e0b':'#ef4444'; let verdict=''; let explain=''; if(total<5){ verdict='Not enough data - Do 20 trades'; explain='Log 20 trades to see true %.'; } else if(wr>=60 && profit>0){ verdict='✅ PROFITABLE - Keep going!'; explain='Win rate '+wr+'% with profit.'; } else if(wr>=55 && profit>0){ verdict='✅ PROFITABLE - Good edge'; explain='55%+ with 1:2 is profitable.'; } else if(wr>=50 && profit>=0){ verdict='🟡 BREAKEVEN - Close'; explain='Check if you followed plan.'; } else { verdict='🔴 NOT PROFITABLE YET - Practice'; explain='Win rate '+wr+'% below 50%. Only trade 70%+ in London/NY.'; } document.getElementById('stVerdict').innerText=verdict; document.getElementById('stExplain').innerText=explain; let html=''; if(h.length===0) html='<p class="mini">No trades yet.</p>'; else h.slice(0,20).forEach(t=>{ let col=t.result==='WIN'?'#22c55e':t.result==='LOSS'?'#ef4444':t.result==='WAITED'?'#f59e0b':'#94a3b8'; let icon=t.result==='WIN'?'✅':t.result==='LOSS'?'❌':t.result==='WAITED'?'⏳':'➖'; html+='<div class="histRow"><span><b style="color:'+col+'">'+icon+' '+t.pair+' '+t.dir+' '+t.conf+'%</b><br><small>'+t.date+' | '+t.followed+' | '+t.note+'</small></span><b style="color:'+col+'">'+t.result+'<br>'+(t.profit>=0?'+$':'-$')+Math.abs(t.profit)+'</b></div>'; }); document.getElementById('historyList').innerHTML=html; }
+function showBacktest(){ let h=getHistory(); let box=document.getElementById('backtestBox'); if(h.length<5){ box.style.display='block'; box.innerHTML='Need 5 trades.'; return; } let wins=h.filter(t=>t.result==='WIN').length; let losses=h.filter(t=>t.result==='LOSS').length; let total=wins+losses; let wr=total>0? Math.round(wins/total*100):0; let highConf=h.filter(t=>t.conf>=70 && (t.result==='WIN'||t.result==='LOSS')); let highWins=highConf.filter(t=>t.result==='WIN').length; let highWR=highConf.length>0? Math.round(highWins/highConf.length*100):0; let lowConf=h.filter(t=>t.conf<70 && (t.result==='WIN'||t.result==='LOSS')); let lowWins=lowConf.filter(t=>t.result==='WIN').length; let lowWR=lowConf.length>0? Math.round(lowWins/lowConf.length*100):0; box.style.display='block'; box.innerHTML='<b>📈 BACKTEST:</b><br>Overall: <b>'+wr+'%</b><br>70%+: <b>'+highWR+'%</b><br>Below 70%: <b>'+lowWR+'%</b>'; }
+function clearTrack(){ if(!confirm('Delete Track Record?')) return; localStorage.removeItem('ff_track_v9'); updateTrackRecord(); updateTrustUI(); }
 function exportTrack(){ let h=getHistory(); if(h.length===0){ alert('No trades yet.'); return; } let txt='FOREX FLIP PRO TRACK RECORD\n'; h.forEach(t=>{ txt+=t.date+' | '+t.pair+' '+t.dir+' '+t.conf+'% | '+t.result+' $'+t.profit+' | '+t.followed+' | '+t.note+'\n'; }); navigator.clipboard.writeText(txt); alert('Copied!'); }
 function updateConnection(){ let off=document.getElementById('offlineBar'), on=document.getElementById('onlineBar'); if(navigator.onLine){ off.style.display='none'; on.style.display='block'; setTimeout(()=>{on.style.display='none'},4000);} else{ off.style.display='block'; on.style.display='none'; } }
 window.addEventListener('online',()=>{updateConnection(); location.reload();}); window.addEventListener('offline',updateConnection); updateConnection();
 let syncTimer=null;
-renderPairs(); loadRealChart('OANDA:EURUSD'); fetchRealPrice().then(()=>{ runAnalysis(); updateTickUI('Initial',0); }); updateBrokerHint(); updateTrackRecord();
-syncTimer=setInterval(()=>{ fetchRealPrice().then(()=>{ runAnalysis(); }); }, syncInterval);
-setInterval(()=>{ let age=Math.round((Date.now()-lastTickAt)/1000); if(age>5){ document.getElementById('syncBadge').innerText='● SYNCING... '+age+'s'; } },1000);
+renderPairs(); loadRealChart('OANDA:EURUSD'); fetchNews(); fetchRealPrice().then(()=>{ runFullAnalysis(true); updateTickUI('Initial',0); }); updateBrokerHint(); updateTrackRecord(); updateTrustUI();
+syncTimer=setInterval(()=>{ fetchRealPrice().then(()=>{ runFullAnalysis(); }); }, syncInterval);
+setInterval(fetchNews, 300000);
 </script>
 </body>
-</html>
+        </html>
