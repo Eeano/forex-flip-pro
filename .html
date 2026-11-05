@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Forex Flip Pro - Signals + Learn</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0f172a">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Forex Flip Pro">
+<link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/1626/1626328.png">
+<link rel="manifest" href="data:application/manifest+json,[STRIPPED]
+<style>
+body{background:#0f172a;color:white;font-family:Arial;padding:15px}
+.card{background:#1e293b;padding:15px;border-radius:15px;max-width:450px;margin:auto}
+select,input,textarea{width:100%;padding:10px;margin:5px 0;border-radius:8px;border:none}
+button{padding:12px;margin:5px;border:none;border-radius:10px;font-weight:bold;cursor:pointer}
+.buy{background:#22c55e;color:white;width:48%}
+.sell{background:#ef4444;color:white;width:48%}
+.box{background:#334155;padding:10px;border-radius:10px;margin-top:10px;text-align:left;font-size:14px}
+.signal{background:#0ea5e9;padding:12px;border-radius:10px;margin-top:10px;text-align:left}
+.signal.gold{background:#f59e0b;color:black}
+.tip{background:#fef08a;color:black;padding:10px;border-radius:10px;margin-top:10px}
+.copyBtn{background:white;color:black;padding:6px 10px;font-size:12px}
+#offlineBar{background:#ef4444;padding:10px;border-radius:10px;display:none;text-align:center;font-weight:bold;margin-bottom:10px}
+#onlineBar{background:#22c55e;padding:10px;border-radius:10px;display:none;text-align:center;font-weight:bold;margin-bottom:10px}
+.reviewBox{background:#fef08a;color:black;padding:12px;border-radius:10px;margin-top:10px;text-align:left;display:none}
+</style>
+</head>
+<body>
+<div class="card">
+<div id="offlineBar">⚠️ OFFLINE - Game works, but connect to internet for Today's Signals. Ads will load when back online.</div>
+<div id="onlineBar">✅ ONLINE - Today's Signals Live</div>
+
+<h2>💹 FOREX FLIP PRO 🇰🇪</h2>
+<p>Balance: $<span id="bal">1000</span> | Win Rate: <span id="wr">0%</span> | Signals Won: <span id="sigWin">0/3</span></p>
+
+<div style="background:#dc2626;padding:10px;border-radius:10px"><b>🔥 TODAY'S SIGNALS - <span id="date"></span></b><br><small>Updated 8:00 AM EAT | Free for today</small></div>
+
+<div class="signal"><b>Signal 1: EUR/USD - BUY ⬆️</b><br>Entry: 1.0850 | SL: 1.0820 | TP: 1.0910<br>Confidence: 82% | Session: London 10 AM<br><b>Why?</b> Bounced off Support + RSI 32 Oversold + Uptrend<br><button class="copyBtn" onclick="copySignal('EUR/USD BUY 1.0850 SL 1.0820 TP 1.0910')">📋 Copy</button> <button class="copyBtn" onclick="markWin(1)">✅ It Won</button></div>
+
+<div class="signal gold"><b>Signal 2: GOLD - SELL ⬇️</b><br>Entry: 2650 | SL: 2665 | TP: 2620<br>Confidence: 75% | Session: New York 4 PM<br><b>Why?</b> Hit Resistance + RSI 71 Overbought<br><button class="copyBtn" onclick="copySignal('GOLD SELL 2650 SL 2665 TP 2620')">📋 Copy</button> <button class="copyBtn" onclick="markWin(2)">✅ It Won</button></div>
+
+<div class="signal" style="background:#7c3aed"><b>Signal 3: USD/KES - BUY ⬆️</b><br>Entry: 129.50 | SL: 129.00 | TP: 130.50<br>Confidence: 68% | Session: Nairobi Morning<br><b>Why?</b> KES weakening + Dollar demand<br><button class="copyBtn" onclick="copySignal('USD/KES BUY 129.50 SL 129.00 TP 130.50')">📋 Copy</button> <button class="copyBtn" onclick="markWin(3)">✅ It Won</button></div>
+
+<label>Choose Pair to Practice:</label>
+<select id="pair" onchange="changePair()"><option>EUR/USD</option><option>GBP/USD</option><option>USD/JPY</option><option>USD/KES</option><option>XAU/USD (GOLD)</option><option>BTC/USD</option></select>
+<div style="font-size:32px" id="chart">📈 1.0850</div>
+<div class="box">Trend: <span id="trend">Uptrend 🟢</span> | RSI: <span id="rsi">62</span> - <span id="rsiText">Neutral</span><br>Support: <span id="sup">1.0800</span> | Resistance: <span id="res">1.0900</span><br>News: US Jobs Data 3:30pm - Expect Volatility!</div>
+
+<label>Lot Size:</label><select id="lot"><option value="0.01">0.01 - Safe (Beginner)</option><option value="0.05">0.05 - Medium</option><option value="0.1">0.10 - Aggressive</option></select>
+<button class="buy" onclick="trade('up')">⬆️ BUY</button><button class="sell" onclick="trade('down')">⬇️ SELL</button>
+<p id="msg">Practice the signal above here first!</p>
+
+<div id="tradeReview" class="reviewBox"><b>📝 TRADE REVIEW:</b><br><span id="reviewText"></span><br><br><b>Your Note - What did YOU learn?</b><br><input id="myTradeNote" placeholder="e.g. I rushed, didn't check trend..." style="width:100%;padding:8px;border:1px solid #ccc"><button onclick="saveTradeNote()" style="background:black;color:white;width:100%;margin-top:5px">Save My Lesson</button><p id="allTradeNotes" style="font-size:12px;white-space:pre-wrap"></p></div>
+
+<div class="tip"><b>💡 PRO TIP:</b> <span id="tip">Never risk more than 2% per trade. If you lose 3 in a row, STOP for today.</span></div>
+<div class="box"><b>📝 My Trading Journal (Saved even offline):</b><textarea id="notes" rows="3" placeholder="e.g. Signal 1 won because I waited..."></textarea><button onclick="saveNote()" style="background:#3b82f6;color:white">Save Note</button><p id="savedNotes"></p></div>
+<div class="box"><b>📚 Lesson:</b> <span id="lesson">Don't take every signal. Take only signals that match trend.</span></div>
+
+<div id="adBox" style="display:none;background:#facc15;color:black;padding:15px;border-radius:10px;margin-top:10px;text-align:center"><b>AD - Support Free Game</b><br>Your AdMob Ad Here - V2</div>
+
+<h3>🏆 Leaderboard</h3><p>1. Kevin K. - $9,500<br>2. Brian M. - $7,200<br>3. Faith W. - $6,800</p>
+<p><small>Practice Only. No Real Money. Learn Before You Earn.</small></p>
+</div>
+
+<script>
+let bal=parseInt(localStorage.getItem('ff_bal')||1000), wins=parseInt(localStorage.getItem('ff_wins')||0), total=parseInt(localStorage.getItem('ff_total')||0), price=1.0850, sigWins=parseInt(localStorage.getItem('ff_sigWins')||0);
+document.getElementById('date').innerText=new Date().toDateString();
+document.getElementById('bal').innerText=bal; document.getElementById('sigWin').innerText=sigWins+'/3'; if(total>0) document.getElementById('wr').innerText=Math.round(wins/total*100)+'%';
+let tips=["Never risk more than 2% per trade.","Don't trade during news if beginner.","Always use Stop Loss. No SL = No account tomorrow.","Best time Kenya: 10am-1pm & 3pm-6pm.","Journal every trade.","Don't revenge trade.","Buy at Support, Sell at Resistance.","RSI >70 Overbought, RSI <30 Oversold."];
+let lessons=["Don't take every signal. Take only signals that match trend.","Risk/Reward 1:2 - Risk 30 pips, target 60 pips.","If signal says BUY but price already moved 50 pips, WAIT. Don't chase.","Gold moves fast. Use 0.01 lot."];
+
+function updateConnection(){
+  let off=document.getElementById('offlineBar'), on=document.getElementById('onlineBar');
+  if(navigator.onLine){ off.style.display='none'; on.style.display='block'; setTimeout(()=>{on.style.display='none'},4000); }
+  else{ off.style.display='block'; on.style.display='none'; }
+}
+window.addEventListener('online', ()=>{ updateConnection(); alert("✅ Back Online! Signals refreshed."); location.reload(); });
+window.addEventListener('offline', updateConnection);
+updateConnection();
+
+function copySignal(t){navigator.clipboard.writeText(t); alert('Copied: '+t);}
+function markWin(n){sigWins++; localStorage.setItem('ff_sigWins',sigWins); document.getElementById('sigWin').innerText=sigWins+'/3'; alert('Nice! Signal '+n+' marked as WIN');}
+function changePair(){let p=document.getElementById('pair').value; if(p.includes('JPY')) price=151.20; else if(p.includes('KES')) price=129.50; else if(p.includes('GOLD')) price=2650; else if(p.includes('BTC')) price=97000; else price=1.0850; updateMarket();}
+function updateMarket(){let rsi=Math.floor(25+Math.random()*50); document.getElementById('rsi').innerText=rsi; document.getElementById('rsiText').innerText=rsi>70?'Overbought - SELL':rsi<30?'Oversold - BUY':'Neutral'; document.getElementById('trend').innerText=Math.random()>0.5?'Uptrend 🟢':'Downtrend 🔴'; document.getElementById('sup').innerText=(price-0.005).toFixed(4); document.getElementById('res').innerText=(price+0.005).toFixed(4);}
+
+function trade(dir){
+  total++;
+  let move=(Math.random()-0.48)*0.015;
+  price+=move;
+  let win=(move>0&&dir=='up')||(move<0&&dir=='down');
+  let lot=parseFloat(document.getElementById('lot').value);
+  let profit=Math.round(lot*1000*(win?2:-1));
+  let rsiVal=parseInt(document.getElementById('rsi').innerText);
+  let trendText=document.getElementById('trend').innerText;
+  let isUptrend=trendText.includes('Uptrend');
+  let analysis="", mistake="";
+  if(win){
+    if(dir=='up' && isUptrend && rsiVal<50) analysis="✅ WIN +$"+profit+" - PERFECT TRADE! You bought in Uptrend when RSI was low ("+rsiVal+"). You followed trend. Repeat this setup!";
+    else if(dir=='down' && !isUptrend) analysis="✅ WIN +$"+profit+" - Smart! You sold in Downtrend. You traded WITH trend, not against it.";
+    else analysis="✅ WIN +$"+profit+" - Lucky win! You traded against trend but market moved your way. Don't rely on luck. Next time check trend first.";
+    if(lot>=0.1) analysis+=" ⚠️ But lot 0.10 is too big. You risked too much. Use 0.01 next time to survive.";
+    else analysis+=" ✅ Lot size good. You managed risk well.";
+  } else {
+    if(dir=='up' && !isUptrend) mistake="You BOUGHT in a DOWNTREND. Trend was against you.";
+    else if(dir=='down' && isUptrend) mistake="You SOLD in an UPTREND. Trend was against you.";
+    else if(dir=='up' && rsiVal>70) mistake="You BOUGHT when RSI was "+rsiVal+" (Overbought). Price was already too high. You chased.";
+    else if(dir=='down' && rsiVal<30) mistake="You SOLD when RSI was "+rsiVal+" (Oversold). Price was already too low. You panicked.";
+    else if(lot>=0.1) mistake="Lot size 0.10 too big. One loss wiped your profit. Use 0.01.";
+    else mistake="You didn't wait for confirmation. Price was at Support/Resistance and you rushed.";
+    analysis="❌ LOSS -$"+Math.abs(profit)+" - REASON: "+mistake+" | LESSON: Always check 3 things before trade: 1) Trend 2) RSI 3) Support/Resistance. If 2/3 disagree, DON'T TRADE.";
+  }
+  if(win) wins++;
+  bal+=profit;
+  localStorage.setItem('ff_bal',bal); localStorage.setItem('ff_wins',wins); localStorage.setItem('ff_total',total);
+  document.getElementById('bal').innerText=bal;
+  document.getElementById('wr').innerText=Math.round(wins/total*100)+'%';
+  document.getElementById('chart').innerText=(move>0?'📈':'📉')+' '+price.toFixed(4);
+  document.getElementById('msg').innerText=analysis;
+  document.getElementById('tradeReview').style.display='block';
+  document.getElementById('reviewText').innerText="Trade #"+total+" - "+analysis;
+  let history=JSON.parse(localStorage.getItem('ff_history')||'[]');
+  history.push("Trade "+total+": "+(win?'WIN':'LOSS')+" - "+analysis);
+  localStorage.setItem('ff_history', JSON.stringify(history.slice(-5)));
+  document.getElementById('allTradeNotes').innerText="Last Reviews:\n"+history.slice(-3).join("\n\n");
+  document.getElementById('tip').innerText=tips[Math.floor(Math.random()*tips.length)];
+  document.getElementById('lesson').innerText=lessons[Math.floor(Math.random()*lessons.length)];
+  updateMarket();
+  if(bal<=0){alert('Blown! Lesson: Lot too big. Restart $1000 with 0.01'); bal=1000; localStorage.setItem('ff_bal',bal);}
+}
+function saveTradeNote(){
+  let n=document.getElementById('myTradeNote').value;
+  if(!n) return;
+  let old=localStorage.getItem('forexNote')||'';
+  localStorage.setItem('forexNote', old + " | Trade "+total+": " + n);
+  alert('Saved to your journal! You will not repeat this mistake.');
+  document.getElementById('myTradeNote').value='';
+  document.getElementById('savedNotes').innerText='Saved: '+localStorage.getItem('forexNote');
+}
+function saveNote(){let n=document.getElementById('notes').value; if(!n) return; localStorage.setItem('forexNote',n); document.getElementById('savedNotes').innerText='Saved: '+n; alert('Note saved! Works offline too.');}
+let saved=localStorage.getItem('forexNote'); if(saved) document.getElementById('savedNotes').innerText='Saved: '+saved;
+let hist=JSON.parse(localStorage.getItem('ff_history')||'[]'); if(hist.length>0){document.getElementById('tradeReview').style.display='block'; document.getElementById('allTradeNotes').innerText="Last Reviews:\n"+hist.slice(-3).join("\n\n");}
+updateMarket();
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault(); deferredPrompt = e;
+  let btn = document.createElement('button');
+  btn.innerText = '📱 INSTALL APP - Add to Homescreen';
+  btn.style.cssText = 'background:#facc15;color:black;width:100%;padding:15px;font-weight:bold;margin-top:10px';
+  btn.onclick = () => { deferredPrompt.prompt(); };
+  document.querySelector('.card').appendChild(btn);
+});
+</script>
+</body>
+  </html>
